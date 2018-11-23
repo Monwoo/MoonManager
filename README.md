@@ -1,5 +1,10 @@
 # MoonManager
-Easy project management software for human workloads best fits
+![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/LogoMoonManager-128.png)
+
+**Easy project management software for human workloads best fits**
+
+![alt text](http://www.monwoo.com/LogoMonwoo-64.png)
+Funded by Monwoo 2018.
 
 #### FR
 Nos ancêtres ont fait au mieux en France pour nous apporter les 35 heures avec congés payés.
