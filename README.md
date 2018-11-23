@@ -1,7 +1,7 @@
 # MoonManager
 Easy project management software for human workloads best fits
 
-'''
+#### FR
 Nos ancêtres ont fait au mieux en France pour nous apporter les 35 heures avec congés payés.
 
 Ils ont inventés le 'travail', qui n'est qu'une forme plus intensive de l'esclavage naturel de notre relation au monde.
@@ -46,16 +46,12 @@ L'idéal serait de ne plus avoir obligation de travail pour tous.
 En 2018, se libérer de l'esclavage naturel de son contexte immédiat n'est pas encore accessible à tous...
 
 
-
-'''
-'''
+#### EN
 In France, work is at most 35hr/week
 
 The fight is not done. MoonManager will help you follow your workloads in any projects linkable to git logs and/or screen captures.
 
 For now, let's narrow workload up to 1hr/day for best case, 5hr/day for regular, more than that is too much and needs appropriates compensations
-
-'''
 
 # Livre d'or des métiers
 
