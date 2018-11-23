@@ -53,20 +53,42 @@ The fight is not done. MoonManager will help you follow your workloads in any pr
 
 For now, let's narrow workload up to 1hr/day for best case, 5hr/day for regular, more than that is too much and needs appropriates compensations
 
+# Quick Documentation
+
+## Install project :
+
+
+## For advanced documentation :
+You're the documentation. To learn it, you can start by learning all usages of https://github.com/ngx-rocket/starter-kit, and then, code will be self explanatory.
+
+MoonManager is simply some configuration and some more stuffs added to it.
+
 # Livre d'or des métiers
 
-Ci-dessous l'annuaire des métiers ayant des compétances d'usages du MoonManager : 
-Monwoo Theater Viewer : produit Monwoo utilisé pour suivre le temps de M. Miguel Monwoo. (service@monwoo.com)
+** Ci-dessous l'annuaire des métiers ayant des compétances d'usages du MoonManager : **
+___
+** Monwoo Theater Viewer (service@monwoo.com) : ** produit Monwoo utilisé pour suivre le temps de M. Miguel Monwoo.
 
 
-Ps : n'hésitez pas à rajoutez votre carte business ci-dessus si vous avez un usage métier du MoonManager.
+___
+> Ps : n'hésitez pas à rajoutez votre carte business ci-dessus si vous avez un usage métier du MoonManager.
+
+# Bibliographie et veilles :
+___
+Refresh you knowledge about Markdown language : https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+___
 
 # Credits
 Please, if you push to my repo, add your crédits below with a short description :
 
-D'après une idée de M. Miguel Monwoo.
-MoonManager commence avec pour base : https://github.com/ngx-rocket/starter-kit
-Tutorial : https://github.com/ngx-rocket/starter-kit
-
+___
+** 2018/11/21 : ** D'après une idée de M. Miguel Monwoo.
+___
+** 2018/11/22 : ** MoonManager commence avec pour base : https://github.com/ngx-rocket/starter-kit
+___
+** 2018/11/22 : ** Start point Tutorial for Advanced Dev usage : https://github.com/ngx-rocket/starter-kit
+___
+** 2018/11/23 : ** Création du logo du MoonManager par M. Miguel Monwoo, © Monwoo 2018
+___
 
 
