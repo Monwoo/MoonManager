@@ -65,7 +65,7 @@ MoonManager is simply some configuration and some more stuffs added to it.
 
 # Livre d'or des métiers
 
-** Ci-dessous l'annuaire des métiers ayant des compétances d'usages du MoonManager : **
+ ** Ci-dessous l'annuaire des métiers ayant des compétances d'usages du MoonManager : ** 
 ___
 __ Monwoo Theater Viewer (service@monwoo.com) : __ produit Monwoo utilisé pour suivre le temps de M. Miguel Monwoo.
 
@@ -78,19 +78,21 @@ ___
 Refresh you knowledge about Markdown language :
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 https://help.github.com/articles/basic-writing-and-formatting-syntax/
+https://github.com/github/markup/issues/353 :
+For bold text : It looks like it doesn't work on GitHub unless there are white spaces before and after the asterisks.
 ___
 
 # Credits
 Please, if you push to my repo, add your crédits below with a short description :
 
 ___
-** 2018/11/21 : ** D'après une idée de M. Miguel Monwoo.
+ ** 2018/11/21 : ** D'après une idée de M. Miguel Monwoo.
 ___
-** 2018/11/22 : ** MoonManager commence avec pour base : https://github.com/ngx-rocket/starter-kit
+ ** 2018/11/22 : ** MoonManager commence avec pour base : https://github.com/ngx-rocket/starter-kit
 ___
-** 2018/11/22 : ** Start point Tutorial for Advanced Dev usage : https://github.com/ngx-rocket/starter-kit
+ ** 2018/11/22 : ** Start point Tutorial for Advanced Dev usage : https://github.com/ngx-rocket/starter-kit
 ___
-** 2018/11/23 : ** Création du logo du MoonManager par M. Miguel Monwoo, © Monwoo 2018
+ ** 2018/11/23 : ** Création du logo du MoonManager par M. Miguel Monwoo, © Monwoo 2018
 ___
 
 
