@@ -67,7 +67,7 @@ MoonManager is simply some configuration and some more stuffs added to it.
 
  **Ci-dessous l'annuaire des métiers ayant des compétances d'usages du MoonManager :** 
 ___
-__ Monwoo Theater Viewer (service@monwoo.com) : __ produit Monwoo utilisé pour suivre le temps de M. Miguel Monwoo.
+**Monwoo Theater Viewer (service@monwoo.com) :** produit Monwoo utilisé pour suivre le temps de M. Miguel Monwoo.
 
 
 ___
@@ -76,10 +76,15 @@ ___
 # Bibliographie et veilles :
 ___
 Refresh you knowledge about Markdown language :
+
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
 https://help.github.com/articles/basic-writing-and-formatting-syntax/
+
 https://github.com/github/markup/issues/353 :
+
 For bold text : It looks like it doesn't work on GitHub unless there are white spaces before and after the asterisks.
+
 => well, it's more like need space Before the ** and No space after it for start of bold séquence, opposite at end.
 ___
 
