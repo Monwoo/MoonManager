@@ -39,8 +39,9 @@ MoonManager essayera de limiter la durée de l'esclavage moderne via 4 codes cou
 ```
 - En bleu les jours inférieur ou égual à 5 heures
 - En jaune les jours entre 5 et 7 heures
+```diff
 - En rouge les jours de plus de 7 heures
-
+```
 
 Humainement parlant, l'objectif c'est de faire moins de 1hr par jours pour la réussite d'un objectif de charge vendu 1 journée au TJM du marché avec un résultat satisfaisant.
 
