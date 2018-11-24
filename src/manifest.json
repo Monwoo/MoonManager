@@ -1,14 +1,16 @@
 {
-  "name": "ngX-Rocket",
-  "short_name": "ngX-Rocket",
-  "theme_color": "#488aff",
-  "background_color": "#488aff",
+  "name": "MoonManager",
+  "short_name": "MoonManager",
+  "theme_color": "#11589a",
+  "background_color": "#FFFFFF",
   "scope": "/",
   "start_url": "/",
   "display": "standalone",
-  "icons": [{
-    "src": "assets/ngx-rocket-logo.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }]
+  "icons": [
+    {
+      "src": "assets/logos/MoonManager-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

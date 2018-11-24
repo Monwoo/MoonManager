@@ -7,7 +7,9 @@
 @import "theme/theme-variables";
 
 // 3rd party libraries
-@import "~bootstrap/scss/bootstrap";
+.bs {
+  @import "~bootstrap/scss/bootstrap";
+}
 @import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
 @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
@@ -15,3 +17,36 @@
 
 // Theme customization
 @import "theme/theme";
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+// TODO : refactoring of below code :
+body,
+html {
+  height: 100%;
+  margin: 0 auto;
+}
+
+body {
+  font-family: "Montserrat";
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 1.3em;
+  display: grid;
+  grid-template-columns: 30% auto;
+}
+
+section {
+  // width: 80%;
+  margin: 0 auto;
+  padding: 2em;
+}

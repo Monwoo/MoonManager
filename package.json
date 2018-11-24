@@ -30,6 +30,7 @@
   "dependencies": {
     "@angular-mdc/web": "^0.41.3",
     "@angular/animations": "^7.0.0",
+    "@angular/cdk": "^7.1.0",
     "@angular/common": "^7.0.0",
     "@angular/compiler": "^7.0.0",
     "@angular/core": "^7.0.0",
@@ -50,10 +51,13 @@
     "ccapture.js": "^1.1.0",
     "chart.js": "^2.7.3",
     "core-js": "^2.5.6",
+    "date-fns": "^1.29.0",
     "fullcalendar": "^3.9.0",
     "gif.js": "^0.2.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
+    "primeicons": "^1.0.0",
+    "primeng": "^6.1.7",
     "rxjs": "^6.3.1",
     "webm-writer": "^0.2.1",
     "zone.js": "^0.8.26"

@@ -10,9 +10,13 @@ import { extract } from '../../../core/i18n.service';
 })
 export class HeaderComponent implements OnInit {
   // TODO : from centralized config or realtime data storage ?
-  appTitle = extract('Monwoo Moon Manager');
+  appTitle = extract('Moon Manager');
 
   constructor() {}
 
   ngOnInit() {}
+
+  goToParameters(e: any) {
+    // TODO : param page + link to it...
+  }
 }

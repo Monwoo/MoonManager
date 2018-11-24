@@ -1,8 +1,27 @@
 header {
-  background: #7700ff;
+  background: rgb(162, 171, 219);
+  a {
+    color: white;
+  }
 
   .logo {
     font-weight: bold;
+
+    .primary-brand {
+      /*
+      // TODO use theme primary bg color...
+      background: white;
+      // TODO : use lib, css pollyfill equivalent...
+      // https://www.cssmatic.com/border-radius
+      border-radius: 10px 10px 10px 10px;
+      -moz-border-radius: 10px 10px 10px 10px;
+      -webkit-border-radius: 10px 10px 10px 10px;
+      border: 0px solid #000000;
+      -webkit-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.75);
+      */
+    }
   }
 
   nav {
