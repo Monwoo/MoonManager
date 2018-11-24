@@ -5,8 +5,8 @@ import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouteReusableStrategy } from './route-reusable-strategy';
 import { AuthenticationService } from './authentication/authentication.service';
-// import { AuthenticationGuard } from './authentication/authentication.guard';
-// TODO : will need refactoring, should stay in MoonManager module :
+import { AuthenticationGuard } from './authentication/authentication.guard';
+// TODO : will need refactoring, should stay in MoonManager module and only overwrite access PER ROUTES :
 import { RoutingSentinelService } from '../moon-manager/services/routing-sentinel.service';
 import { I18nService } from './i18n.service';
 import { HttpService } from './http/http.service';
