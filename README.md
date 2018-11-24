@@ -33,7 +33,7 @@ Le problème, c'est que certains métiers nécessite des durées de productions 
 L'idée est donc de produire en équipe, et là, on as tous envi de jouer comme on peut...
 
 MoonManager essayera de limiter la durée de l'esclavage moderne via 4 codes couleurs dans le thème de base :
-- En vert les jours inférieur ou égual à 1 heure
+- ```diff + En vert``` les jours inférieur ou égual à 1 heure
 - En bleu les jours inférieur ou égual à 5 heures
 - En jaune les jours entre 5 et 7 heures
 - En rouge les jours de plus de 7 heures
