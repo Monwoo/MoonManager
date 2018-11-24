@@ -5,7 +5,7 @@
 **Easy project management software for human workloads best fits**
 
 ![alt text](http://www.monwoo.com/LogoMonwoo-64.png)
-Funded by Monwoo 2018.
+Timely funded and founded by Monwoo 2018.
 
 #### FR
 
