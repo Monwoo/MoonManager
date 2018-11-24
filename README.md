@@ -93,6 +93,9 @@ yarn test
 # To generate a new component|directive|pipe|service|class|module => replace 'component' below :
 yarn run generate -- component <name>
 yarn run generate -- module MoonManager
+yarn run generate module moon-manager/MoonManagerRouting --flat --module=moon-manager
+yarn run generate component moon-manager/MoonManager --flat --module=moon-manager
+yarn run generate service moon-manager/services/RoutingSentinel --flat --module=moon-manager
 
 # running tests for continous integration (will test all only once)
 yarn run test:ci
@@ -134,6 +137,14 @@ https://github.com/github/markup/issues/353 :
 For bold text : It looks like it doesn't work on GitHub unless there are white spaces before and after the asterisks.
 
 => well, it's more like need space Before the \*\* and No space after it for start of bold séquence, opposite at end.
+
+---
+
+Angular stuffs :
+
+- https://angular.io/tutorial/toh-pt5
+- https://angular.io/api/router/CanActivate
+- https://www.concretepage.com/angular-2/angular-2-4-route-guards-canactivate-and-canactivatechild-example
 
 ---
 

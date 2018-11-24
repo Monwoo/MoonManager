@@ -5,7 +5,9 @@ import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouteReusableStrategy } from './route-reusable-strategy';
 import { AuthenticationService } from './authentication/authentication.service';
-import { AuthenticationGuard } from './authentication/authentication.guard';
+// import { AuthenticationGuard } from './authentication/authentication.guard';
+// TODO : will need refactoring, should stay in MoonManager module :
+import { RoutingSentinelService } from '../moon-manager/services/routing-sentinel.service';
 import { I18nService } from './i18n.service';
 import { HttpService } from './http/http.service';
 import { HttpCacheService } from './http/http-cache.service';
@@ -17,7 +19,7 @@ import { CacheInterceptor } from './http/cache.interceptor';
   imports: [CommonModule, HttpClientModule, TranslateModule, RouterModule],
   providers: [
     AuthenticationService,
-    AuthenticationGuard,
+    RoutingSentinelService, // AuthenticationGuard,
     I18nService,
     HttpCacheService,
     ApiPrefixInterceptor,

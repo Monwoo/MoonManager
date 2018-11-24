@@ -1,6 +1,7 @@
 import { Routes, Route } from '@angular/router';
 
-import { AuthenticationGuard } from '@app/core';
+// import { AuthenticationGuard } from '@app/core';
+import { RoutingSentinelService } from '../moon-manager/services/routing-sentinel.service';
 import { ShellComponent } from './shell.component';
 
 /**
@@ -17,7 +18,7 @@ export class Shell {
       path: '',
       component: ShellComponent,
       children: routes,
-      canActivate: [AuthenticationGuard],
+      canActivate: [RoutingSentinelService], // TODO : AuthenticationGuard should be overwrittend by RoutingSentinelService in sub modules Only...
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }
     };

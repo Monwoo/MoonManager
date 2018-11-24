@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '@env/environment';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
+import { MoonManagerModule } from './moon-manager/moon-manager.module';
 import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
 import { AboutModule } from './about/about.module';
@@ -27,6 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
     CoreModule,
     SharedModule,
     ShellModule,
+    MoonManagerModule,
     HomeModule,
     AboutModule,
     LoginModule,
