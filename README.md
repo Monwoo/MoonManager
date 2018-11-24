@@ -181,3 +181,7 @@ Please, if you push to my repo, add your crédits below with a short description
 **2018/11/23 :** Création du logo du MoonManager par M. Miguel Monwoo, © Monwoo 2018
 
 ---
+
+2018/11/23 : Création du Module MoonManager pour centraliser la base du reporting.
+
+---
