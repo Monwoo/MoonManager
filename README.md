@@ -1,5 +1,5 @@
 # MoonManager
-![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/LogoMoonManager-128.png) ![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/LogoMoonManager-128-secondary.png)
+![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/LogoMoonManager-128.png) ![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/LogoMoonManager-64-secondary.png)
 
 **Easy project management software for human workloads best fits**
 
