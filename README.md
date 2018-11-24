@@ -23,10 +23,10 @@ A vous ensuite de le négocier au mieux.
 
 Exemple de base de calcule pour interpréter des tarifs Freelances (Facturation de business à business, pouvant inclure des frais):
 
-35hr par semaines avec 2.5 jours de congé payés par mois + arrêts maladies (prkoi fo absolument être malade pour une pause ??)
-= 7hr par jours avec 2.5 jours de congé payés par mois + arrêts maladies (prkoi fo absolument être malade pour une pause ??)
-= 7hr par jours avec environ une heures de congé payés par jour + arrêts maladies (prkoi fo absolument être malade pour une pause ??)
-= 5hr par jours de travails pour un contrat Business to Business Français.
+ - 35hr par semaines avec 2.5 jours de congé payés par mois + arrêts maladies (prkoi fo absolument être malade pour une pause ??)
+ - = 7hr par jours avec 2.5 jours de congé payés par mois + arrêts maladies (prkoi fo absolument être malade pour une pause ??)
+ - = 7hr par jours avec environ une heures de congé payés par jour + arrêts maladies (prkoi fo absolument être malade pour une pause ??)
+ - = 5hr par jours de travails pour un contrat Business to Business Français.
 
 Le problème, c'est que certains métiers nécessite des durées de productions plus importantes.
 
