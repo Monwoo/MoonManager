@@ -80,9 +80,9 @@ For now, let's narrow workload up to 1hr/day for best case, 5hr/day for regular,
 yarn install
 # start dev server :
 yarn start
-# Extract strings from code and templates to src/app/translations/template.json
+# Extract strings from code and templates to src/app/translations/template.json :
 yarn run translations:extract
-# Display project documentation
+# Display project documentation :
 yarn run docs
 # Running tests via Karma in watch mode for it to launch on each change you do to the code
 # Nice to be run with dev server if you wanna do some tests driven developpments in real time :
@@ -95,7 +95,7 @@ yarn run generate module moon-manager/MoonManagerRouting --flat --module=moon-ma
 yarn run generate component moon-manager/MoonManager --flat --module=moon-manager
 yarn run generate service moon-manager/services/RoutingSentinel --flat --module=moon-manager
 
-# running tests for continous integration (will test all only once)
+# running tests for continous integration (will test all only once) :
 yarn run test:ci
 
 # export dev project as Zip file :
