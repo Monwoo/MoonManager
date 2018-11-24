@@ -106,7 +106,9 @@ yarn run test:ci
 git archive --format=zip -o ~/goinfre/MonwooMoonManager.zip HEAD
 
 # build productions file in dist folder :
-yarn run build --env=prod
+yarn run build
+# zip result for Production Software delivery :
+zip -r "MoonManager-Prod.zip" dist
 ```
 
 ## Extract your data for V1 imports :
