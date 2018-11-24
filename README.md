@@ -80,13 +80,11 @@ For now, let's narrow workload up to 1hr/day for best case, 5hr/day for regular,
 yarn install
 # start dev server :
 yarn start
-# Run unit tests via Karma in watch mode
-yarn test
 # Extract strings from code and templates to src/app/translations/template.json
 yarn run translations:extract
 # Display project documentation
 yarn run docs
-# Running tests in watch mode for it to launch on each change you do to the code
+# Running tests via Karma in watch mode for it to launch on each change you do to the code
 # Nice to be run with dev server if you wanna do some tests driven developpments in real time :
 yarn test
 
@@ -100,8 +98,22 @@ yarn run generate service moon-manager/services/RoutingSentinel --flat --module=
 # running tests for continous integration (will test all only once)
 yarn run test:ci
 
+# export dev project as Zip file :
+git archive --format=zip -o ~/goinfre/MonwooMoonManager.zip HEAD
+
 # build productions file in dist folder :
 yarn run build --env=prod
+```
+
+## Extract your data for V1 imports :
+
+```bash
+# extract you git data for times report upload :
+git log --all --date=iso --pretty=format:'"%h","%an","%ad","%s"' > git_logs.csv
+
+# extract you captures data for times report upload :
+
+
 ```
 
 ## For advanced documentation :
