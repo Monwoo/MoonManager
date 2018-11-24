@@ -6,6 +6,7 @@
 
 ![alt text](http://www.monwoo.com/LogoMonwoo-64.png)
 Timely funded and founded by Monwoo 2018.
+Financé temporellement et fondé par Monwoo 2018.
 
 #### FR
 
@@ -160,6 +161,12 @@ Angular stuffs :
 
 ---
 
+```bash
+# Basic tools for time sheets web reportings :
+yarn add @angular-mdc/web angular2-logger
+yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
+```
+
 # Credits
 
 Please, if you push to my repo, add your crédits below with a short description :
@@ -183,5 +190,9 @@ Please, if you push to my repo, add your crédits below with a short description
 ---
 
 **2018/11/24 :** Création du Module MoonManager pour centraliser la base du reporting.
+
+---
+
+**2018/11/24 :** Ajout des outils nécessaires pour du web reporting via MoonManager.
 
 ---
