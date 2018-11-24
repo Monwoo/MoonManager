@@ -1,6 +1,6 @@
 # MoonManager
 
-![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/LogoMoonManager-128.png) ![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/LogoMoonManager-64-secondary.png)
+![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/MoonManager-128.png) ![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/MoonManager-64-secondary.png)
 
 **Easy project management software for human workloads best fits**
 
@@ -95,6 +95,9 @@ yarn run generate -- module MoonManager
 yarn run generate module moon-manager/MoonManagerRouting --flat --module=moon-manager
 yarn run generate component moon-manager/MoonManager --flat --module=moon-manager
 yarn run generate service moon-manager/services/RoutingSentinel --flat --module=moon-manager
+yarn run generate component moon-manager/components/Header --module=moon-manager
+yarn run generate component moon-manager/components/Body --module=moon-manager
+yarn run generate component moon-manager/components/Footer --module=moon-manager
 
 # running tests for continous integration (will test all only once) :
 yarn run test:ci
@@ -153,19 +156,26 @@ For bold text : It looks like it doesn't work on GitHub unless there are white s
 
 ---
 
-Angular stuffs :
+Dev stuffs :
 
 - https://angular.io/tutorial/toh-pt5
 - https://angular.io/api/router/CanActivate
 - https://www.concretepage.com/angular-2/angular-2-4-route-guards-canactivate-and-canactivatechild-example
 
----
-
 ```bash
 # Basic tools for time sheets web reportings :
-yarn add @angular-mdc/web angular2-logger
+yarn add @angular-mdc/web angular/material angular2-logger
+yarn add '@angular/material' angular-calendar
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
 ```
+
+---
+
+Design stuffs :
+
+- http://www.favicomatic.com/
+
+---
 
 # Credits
 
@@ -194,5 +204,13 @@ Please, if you push to my repo, add your crédits below with a short description
 ---
 
 **2018/11/24 :** Ajout des outils nécessaires pour du web reporting via MoonManager.
+
+---
+
+**2018/11/24 :** Génération des logos et autre formats Web/Mobile avec http://www.favicomatic.com/
+
+---
+
+**2018/11/24 :** Ajustements du Module MoonManager
 
 ---
