@@ -37,8 +37,13 @@ MoonManager essayera de limiter la durée de l'esclavage moderne via 4 codes cou
 ```diff
 + En vert les jours inférieur ou égual à 1 heure
 ```
-- En bleu les jours inférieur ou égual à 5 heures
-- En jaune les jours entre 5 et 7 heures
+- 
+```css
+{ En bleu les jours inférieur ou égual à 5 heures
+```
+```js
+" En jaune les jours entre 5 et 7 heures
+```
 ```diff
 - En rouge les jours de plus de 7 heures
 ```
