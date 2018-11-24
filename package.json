@@ -1,7 +1,14 @@
 {
-  "name": "ng-x-rocket",
-  "version": "1.0.0",
-  "private": true,
+  "name": "MoonManager",
+  "version": "0.0.0",
+  "description": "Easy project management software for human workloads best fits",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Monwoo/MoonManager"
+  },
+  "license": "MIT",
+  "private": false,
+  "homepage": "https://github.com/Monwoo/MoonManager/blob/master/README.md",
   "scripts": {
     "ng": "ng",
     "build": "npm run env -s && ng build --prod",

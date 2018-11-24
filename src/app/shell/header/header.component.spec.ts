@@ -12,18 +12,10 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        NgbModule,
-        TranslateModule.forRoot()
-      ],
+      imports: [RouterTestingModule, NgbModule, TranslateModule.forRoot()],
       declarations: [HeaderComponent],
-      providers: [
-        { provide: AuthenticationService, useClass: MockAuthenticationService },
-        I18nService
-      ]
-    })
-    .compileComponents();
+      providers: [{ provide: AuthenticationService, useClass: MockAuthenticationService }, I18nService]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
