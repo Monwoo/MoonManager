@@ -72,7 +72,13 @@ The fight is not done. MoonManager will help you follow your workloads in any pr
 
 For now, let's narrow workload up to 1hr/day for best case, 5hr/day for regular, more than that is too much and needs appropriates compensations
 
-# Quick Documentation
+# → Quick Documentation
+
+## Viable targets :
+
+This project use some advanced API to work fully.
+We're using it under last Chrome webbrowser for now.
+It may work under others, but we did not get time to try ensure all polyfill for browser that may support it yet.
 
 ## Install project :
 
@@ -128,7 +134,7 @@ You're the documentation. To learn it, you can start by learning all usages of h
 
 MoonManager is simply some configuration and some more stuffs added to it.
 
-# Livre d'or des métiers
+# → Livre d'or des métiers
 
 **Ci-dessous l'annuaire des métiers ayant des compétances d'usages du MoonManager :**
 
@@ -140,7 +146,7 @@ MoonManager is simply some configuration and some more stuffs added to it.
 
 > Ps : n'hésitez pas à rajoutez votre carte business ci-dessus si vous avez un usage métier du MoonManager.
 
-# Bibliographie et veilles :
+# → Bibliographie et veilles :
 
 ---
 
@@ -163,13 +169,16 @@ Dev stuffs :
 - https://angular.io/tutorial/toh-pt5
 - https://angular.io/api/router/CanActivate
 - https://www.concretepage.com/angular-2/angular-2-4-route-guards-canactivate-and-canactivatechild-example
+- https://github.com/zefoy/ngx-dropzone-wrapper/blob/v7.1.0/src/lib/dropzone.component.ts
+- https://www.dropzonejs.com/#dropzone-methods
 
 ```bash
 # Basic tools for time sheets web reportings :
-yarn add @angular-mdc/web angular/material angular2-logger
+yarn add @angular-mdc/web angular/material
 yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
-yarn add primeng primeicons
+yarn add primeng primeicons ngx-dropzone-wrapper
+# angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 
 ---
@@ -180,7 +189,7 @@ Design stuffs :
 
 ---
 
-# Credits
+# → Credits
 
 Please, if you push to my repo, add your crédits below with a short description :
 
@@ -217,3 +226,13 @@ Please, if you push to my repo, add your crédits below with a short description
 **2018/11/24 :** Ajustements du Module MoonManager
 
 ---
+
+**2018/11/25 :** Adding client's side file loader
+
+---
+
+**2018/11/25 : (prévisionnel)** Adding timings pivot and dependencies
+
+---
+
+### Liked it? Give it a star 🌟, Moon will love it :)

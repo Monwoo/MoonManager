@@ -24,12 +24,34 @@ import { MoonManagerComponent } from './moon-manager.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { BodyComponent } from './components/body/body.component';
+import { ClientFilesLoaderComponent } from './components/client-files-loader/client-files-loader.component';
+import { TimmingFormComponent } from './components/timming-form/timming-form.component';
+import { TimmingPivotComponent } from './components/timming-pivot/timming-pivot.component';
+
+// https://github.com/zefoy/ngx-dropzone-wrapper
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+
+const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
+  // maxFilesize: 50000,
+  // acceptedFiles: 'image/*'
+};
 
 @NgModule({
-  declarations: [MoonManagerComponent, FooterComponent, HeaderComponent, BodyComponent],
+  declarations: [
+    MoonManagerComponent,
+    FooterComponent,
+    HeaderComponent,
+    BodyComponent,
+    ClientFilesLoaderComponent,
+    TimmingFormComponent,
+    TimmingPivotComponent
+  ],
   imports: [
     CommonModule,
     MoonManagerRoutingModule,
+    DropzoneModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -49,7 +71,11 @@ import { BodyComponent } from './components/body/body.component';
   providers: [
     // { provide: LogOpt, useValue: { level: LogLvl.DEBUG } },
     // Logger,
-    CurrencyPipe
+    CurrencyPipe,
+    {
+      provide: DROPZONE_CONFIG,
+      useValue: DEFAULT_DROPZONE_CONFIG
+    }
   ]
 })
 export class MoonManagerModule {}

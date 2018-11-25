@@ -1,0 +1,7 @@
+<dropzone
+  [config]="dropzoneConfig"
+  [message]="'Click or drag images here to load them in MoonManager'"
+  (error)="onImageUploadError($event)"
+  (success)="onImageUploadSuccess($event)"
+  (thumbnail)="onImageThumbnail($event, dataUrl)"
+></dropzone>

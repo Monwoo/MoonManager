@@ -2426,7 +2426,7 @@ dot-prop@^4.1.0, dot-prop@^4.1.1:
   dependencies:
     is-obj "^1.0.0"
 
-dropzone@^5.5.1:
+dropzone@^5.5.0, dropzone@^5.5.1:
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/dropzone/-/dropzone-5.5.1.tgz#06e2f513e61d6aa363d4b556f18574f47cf7ba26"
 
@@ -5244,6 +5244,12 @@ neo-async@^2.5.0:
 netmask@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
+
+ngx-dropzone-wrapper@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-dropzone-wrapper/-/ngx-dropzone-wrapper-7.1.0.tgz#8c4897f42b71b217491dd35871c03e40eb0f3a1f"
+  dependencies:
+    dropzone "^5.5.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
