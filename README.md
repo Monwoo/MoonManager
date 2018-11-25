@@ -230,7 +230,8 @@ git fetch upstream
 git rebase upstream/master
 ```
 
-Now you're getting ready to start, you'll want to switch off of the 'master' branch and onto a different branch for your new feature. It's important to do this because you can only have one Pull Request per branch, so if you want to submit more than one fix, you'll need to have multiple branches. Make a new branch like this:
+**Now you're getting ready to start :**
+You'll want to switch off of the 'master' branch and onto a different branch for your new feature. It's important to do this because you can only have one Pull Request per branch, so if you want to submit more than one fix, you'll need to have multiple branches. Make a new branch like this:
 
 ```bash
 git branch newfeature
