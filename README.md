@@ -242,7 +242,11 @@ Then switch to it like this:
 git checkout newfeature
 ```
 
-Now you're on your new branch. You can confirm this by simply typing 'git branch'.
+Now you're on your new branch. You can confirm this by simply typing :
+
+```bash
+git branch
+```
 
 ---
 
