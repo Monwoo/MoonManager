@@ -210,7 +210,7 @@ Design stuffs :
 
 ---
 
-Pusing to this repo :
+Pushing to this repo :
 
 - https://help.github.com/articles/duplicating-a-repository/
 - https://help.github.com/articles/fork-a-repo/
