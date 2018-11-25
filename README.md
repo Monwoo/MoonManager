@@ -266,6 +266,8 @@ Now you're on your new branch. You can confirm this by simply typing :
 
 ```bash
 git branch
+# check local branches AND remotes branches :
+git branch -a
 ```
 
 ---
