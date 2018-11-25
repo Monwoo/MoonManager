@@ -78,7 +78,7 @@ For now, let's narrow workload up to 1hr/day for best case, 5hr/day for regular,
 
 This project use some advanced API to work fully.
 We're using it under last Chrome webbrowser for now.
-It may work under others, but we did not get time to try ensure all polyfill for browser that may support it yet.
+It may work under others, but we did not get time to try to ensure all polyfill for browsers that may support it.
 
 ## Install project :
 
@@ -171,6 +171,7 @@ Dev stuffs :
 - https://www.concretepage.com/angular-2/angular-2-4-route-guards-canactivate-and-canactivatechild-example
 - https://github.com/zefoy/ngx-dropzone-wrapper/blob/v7.1.0/src/lib/dropzone.component.ts
 - https://www.dropzonejs.com/#dropzone-methods
+- https://momentjs.com/docs/
 
 ```bash
 # Basic tools for time sheets web reportings :
@@ -186,6 +187,7 @@ yarn add primeng primeicons ngx-dropzone-wrapper
 Design stuffs :
 
 - http://www.favicomatic.com/
+- https://www.wikihow.com/Woo-a-Girl
 
 ---
 
@@ -235,4 +237,4 @@ Please, if you push to my repo, add your crédits below with a short description
 
 ---
 
-### Liked it? Give it a star 🌟, Moon will love it :)
+### Liked it? Give it a star 🌟, Moon will love it :). If not, please help us woo it.
