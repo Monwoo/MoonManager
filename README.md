@@ -207,6 +207,7 @@ Design stuffs :
 - http://www.favicomatic.com/
 - https://www.wikihow.com/Woo-a-Girl
 - https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/
+- https://fontawesome.com/icons?d=gallery&m=free
 
 ---
 
