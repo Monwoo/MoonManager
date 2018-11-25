@@ -191,6 +191,61 @@ Design stuffs :
 
 ---
 
+Pusing to this repo :
+
+- https://help.github.com/articles/duplicating-a-repository/
+- https://help.github.com/articles/fork-a-repo/
+- https://gist.github.com/jacquesd/85097472043b697ab57ba1b1c7530274
+- https://help.github.com/articles/creating-a-pull-request-from-a-fork/
+- https://help.github.com/articles/about-forks/
+- https://www.gun.io/blog/how-to-github-fork-branch-and-pull-request
+
+**Wysiwyg Fork with www.github.com :**
+Forking a repository is a simple two-step process. We've created a repository for you to practice with!
+On GitHub, navigate to the Monwoo/MoonManager repository.
+Look for the Fork button In the top-right corner of the page, click Fork.
+That's it! Now, you have a fork of the original Monwoo/MoonManager repository.
+
+**Manual Fork with your command line :**
+
+```bash
+# clone original repo with bare option :
+git clone --bare https://github.com/Monwoo/MoonManager.git
+# create you own repo with your custom git tool, then minor push the original one :
+cd MoonManager
+git remote add --track master upstream <your custom repo push url>
+# cleaning original repo :
+cd .. && rm -rf MoonManager
+git clone <your custom repo push url>
+cd <your clonned folder>
+# If you want, add the original repo as remote to fetch (potential) future changes.
+# Make sure you also disable push on the remote (as you are not allowed to push to it anyway).
+git remote add upstream <your custom repo push url>
+git remote set-url --push upstream DISABLE
+# When you push, do so on origin with :
+git push origin
+# When you want to pull changes from upstream you can just fetch the remote
+# and rebase on top of your work + fix conflicts if any :
+git fetch upstream
+git rebase upstream/master
+```
+
+Now you're getting ready to start, you'll want to switch off of the 'master' branch and onto a different branch for your new feature. It's important to do this because you can only have one Pull Request per branch, so if you want to submit more than one fix, you'll need to have multiple branches. Make a new branch like this:
+
+```bash
+git branch newfeature
+```
+
+Then switch to it like this:
+
+```bash
+git checkout newfeature
+```
+
+Now you're on your new branch. You can confirm this by simply typing 'git branch'.
+
+---
+
 # → Credits
 
 Please, if you push to my repo, add your crédits below with a short description :
@@ -230,6 +285,10 @@ Please, if you push to my repo, add your crédits below with a short description
 ---
 
 **2018/11/25 :** Adding client's side file loader
+
+---
+
+**2018/11/25 :** 'How to pull request' Knowledge transfert
 
 ---
 
