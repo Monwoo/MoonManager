@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add the imports!
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PlatformModule } from '@angular/cdk/platform';
@@ -16,13 +17,9 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { ReactiveFormsModule } from '@angular/forms';
 import { TreeTableModule } from 'primeng/primeng';
 
 import { MoonManagerRoutingModule } from './moon-manager-routing.module';
-import { MoonManagerComponent } from './moon-manager.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
 import { BodyComponent } from './components/body/body.component';
 import { ClientFilesLoaderComponent } from './components/client-files-loader/client-files-loader.component';
 import { TimmingFormComponent } from './components/timming-form/timming-form.component';
@@ -32,6 +29,8 @@ import { TimmingPivotComponent } from './components/timming-pivot/timming-pivot.
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { ParametersComponent } from './components/parameters/parameters.component';
+import { MonwooMoonManagerWrapModule } from './monwoo-moon-manager-wrap.module';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // maxFilesize: 50000,
@@ -40,13 +39,11 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
 @NgModule({
   declarations: [
-    MoonManagerComponent,
-    FooterComponent,
-    HeaderComponent,
     BodyComponent,
     ClientFilesLoaderComponent,
     TimmingFormComponent,
-    TimmingPivotComponent
+    TimmingPivotComponent,
+    ParametersComponent
   ],
   imports: [
     CommonModule,
@@ -57,6 +54,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       useFactory: adapterFactory
     }),
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -66,7 +64,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MatProgressBarModule,
     ScrollingModule,
     PlatformModule,
-    TreeTableModule
+    TreeTableModule,
+    MonwooMoonManagerWrapModule
   ],
   providers: [
     // { provide: LogOpt, useValue: { level: LogLvl.DEBUG } },

@@ -31,6 +31,7 @@
             ],
             "styles": ["node_modules/angular-calendar/css/angular-calendar.css", "src/main.scss"],
             "scripts": [
+              "./node_modules/hammerjs/hammer.min.js",
               "./node_modules/moment/moment.js",
               "./node_modules/chart.js/dist/Chart.js",
               "node_modules/ccapture.js/build/CCapture.all.min.js"

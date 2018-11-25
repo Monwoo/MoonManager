@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-moon-manager',
+  selector: 'monwoo-moon-manager',
   templateUrl: './moon-manager.component.html',
   styleUrls: ['./moon-manager.component.scss']
 })

@@ -181,10 +181,19 @@ Dev stuffs :
 - https://github.com/zefoy/ngx-dropzone-wrapper/blob/v7.1.0/src/lib/dropzone.component.ts
 - https://www.dropzonejs.com/#dropzone-methods
 - https://momentjs.com/docs/
+- https://medium.com/@a.yurich.zuev/angular-nested-template-driven-form-4a3de2042475
+- https://blog.grossman.io/real-world-angular-reactive-forms/
+- https://scotch.io/tutorials/how-to-build-nested-model-driven-forms-in-angular-2
+- https://www.sitepoint.com/component-routing-angular-router/
+- https://stackoverflow.com/questions/47133610/angular-4-manual-redirect-to-route
+- https://www.jvandemo.com/the-7-step-process-of-angular-router-navigation/
+- https://angular.io/guide/router#heroes-list-optionally-selecting-a-hero
+- https://stackoverflow.com/questions/38648407/angular2-error-there-is-no-directive-with-exportas-set-to-ngform
+- https://www.angularjswiki.com/angular/angular-material-2-tutorial-with-examples/
 
 ```bash
 # Basic tools for time sheets web reportings :
-yarn add @angular-mdc/web angular/material
+yarn add @angular-mdc/web angular/material hammerjs
 yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
 yarn add primeng primeicons ngx-dropzone-wrapper
@@ -197,6 +206,7 @@ Design stuffs :
 
 - http://www.favicomatic.com/
 - https://www.wikihow.com/Woo-a-Girl
+- https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/
 
 ---
 
@@ -303,6 +313,10 @@ Please, if you push to my repo, add your crédits below with a short description
 ---
 
 **2018/11/25 :** 'How to pull request' Knowledge transfert
+
+---
+
+**2018/11/25 :** Adding parameters view + ajusting router for fluent header/body/footer factorized app.
 
 ---
 

@@ -2,6 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { extract } from '../../../core/i18n.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'moon-manager-header',
@@ -12,11 +13,12 @@ export class HeaderComponent implements OnInit {
   // TODO : from centralized config or realtime data storage ?
   appTitle = extract('Moon Manager');
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
   goToParameters(e: any) {
+    this.router.navigate(['param']);
     // TODO : param page + link to it...
   }
 }
