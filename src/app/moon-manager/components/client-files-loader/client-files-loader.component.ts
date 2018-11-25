@@ -3,9 +3,11 @@
 import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild } from '@angular/core';
 // import { FileItem } from 'dropzone/dist/dropzone.js';
 // import Dropzone from 'dropzone'; => if realy needed, use Declare Dropzone: any.... same as for ccapture
-import { Timing } from '../../api/data-model/timing';
 // import moment from 'moment/src/moment';
 import * as moment from 'moment';
+import { LocalStorage } from '@ngx-pwa/local-storage';
+
+import { Timing } from '../../api/data-model/timing';
 
 @Component({
   selector: 'moon-manager-client-files-loader',
@@ -16,7 +18,8 @@ export class ClientFilesLoaderComponent implements OnInit {
   @Input() config?: any = {
     timingEventType: 'capture',
     timingAuthor: 'MiguelMonwoo',
-    timingSegmentDelta: 0.2
+    timingSegmentDelta: 0.2,
+    paramTitle: 'Chargement des captures' // TODO translations
   };
 
   @Output() onTimingFetch: EventEmitter<Timing> = new EventEmitter<Timing>();
@@ -24,7 +27,27 @@ export class ClientFilesLoaderComponent implements OnInit {
   @ViewChild('dropDetails') dropDetails: ElementRef<HTMLDivElement>; // TODO : fail to use for now
 
   index: number = 0;
-  constructor() {}
+  constructor(private storage: LocalStorage, private selfRef: ElementRef) {
+    // TODO : below config will work only if user check components page
+    // at least one... what to do if he gose on parameters and all is
+    // not setup ? global default config injection at some point in the app ?
+    // => need some solution letting defaut config param exists in targeted component...
+    let selector = this.selfRef.nativeElement.tagName.toLowerCase();
+    this.storage.getItem<any>('config', {}).subscribe(
+      (globalConfig: any) => {
+        // Called if data is valid or null
+        console.log('Fetching config : ', globalConfig);
+        if (!globalConfig) globalConfig = {};
+        globalConfig[selector] = this.config;
+        this.storage.setItem('config', globalConfig).subscribe(() => {});
+      },
+      error => {
+        console.error('Fail to fetch config');
+      }
+    );
+  }
+
+  ngOnInit() {}
 
   dropzoneConfig = {
     url: '#', // Url set to avoid console Error, but will not be used in V1.0.0
@@ -104,6 +127,4 @@ export class ClientFilesLoaderComponent implements OnInit {
   onImageUploadSuccess(e: any) {
     console.log(e);
   }
-
-  ngOnInit() {}
 }

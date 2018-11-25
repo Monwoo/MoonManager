@@ -1,11 +1,18 @@
 <!-- Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com -->
 <form #myForm="ngForm">
-  <div><label>Firstname:</label> <input type="text" name="firstName" ngModel /></div>
-  <div><label>Lastname:</label> <input type="text" name="lastName" ngModel /></div>
-  <fieldset ngModelGroup="address">
-    <div><label>Zip:</label> <input type="text" name="zip" ngModel /></div>
-    <div><label>Street:</label> <input type="text" name="street" ngModel /></div>
-    <div><label>City:</label> <input type="text" name="city" ngModel /></div>
-  </fieldset>
+  <!--
+    div><label>Firstname:</label> <input type="text" name="firstName" ngModel /></div>
+    <div><label>Lastname:</label> <input type="text" name="lastName" ngModel /></div
+  -->
+  <ng-container *ngFor="let c of (config | keyvalue)">
+    <h1>{{ c.value.paramTitle | default: c.key }}</h1>
+    <fieldset [ngModelGroup]="c.key">
+      <ng-container *ngFor="let p of (c.value | keyvalue)">
+        <div>
+          <label>{{ p.key }}:</label> <input type="text" [name]="p.key" [(ngModel)]="p.value" />
+        </div>
+      </ng-container>
+    </fieldset>
+  </ng-container>
 </form>
 <pre>{{ myForm.value | json }}</pre>

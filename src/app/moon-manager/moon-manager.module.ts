@@ -31,6 +31,7 @@ import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { ParametersComponent } from './components/parameters/parameters.component';
 import { MonwooMoonManagerWrapModule } from './monwoo-moon-manager-wrap.module';
+import { DefaultPipe } from './pipes/default.pipe';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // maxFilesize: 50000,
@@ -43,7 +44,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     ClientFilesLoaderComponent,
     TimmingFormComponent,
     TimmingPivotComponent,
-    ParametersComponent
+    ParametersComponent,
+    DefaultPipe
   ],
   imports: [
     CommonModule,

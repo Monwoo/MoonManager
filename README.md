@@ -104,6 +104,7 @@ yarn run generate service moon-manager/services/RoutingSentinel --flat --module=
 yarn run generate component moon-manager/components/Header --module=moon-manager
 yarn run generate component moon-manager/components/Body --module=moon-manager
 yarn run generate component moon-manager/components/Footer --module=moon-manager
+yarn run generate pipe moon-manager/pipes/Default --module=moon-manager
 
 # running tests for continous integration (will test all only once) :
 yarn run test:ci
@@ -190,13 +191,19 @@ Dev stuffs :
 - https://angular.io/guide/router#heroes-list-optionally-selecting-a-hero
 - https://stackoverflow.com/questions/38648407/angular2-error-there-is-no-directive-with-exportas-set-to-ngform
 - https://www.angularjswiki.com/angular/angular-material-2-tutorial-with-examples/
+- https://github.com/cyrilletuzi/angular-async-local-storage
+- http://json-schema.org/
+- https://angular.io/guide/pipes
+- https://angular.io/api?type=pipe
+- https://alligator.io/angular/built-in-pipes-angular/
+- https://www.bennadel.com/blog/3043-providing-default-values-for-the-safe-navigation-operator-in-angular-2-beta-8.htm
 
 ```bash
 # Basic tools for time sheets web reportings :
 yarn add @angular-mdc/web angular/material hammerjs
 yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
-yarn add primeng primeicons ngx-dropzone-wrapper
+yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 
@@ -323,7 +330,11 @@ Please, if you push to my repo, add your crédits below with a short description
 
 ---
 
-**2018/11/25 : (prévisionnel)** Adding timings pivot and dependencies
+**2018/11/26 :** linking parameters and components configs via LocalStorage
+
+---
+
+**2018/11/26 : (prévisionnel)** Adding timings pivot and dependencies
 
 ---
 
