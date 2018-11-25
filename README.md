@@ -131,7 +131,8 @@ You just need to ensure directory architecture following this pattern :
 
 <author>/<project>/<subproject>/<objectif>/<captureRegex>
 
-=> you can use command lines to do so, but simple Operting System finder tool may be easyer to quickly look at the capture and move it to the right location...
+=> you can use command lines to do so, but simple Operting System finder tool
+may be easyer to quickly look at the capture and move it to the right location...
 COMMENT
 
 ```
