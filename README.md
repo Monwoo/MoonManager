@@ -124,7 +124,15 @@ zip -r "MoonManager-Prod.zip" dist
 git log --all --date=iso --pretty=format:'"%h","%an","%ad","%s"' > git_logs.csv
 
 # extract you captures data for times report upload :
+<<<COMMENT
+No Need to extract captures via command lines.
+For version 1, MoonManager will load your picture folder under last Google Chrome Webbrowser.
+You just need to ensure directory architecture following this pattern :
 
+<author>/<project>/<subproject>/<objectif>/<captureRegex>
+
+=> you can use command lines to do so, but simple Operting System finder tool may be easyer to quickly look at the capture and move it to the right location...
+COMMENT
 
 ```
 
