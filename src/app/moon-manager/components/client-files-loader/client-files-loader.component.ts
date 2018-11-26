@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 
 import { Timing } from '../../api/data-model/timing';
+import { MediasBufferService } from '../../services/medias-buffer.service';
 
 @Component({
   selector: 'moon-manager-client-files-loader',
@@ -32,7 +33,7 @@ export class ClientFilesLoaderComponent implements OnInit {
   @ViewChild('dropDetails') dropDetails: ElementRef<HTMLDivElement>; // TODO : fail to use for now
 
   index: number = 0;
-  constructor(private storage: LocalStorage, private selfRef: ElementRef) {
+  constructor(private storage: LocalStorage, private selfRef: ElementRef, private medias: MediasBufferService) {
     // Parameters may change from other views, will need to reload on each on show to keep config ok
 
     // TODO : below config will work only if user check components page
@@ -126,7 +127,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.SubProject = subProject;
     t.Objectif = objectif;
     t.Title = title;
-    t.MediaUrl = dataUrl;
+    t.MediaUrl = this.medias.pushDataUrlMedia(dataUrl);
     t.Author = config.timingAuthor;
     t.Comment = '';
     t.ReviewedComment = '';

@@ -4,9 +4,9 @@
 
 <cdk-virtual-scroll-viewport class="list-container list-group" [itemSize]="22">
   <div
-    *cdkVirtualFor="let item of (filteredDatasAsync.asObservable() | async)"
-    [ngClass]="'p-col-12 animated lightSpeedIn timing-idx-' + item.id"
+    *cdkVirtualFor="let t of (filteredDatasAsync.asObservable() | async)"
+    [ngClass]="'p-col-12 animated lightSpeedIn timing-idx-' + t.id"
   >
-    {{ item.Title }}
+    {{ t.Title }} <img class="primary-brand" [src]="t.MediaUrl | urlTransformer" alt="Timing preview" />
   </div>
 </cdk-virtual-scroll-viewport>

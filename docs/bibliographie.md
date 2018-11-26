@@ -55,6 +55,7 @@ Dev stuffs :
 - https://blog.angular-university.io/angular-push-notifications/
 - https://stackoverflow.com/questions/2641347/short-circuit-array-foreach-like-calling-break
 - https://stackoverflow.com/questions/3486359/regex-to-extract-substring-returning-2-results-for-some-reason
+- https://dzone.com/articles/angular-components-pass-by-reference-or-pass-by-va
 
 ```bash
 # Basic tools for time sheets web reportings :
