@@ -53,6 +53,8 @@ Dev stuffs :
 - https://github.com/flauc/angular2-notifications
 - https://stackblitz.com/edit/angular2-notifications-example
 - https://blog.angular-university.io/angular-push-notifications/
+- https://stackoverflow.com/questions/2641347/short-circuit-array-foreach-like-calling-break
+- https://stackoverflow.com/questions/3486359/regex-to-extract-substring-returning-2-results-for-some-reason
 
 ```bash
 # Basic tools for time sheets web reportings :

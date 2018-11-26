@@ -50,4 +50,11 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       this.notif.success('Changements enregistré'); // TODO : tanslations
     });
   }
+
+  resetConfigAction(e: any) {
+    let changes = this.paramsForm.form.value;
+    this.storage.clear().subscribe(() => {
+      this.notif.success('Nettoyage des paramêtres OK'); // TODO : tanslations
+    });
+  }
 }

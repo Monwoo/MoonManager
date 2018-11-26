@@ -19,6 +19,11 @@ export class ClientFilesLoaderComponent implements OnInit {
     timingEventType: 'capture',
     timingAuthor: 'MiguelMonwoo',
     timingSegmentDelta: 0.2,
+    // TODO : improve Parameters up to deep properties lookup with auto-gen forms for edit
+    // then transform below captureRegex to flexible array....
+    captureRegex_0: '.*Capture d’écran ([0-9]{4})-([0-9]{2})-([0-9]{2}) ' + 'à ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.png',
+    captureRegex_1: '.*Screenshot ([0-9]{4})-([0-9]{2})-([0-9]{2}) ' + 'at ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.png',
+    captureRegex_2: null,
     paramTitle: 'Chargement des captures' // TODO translations
   };
 
@@ -63,7 +68,8 @@ export class ClientFilesLoaderComponent implements OnInit {
     autoQueue: false,
     addRemoveLinks: true,
     thumbnailWidth: 600,
-    thumbnailHeight: 400
+    thumbnailHeight: 400,
+    clickable: false
     // TODO : can't set a preview container this way :
     // => only available after ngAfterViewInit, not at constructor time...
     // Hacked via CSS for now....
@@ -87,7 +93,24 @@ export class ClientFilesLoaderComponent implements OnInit {
     let config = this.config;
     console.log('MoonManager will process : ', f.fullPath);
     let t = new Timing();
-    let date = moment(); // TODO : regex extract from path
+
+    let dateStr: string = null;
+
+    [this.config.captureRegex_0, this.config.captureRegex_1, this.config.captureRegex_2].some(
+      (pattern: any, idx: number, arr: any[]) => {
+        // let matches = f.fullPath.match(pattern);
+        let rgEx = new RegExp(pattern, '');
+        let m = rgEx.exec(f.fullPath);
+        console.log('Matches : ', m);
+        if (m) {
+          // TODO : extract should be by regex, lucky for now, having same pattern...
+          // "$1/$2/$3 $4:$5:$6"
+          dateStr = `${m[1]}/${m[2]}/${m[3]} ${m[4]}:${m[5]}:${m[6]}`;
+        }
+        return dateStr ? true : false;
+      }
+    );
+    let date = moment(dateStr, ''); // TODO : regex extract from path
     let subProject = ''; // TODO
     let objectif = ''; // TODO
     let title = f.fullPath; // TODO
@@ -96,7 +119,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     let minDate = date.toDate(); // TODO
 
     t.id = ++this.index;
-    // t.DateTime: Date;
+    t.DateTime = date.toDate();
     t.EventSource = config.timingEventType;
     t.ExpertiseLevel = '';
     t.Project = project;
@@ -113,8 +136,8 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.SegmentMin = minDate;
     t.SegmentDeltaHr = config.timingSegmentDelta;
     t.SegmentMax = date.toDate();
-    t.Date = new Date(date.format('YYYY/MM/DD'));
-    t.Time = new Date(date.format('HH:mm:ss'));
+    t.Date = date.format('YYYY/MM/DD');
+    t.Time = date.format('HH:mm:ss');
     t.Month = '';
     t.Year = '';
     t.SkillsId = '';

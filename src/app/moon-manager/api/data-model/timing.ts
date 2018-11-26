@@ -19,8 +19,8 @@ export class Timing {
   SegmentMin: Date;
   SegmentDeltaHr: number;
   SegmentMax: Date;
-  Date: Date;
-  Time: Date;
+  Date: string;
+  Time: string;
   Month: string;
   Year: string;
   SkillsId: string;
