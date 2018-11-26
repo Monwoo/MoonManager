@@ -1,3 +1,5 @@
+// Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
+
 import { DefaultPipe } from './default.pipe';
 
 describe('DefaultPipe', () => {

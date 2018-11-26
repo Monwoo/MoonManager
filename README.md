@@ -287,6 +287,10 @@ Please, if you push to my repo, add your crédits below with a short description
 
 ---
 
+**2018/11/26 :** improving Media storage
+
+---
+
 **2018/11/26 : (prévisionnel)** Adding timings pivot and dependencies
 
 ---

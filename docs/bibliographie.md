@@ -56,6 +56,16 @@ Dev stuffs :
 - https://stackoverflow.com/questions/2641347/short-circuit-array-foreach-like-calling-break
 - https://stackoverflow.com/questions/3486359/regex-to-extract-substring-returning-2-results-for-some-reason
 - https://dzone.com/articles/angular-components-pass-by-reference-or-pass-by-va
+- https://stackoverflow.com/questions/43520257/angular2-service-testing-inject-a-dependency-with-beforeeach
+
+* https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
+  Each of your .spec.ts file have all its tests grouped in describe block like this:
+  describe('SomeComponent', () => {...}
+  You can easily run just this single block, by prefixing the describe function name with f:
+  fdescribe('SomeComponent', () => {...}
+  If you have such function, no other describe blocks will run. Btw. you can do similar thing with it => fit and there is also a "blacklist" version - x. So:
+  fdescribe and fit causes only functions marked this way to run
+  xdescribe and xit causes all but functions marked this way to run
 
 ```bash
 # Basic tools for time sheets web reportings :
@@ -66,3 +76,8 @@ yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
+
+TODO :
+
+try to launch single test, below is falling for now :
+yarn run test --karma-config src/app/moon-manager/pipes/url-transformer.pipe.spec.ts
