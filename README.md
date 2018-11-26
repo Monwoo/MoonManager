@@ -158,61 +158,7 @@ MoonManager is simply some configuration and some more stuffs added to it.
 
 # → Bibliographie et veilles :
 
----
-
-Refresh you knowledge about Markdown language :
-
-https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-
-https://help.github.com/articles/basic-writing-and-formatting-syntax/
-
-https://github.com/github/markup/issues/353 :
-
-For bold text : It looks like it doesn't work on GitHub unless there are white spaces before and after the asterisks.
-
-=> well, it's more like need space Before the \*\* and No space after it for start of bold séquence, opposite at end.
-
----
-
-Dev stuffs :
-
-- https://angular.io/tutorial/toh-pt5
-- https://angular.io/api/router/CanActivate
-- https://www.concretepage.com/angular-2/angular-2-4-route-guards-canactivate-and-canactivatechild-example
-- https://github.com/zefoy/ngx-dropzone-wrapper/blob/v7.1.0/src/lib/dropzone.component.ts
-- https://www.dropzonejs.com/#dropzone-methods
-- https://momentjs.com/docs/
-- https://medium.com/@a.yurich.zuev/angular-nested-template-driven-form-4a3de2042475
-- https://blog.grossman.io/real-world-angular-reactive-forms/
-- https://scotch.io/tutorials/how-to-build-nested-model-driven-forms-in-angular-2
-- https://www.sitepoint.com/component-routing-angular-router/
-- https://stackoverflow.com/questions/47133610/angular-4-manual-redirect-to-route
-- https://www.jvandemo.com/the-7-step-process-of-angular-router-navigation/
-- https://angular.io/guide/router#heroes-list-optionally-selecting-a-hero
-- https://stackoverflow.com/questions/38648407/angular2-error-there-is-no-directive-with-exportas-set-to-ngform
-- https://www.angularjswiki.com/angular/angular-material-2-tutorial-with-examples/
-- https://github.com/cyrilletuzi/angular-async-local-storage
-- http://json-schema.org/
-- https://angular.io/guide/pipes
-- https://angular.io/api?type=pipe
-- https://alligator.io/angular/built-in-pipes-angular/
-- https://www.bennadel.com/blog/3043-providing-default-values-for-the-safe-navigation-operator-in-angular-2-beta-8.htm
-- https://www.intertech.com/Blog/angular-component-lifecycle/
-- https://angular.io/guide/lifecycle-hooks
-- https://angular.io/api/core/OnChanges
-- https://stackoverflow.com/questions/43049312/how-to-pass-object-as-a-param-on-ngmodelchange-angular-2
-- https://alligator.io/angular/reactive-forms-valuechanges/
-- https://stackoverflow.com/questions/48660515/how-to-listen-of-angular-template-driven-form-changes
-- https://medium.com/@tomastrajan/object-assign-vs-object-spread-in-angular-ngrx-reducers-3d62ecb4a4b0
-
-```bash
-# Basic tools for time sheets web reportings :
-yarn add @angular-mdc/web angular/material hammerjs @angular/animations
-yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
-yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
-yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
-# angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
-```
+Développment bibliograhie : [a relative link](docs/bibliographie.md)
 
 ---
 
@@ -337,7 +283,7 @@ Please, if you push to my repo, add your crédits below with a short description
 
 ---
 
-**2018/11/26 :** linking parameters and components configs via LocalStorage
+**2018/11/26 :** linking parameters and components configs via LocalStorage + add Notification system
 
 ---
 

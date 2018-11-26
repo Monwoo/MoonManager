@@ -3,6 +3,7 @@
 import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LocalStorage } from '@ngx-pwa/local-storage';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -12,7 +13,7 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paramsForm') paramsForm: NgForm; // TODO : fail to use for now
 
-  constructor(private storage: LocalStorage) {}
+  constructor(private storage: LocalStorage, private notif: NotificationsService) {}
 
   public config: any;
 
@@ -45,6 +46,8 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   saveAction(e: any) {
     let changes = this.paramsForm.form.value;
     console.log('Saving changes : ', changes);
-    this.storage.setItem('config', changes).subscribe(() => {});
+    this.storage.setItem('config', changes).subscribe(() => {
+      this.notif.success('Changements enregistré'); // TODO : tanslations
+    });
   }
 }
