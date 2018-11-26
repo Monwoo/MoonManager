@@ -158,7 +158,7 @@ MoonManager is simply some configuration and some more stuffs added to it.
 
 # → Bibliographie et veilles :
 
-Développment bibliograhie : [a relative link](docs/bibliographie.md)
+[Développment stuffs (click me)](docs/bibliographie.md)
 
 ---
 
