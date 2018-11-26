@@ -25,6 +25,10 @@ export class ClientFilesLoaderComponent implements OnInit {
     captureRegex_0: '.*Capture d’écran ([0-9]{4})-([0-9]{2})-([0-9]{2}) ' + 'à ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.png',
     captureRegex_1: '.*Screenshot ([0-9]{4})-([0-9]{2})-([0-9]{2}) ' + 'at ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.png',
     captureRegex_2: null,
+    regExAuthor: '^[^/]+/([^/]+)/',
+    regExProject: '^[^/]+/[^/]+/([^/]+)/',
+    regExSubProject: '^[^/]+/[^/]+/[^/]+/([^/]+)/',
+    regExObjectif: '^[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/',
     paramTitle: 'Chargement des captures' // TODO translations
   };
 
@@ -100,7 +104,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     [this.config.captureRegex_0, this.config.captureRegex_1, this.config.captureRegex_2].some(
       (pattern: any, idx: number, arr: any[]) => {
         // let matches = f.fullPath.match(pattern);
-        let rgEx = new RegExp(pattern, '');
+        let rgEx = new RegExp(pattern, 'i');
         let m = rgEx.exec(f.fullPath);
         console.log('Matches : ', m);
         if (m) {
@@ -112,23 +116,24 @@ export class ClientFilesLoaderComponent implements OnInit {
       }
     );
     let date = moment(dateStr, ''); // TODO : regex extract from path
-    let subProject = ''; // TODO
-    let objectif = ''; // TODO
     let title = f.fullPath; // TODO
-    let project = ''; // TODO
     let segmentOverride = 0; // TODO
     let minDate = date.toDate(); // TODO
+    let author = new RegExp(this.config.regExAuthor, 'i').exec(f.fullPath);
+    let project = new RegExp(this.config.regExProject, 'i').exec(f.fullPath);
+    let subProject = new RegExp(this.config.regExSubProject, 'i').exec(f.fullPath);
+    let objectif = new RegExp(this.config.regExObjectif, 'i').exec(f.fullPath);
 
     t.id = ++this.index;
     t.DateTime = date.toDate();
     t.EventSource = config.timingEventType;
     t.ExpertiseLevel = '';
-    t.Project = project;
-    t.SubProject = subProject;
-    t.Objectif = objectif;
+    t.Project = project ? project[1] : '';
+    t.SubProject = subProject ? subProject[1] : '';
+    t.Objectif = objectif ? objectif[1] : '';
     t.Title = title;
     t.MediaUrl = this.medias.pushDataUrlMedia(dataUrl);
-    t.Author = config.timingAuthor;
+    t.Author = author ? author[1] : config.timingAuthor;
     t.Comment = '';
     t.ReviewedComment = '';
     t.OverrideSequence = '';
