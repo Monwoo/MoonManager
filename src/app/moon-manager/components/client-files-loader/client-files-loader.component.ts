@@ -28,6 +28,8 @@ export class ClientFilesLoaderComponent implements OnInit {
 
   index: number = 0;
   constructor(private storage: LocalStorage, private selfRef: ElementRef) {
+    // Parameters may change from other views, will need to reload on each on show to keep config ok
+
     // TODO : below config will work only if user check components page
     // at least one... what to do if he gose on parameters and all is
     // not setup ? global default config injection at some point in the app ?
@@ -36,9 +38,13 @@ export class ClientFilesLoaderComponent implements OnInit {
     this.storage.getItem<any>('config', {}).subscribe(
       (globalConfig: any) => {
         // Called if data is valid or null
-        console.log('Fetching config : ', globalConfig);
         if (!globalConfig) globalConfig = {};
-        globalConfig[selector] = this.config;
+        if (typeof globalConfig[selector] === 'undefined') {
+          globalConfig[selector] = this.config;
+        } else {
+          this.config = globalConfig[selector];
+        }
+        console.log('Fetching config : ', this.config);
         this.storage.setItem('config', globalConfig).subscribe(() => {});
       },
       error => {
@@ -49,6 +55,7 @@ export class ClientFilesLoaderComponent implements OnInit {
 
   ngOnInit() {}
 
+  ngAfterViewChecked() {}
   dropzoneConfig = {
     url: '#', // Url set to avoid console Error, but will not be used in V1.0.0
     autoProcessQueue: false, // We will no upload to server, only local processings for V1.0.0

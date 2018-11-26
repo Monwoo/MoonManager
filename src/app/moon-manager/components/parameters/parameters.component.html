@@ -1,5 +1,5 @@
 <!-- Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com -->
-<form #myForm="ngForm">
+<form #paramsForm="ngForm">
   <!--
     div><label>Firstname:</label> <input type="text" name="firstName" ngModel /></div>
     <div><label>Lastname:</label> <input type="text" name="lastName" ngModel /></div
@@ -15,4 +15,9 @@
     </fieldset>
   </ng-container>
 </form>
-<pre>{{ myForm.value | json }}</pre>
+
+<button mat-button color="primary" matTooltip="Save params" (click)="saveAction($event)">
+  <i class="fas fa-save"></i> Save
+</button>
+
+<pre>{{ paramsForm.value | json }}</pre>

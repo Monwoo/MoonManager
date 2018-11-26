@@ -197,6 +197,12 @@ Dev stuffs :
 - https://angular.io/api?type=pipe
 - https://alligator.io/angular/built-in-pipes-angular/
 - https://www.bennadel.com/blog/3043-providing-default-values-for-the-safe-navigation-operator-in-angular-2-beta-8.htm
+- https://www.intertech.com/Blog/angular-component-lifecycle/
+- https://angular.io/guide/lifecycle-hooks
+- https://angular.io/api/core/OnChanges
+- https://stackoverflow.com/questions/43049312/how-to-pass-object-as-a-param-on-ngmodelchange-angular-2
+- https://alligator.io/angular/reactive-forms-valuechanges/
+- https://stackoverflow.com/questions/48660515/how-to-listen-of-angular-template-driven-form-changes
 
 ```bash
 # Basic tools for time sheets web reportings :

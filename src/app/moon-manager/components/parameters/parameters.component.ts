@@ -1,6 +1,7 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 
 @Component({
@@ -8,7 +9,9 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
   templateUrl: './parameters.component.html',
   styleUrls: ['./parameters.component.scss']
 })
-export class ParametersComponent implements OnInit {
+export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
+  @ViewChild('paramsForm') paramsForm: NgForm; // TODO : fail to use for now
+
   constructor(private storage: LocalStorage) {}
 
   private config: any;
@@ -25,5 +28,23 @@ export class ParametersComponent implements OnInit {
         console.error('Fail to fetch config');
       }
     );
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Having changes : ', changes); // binding issue or pb with deep object fail to observe ?
+  }
+
+  ngAfterViewInit() {
+    // TODO : will not change if live edit in form, pb about form building ?
+    // may need to build form structure JS Side ? solved by simple 'save btn' for now...
+    // this.paramsForm.form.valueChanges.subscribe(allConfigs => {
+    //   console.log('Having changes : ', allConfigs);
+    // });
+  }
+
+  saveAction() {
+    let changes = this.paramsForm.form.value;
+    console.log('Saving changes : ', changes);
+    this.storage.setItem('config', changes).subscribe(() => {});
   }
 }

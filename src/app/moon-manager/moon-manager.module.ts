@@ -3,9 +3,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add the imports!
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatTooltipModule } from '@angular/material';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PlatformModule } from '@angular/cdk/platform';
 import { MatCardModule } from '@angular/material';
@@ -56,10 +57,12 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       useFactory: adapterFactory
     }),
     HttpClientModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatTooltipModule,
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule,
