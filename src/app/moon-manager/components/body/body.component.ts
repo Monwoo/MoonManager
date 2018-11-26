@@ -10,8 +10,8 @@ import { Timing } from '../../api/data-model/timing';
   styleUrls: ['./body.component.scss']
 })
 export class BodyComponent implements OnInit {
-  private filteredDatas: Timing[] = [];
-  private filteredDatasAsync: BehaviorSubject<Timing[]> = new BehaviorSubject<Timing[]>([]);
+  public filteredDatas: Timing[] = [];
+  public filteredDatasAsync: BehaviorSubject<Timing[]> = new BehaviorSubject<Timing[]>([]);
   constructor() {}
 
   ngOnInit() {}

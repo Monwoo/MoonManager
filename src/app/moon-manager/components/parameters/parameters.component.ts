@@ -14,7 +14,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
 
   constructor(private storage: LocalStorage) {}
 
-  private config: any;
+  public config: any;
 
   ngOnInit() {
     // Load from params from local storage :
@@ -42,7 +42,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     // });
   }
 
-  saveAction() {
+  saveAction(e: any) {
     let changes = this.paramsForm.form.value;
     console.log('Saving changes : ', changes);
     this.storage.setItem('config', changes).subscribe(() => {});

@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Items imports
 import { MatButtonModule, MatTooltipModule } from '@angular/material';
 // Local source codes imports

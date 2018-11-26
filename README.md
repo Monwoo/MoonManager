@@ -206,7 +206,7 @@ Dev stuffs :
 
 ```bash
 # Basic tools for time sheets web reportings :
-yarn add @angular-mdc/web angular/material hammerjs
+yarn add @angular-mdc/web angular/material hammerjs @angular/animations
 yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
