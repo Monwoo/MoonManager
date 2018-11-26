@@ -203,6 +203,7 @@ Dev stuffs :
 - https://stackoverflow.com/questions/43049312/how-to-pass-object-as-a-param-on-ngmodelchange-angular-2
 - https://alligator.io/angular/reactive-forms-valuechanges/
 - https://stackoverflow.com/questions/48660515/how-to-listen-of-angular-template-driven-form-changes
+- https://medium.com/@tomastrajan/object-assign-vs-object-spread-in-angular-ngrx-reducers-3d62ecb4a4b0
 
 ```bash
 # Basic tools for time sheets web reportings :

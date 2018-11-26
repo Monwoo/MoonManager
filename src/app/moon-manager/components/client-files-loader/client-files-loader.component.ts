@@ -42,6 +42,7 @@ export class ClientFilesLoaderComponent implements OnInit {
         if (typeof globalConfig[selector] === 'undefined') {
           globalConfig[selector] = this.config;
         } else {
+          globalConfig[selector] = { ...this.config, ...globalConfig[selector] };
           this.config = globalConfig[selector];
         }
         console.log('Fetching config : ', this.config);
