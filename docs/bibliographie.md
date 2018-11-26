@@ -57,6 +57,7 @@ Dev stuffs :
 - https://stackoverflow.com/questions/3486359/regex-to-extract-substring-returning-2-results-for-some-reason
 - https://dzone.com/articles/angular-components-pass-by-reference-or-pass-by-va
 - https://stackoverflow.com/questions/43520257/angular2-service-testing-inject-a-dependency-with-beforeeach
+- https://stackoverflow.com/questions/27978819/extract-time-from-moment-js-object
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:

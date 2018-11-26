@@ -96,7 +96,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     let f = args[0];
     let dataUrl = args[1];
     let config = this.config;
-    console.log('MoonManager will process : ', f.fullPath);
+    // console.log('MoonManager will process : ', f.fullPath);
     let t = new Timing();
 
     let dateStr: string = null;
@@ -106,7 +106,7 @@ export class ClientFilesLoaderComponent implements OnInit {
         // let matches = f.fullPath.match(pattern);
         let rgEx = new RegExp(pattern, 'i');
         let m = rgEx.exec(f.fullPath);
-        console.log('Matches : ', m);
+        // console.log('Matches : ', m);
         if (m) {
           // TODO : extract should be by regex, lucky for now, having same pattern...
           // "$1/$2/$3 $4:$5:$6"
@@ -116,9 +116,10 @@ export class ClientFilesLoaderComponent implements OnInit {
       }
     );
     let date = moment(dateStr, ''); // TODO : regex extract from path
-    let title = f.fullPath; // TODO
-    let segmentOverride = 0; // TODO
-    let minDate = date.toDate(); // TODO
+    let title = f.fullPath;
+    let segmentDelta = this.config.timingSegmentDelta;
+    let segmentOverride = Math.floor((date.hour() + date.minute() / 60) / segmentDelta);
+    let minDate = date.toDate();
     let author = new RegExp(this.config.regExAuthor, 'i').exec(f.fullPath);
     let project = new RegExp(this.config.regExProject, 'i').exec(f.fullPath);
     let subProject = new RegExp(this.config.regExSubProject, 'i').exec(f.fullPath);
@@ -140,7 +141,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.OverrideReduction = '';
     t.SegmentOverride = segmentOverride;
     t.SegmentMin = minDate;
-    t.SegmentDeltaHr = config.timingSegmentDelta;
+    t.SegmentDeltaHr = segmentDelta;
     t.SegmentMax = date.toDate();
     t.Date = date.format('YYYY/MM/DD');
     t.Time = date.format('HH:mm:ss');
