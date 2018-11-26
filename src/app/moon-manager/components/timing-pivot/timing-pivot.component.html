@@ -1,0 +1,100 @@
+<!-- form (submit)="reCompute()" -->
+<div>
+  <p>
+    <strong>{{ summaryTitle }}</strong>
+  </p>
+  <div>
+    <div><strong>Nombre de jours facturés :</strong> {{ billedDays }} jours ({{ paidDays }} jours payés)</div>
+    <div><strong>Nombre de jours compensés :</strong> {{ compensatedDays }} jours ({{ receivedDays }} jours reçus)</div>
+    <div>
+      <strong>Deltas horaire de segmentation :</strong>
+      <span *ngFor="let idx of (HrSegmentBySource | keyvalue); let i = index">
+        <span *ngIf="i > 0">, </span> [{{ idx.key }} : {{ idx.value }} hr]
+      </span>
+    </div>
+  </div>
+
+  <div>
+    <strong>Liste des jours :</strong>
+    <!--
+      span *ngFor="let idx of timingsByDay | keyvalue; let i=index;">
+        <span *ngIf="i > 0">, </span>
+        {{idx.key | date : "dd"}} /
+        <strong [ngClass]="classByMonth[idx.key | date : 'MM']">
+          {{idx.key | date : 'MM'}}
+        </strong>
+      </span
+    -->
+    <moon-manager-timeline-yearly-plan [timingsByDayAsync]="timingsByDayAsync"></moon-manager-timeline-yearly-plan>
+  </div>
+  <div><strong>Total horaire :</strong> {{ workloadTotal | number: '1.2-2' }} heures</div>
+  <div><strong>Total en jour facturables :</strong> {{ workloadByBillableDayTotal | number: '1.2-2' }} jours</div>
+  <div>
+    <strong>Marge utilisable :</strong>
+    <strong [class.positive-value]="daysMargin > 0" [class.negative-value]="daysMargin < 0">
+      {{ daysMargin | number: '1.2-2' }} jours
+    </strong>
+    pour une opportunité de {{ daysForseen | number: '1.2-2' }} jours
+  </div>
+
+  <button class="no-print" mat-button (click)="downloadTimingsVideo()">Exporter la Vidéo</button>
+  <a *ngIf="videoUrl" [href]="videoUrl">Télécharger</a>
+  <mat-progress-bar mode="determinate" [value]="videoLoadPercent"></mat-progress-bar>
+
+  <div class="video-renderer no-print"><canvas #videoCanvas class="video-canvas"></canvas></div>
+
+  <p *ngFor="let skillsIdx of (skillsRef | keyvalue)">
+    <!-- [{{skillsIdx.key}}] : {{skillsIdx.value}} -->
+    <strong>
+      TJM : {{ TJMBySkillsId[skillsIdx.key] }} € [{{ skillsIdx.value.title }}] ({{ skillsIdx.value.idx }}.)
+    </strong>
+    <br />
+    {{ skillsIdx.value.description }} <br />
+    Justificatifs : {{ skillsIdx.value.justificatifs }}
+  </p>
+
+  <div>
+    <!-- pre>{{timingsTrees|json}}</pre -->
+    <p-treeTable [value]="timingsTrees">
+      <ng-template pTemplate="header">
+        <tr>
+          <th [ngStyle]="{ 'width.px': 400 }">Groupe</th>
+          <!-- th class="priority-2">Heures</th -->
+          <th class="priority-3">Compétances</th>
+          <th class="priority-3">Source</th>
+          <th class="priority-3">Charge linéaire</th>
+          <th class="priority-3">Charge segmentée</th>
+          <th class="priority-3">T.J.M. Applicable</th>
+          <th class="priority-2">Prix T.T.C.</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-treeData="rowData">
+        <!-- tr [ngStyle]="{'font-weight': treeData.TreeIdx < agregationsFields.length - 1 ? 'bold' : ''}" -->
+        <tr
+          [ngClass]="treeData.TreeIdx < agregationsFields.length - 1 ? ['summary-row', 'lvl-' + treeData.TreeIdx] : []"
+        >
+          <td [ngStyle]="{ 'min-width.px': 300 }">
+            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+            {{ treeData.Title }}
+          </td>
+          <!-- td class="text-center priority-2">{{treeData.Time}}</td -->
+          <td class="text-right priority-3" [innerHtml]="treeData.SkillsId"></td>
+          <td class="text-right priority-3" [innerHtml]="treeData.EventSource"></td>
+          <td class="text-right priority-3">{{ treeData.LinearWorkloadAmount | number: '1.2-2' }} heures</td>
+          <td class="text-right priority-3">{{ treeData.WorkloadAmount | number: '1.2-2' }} heures</td>
+          <td class="text-right priority-3">{{ treeData.TJM }}</td>
+          <td class="text-right priority-2">{{ treeData.Price | currency: 'EUR' }}</td>
+        </tr>
+      </ng-template>
+      <!--
+        ng-template pTemplate="footer">
+            <tr>
+                <td colspan="3">Totals</td>
+                <td>$3,283,772</td>
+                <td>$2,126,925</td>
+            </tr>
+        </ng-template
+      -->
+    </p-treeTable>
+  </div>
+</div>

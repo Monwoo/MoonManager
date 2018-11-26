@@ -2,20 +2,20 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimmingPivotComponent } from './timming-pivot.component';
+import { TimingFormComponent } from './timing-form.component';
 
-describe('TimmingPivotComponent', () => {
-  let component: TimmingPivotComponent;
-  let fixture: ComponentFixture<TimmingPivotComponent>;
+describe('TimingFormComponent', () => {
+  let component: TimingFormComponent;
+  let fixture: ComponentFixture<TimingFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TimmingPivotComponent]
+      declarations: [TimingFormComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TimmingPivotComponent);
+    fixture = TestBed.createComponent(TimingFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

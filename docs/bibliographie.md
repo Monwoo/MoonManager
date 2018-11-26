@@ -74,7 +74,7 @@ yarn add @angular-mdc/web angular/material hammerjs @angular/animations
 yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
-yarn add angular2-notifications
+yarn add angular2-notifications lodash-es @types/lodash-es
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 

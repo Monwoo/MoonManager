@@ -23,8 +23,8 @@ import { TreeTableModule } from 'primeng/primeng';
 import { MoonManagerRoutingModule } from './moon-manager-routing.module';
 import { BodyComponent } from './components/body/body.component';
 import { ClientFilesLoaderComponent } from './components/client-files-loader/client-files-loader.component';
-import { TimmingFormComponent } from './components/timming-form/timming-form.component';
-import { TimmingPivotComponent } from './components/timming-pivot/timming-pivot.component';
+import { TimingFormComponent } from './components/timing-form/timing-form.component';
+import { TimingPivotComponent } from './components/timing-pivot/timing-pivot.component';
 
 // https://github.com/zefoy/ngx-dropzone-wrapper
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
@@ -34,6 +34,8 @@ import { ParametersComponent } from './components/parameters/parameters.componen
 import { MonwooMoonManagerWrapModule } from './monwoo-moon-manager-wrap.module';
 import { DefaultPipe } from './pipes/default.pipe';
 import { UrlTransformerPipe } from './pipes/url-transformer.pipe';
+import { TimelineYearlyPlanComponent } from './components/timeline-yearly-plan/timeline-yearly-plan.component';
+import { NgLetDirective } from './directives/ng-let.directive';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // maxFilesize: 50000,
@@ -44,11 +46,13 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   declarations: [
     BodyComponent,
     ClientFilesLoaderComponent,
-    TimmingFormComponent,
-    TimmingPivotComponent,
+    TimingFormComponent,
+    TimingPivotComponent,
     ParametersComponent,
     DefaultPipe,
-    UrlTransformerPipe
+    UrlTransformerPipe,
+    TimelineYearlyPlanComponent,
+    NgLetDirective
   ],
   imports: [
     CommonModule,
@@ -75,6 +79,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     TreeTableModule,
     MonwooMoonManagerWrapModule
   ],
+  exports: [NgLetDirective],
   providers: [
     // { provide: LogOpt, useValue: { level: LogLvl.DEBUG } },
     // Logger,

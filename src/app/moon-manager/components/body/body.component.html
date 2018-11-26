@@ -10,3 +10,5 @@
     {{ t.Title }} <img class="primary-brand" [src]="t.MediaUrl | urlTransformer" alt="Timing preview" />
   </div>
 </cdk-virtual-scroll-viewport>
+
+<moon-manager-timing-pivot [dataSrc]="filteredDatasAsync.asObservable()"></moon-manager-timing-pivot>

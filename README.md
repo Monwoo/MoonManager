@@ -105,6 +105,7 @@ yarn run generate component moon-manager/components/Header --module=moon-manager
 yarn run generate component moon-manager/components/Body --module=moon-manager
 yarn run generate component moon-manager/components/Footer --module=moon-manager
 yarn run generate pipe moon-manager/pipes/Default --module=moon-manager
+yarn run generate directive moon-manager/directives/NgLet --module=moon-manager
 
 # running tests for continous integration (will test all only once) :
 yarn run test:ci
@@ -283,15 +284,27 @@ Please, if you push to my repo, add your crédits below with a short description
 
 ---
 
-**2018/11/26 :** linking parameters and components configs via LocalStorage + add Notification system
+**2018/11/26 :** Linking parameters and components configs via LocalStorage + add Notification system
 
 ---
 
-**2018/11/26 :** improving Media storage
+**2018/11/26 :** Improving Media storage
 
 ---
 
-**2018/11/26 : (prévisionnel)** Adding timings pivot and dependencies
+**2018/11/26 :** Adding Monwoo timings pivot and dependencies
+
+---
+
+**2018/11/26 : (prévisionnel)** Load git logs, Improve design, usability and parameters for timing components
+
+---
+
+**2018/11/26 : (prévisionnel)** Import/export of timings dataset (csv)
+
+---
+
+**2018/11/26 : (prévisionnel)** Import/export of medias dataset (json)
 
 ---
 
