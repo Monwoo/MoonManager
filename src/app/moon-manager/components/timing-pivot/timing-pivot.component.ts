@@ -576,7 +576,7 @@ export class TimingPivotComponent implements OnInit {
       framerate: 24, // stackDelayFrame will wait 1/24 sec for vid output
       verbose: false,
       format: 'webm',
-      display: true,
+      // display: true,
       quality: 99
     });
     capturer.start();

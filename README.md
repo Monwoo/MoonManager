@@ -113,8 +113,8 @@ yarn run test:ci
 # export dev project as Zip file :
 git archive --format=zip -o ~/goinfre/MonwooMoonManager.zip HEAD
 
-# build productions file in dist folder :
-yarn run build
+# build productions file in dist folder with correct base-href for deploy :
+yarn run build --base-href '/MoonManager/Demo/'
 # zip result for Production Software delivery :
 zip -r "MoonManager-Prod.zip" dist
 ```
