@@ -649,7 +649,7 @@ export class TimingPivotComponent implements OnInit {
           context.font = self.config.lowRes ? '10px Comic Sans MS' : '20px Comic Sans MS';
           context.fillStyle = 'rgb(60,0,108)'; // Primary color
           context.textAlign = 'center';
-          context.fillText('© Monwoo', canvas.width / 2, fillHeight);
+          context.fillText('© Monwoo (Private data)', canvas.width / 2, fillHeight);
 
           context.fillStyle = 'white';
           context.fillRect(0, canvas.height - deltaHeight, canvas.width, fillHeight);
