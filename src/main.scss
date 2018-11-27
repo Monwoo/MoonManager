@@ -51,3 +51,9 @@ a {
 //   margin: 0 auto;
 //   padding: 2em;
 // }
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+}

@@ -3,20 +3,46 @@
 <p><strong style="color:#1e90ff">En bleu </strong> les jours inférieur ou égual à 5 heures</p>
 <p><strong style="color:rgb(227, 188, 8)">En jaune </strong> les jours entre 5 et 7 heures</p>
 <p><strong style="color:rgb(173, 33, 33)">En rouge </strong> les jours de plus de 7 heures</p>
-<div class="timeline-yearly-plan p-grid">
-  <div class="p-col-4" *ngFor="let idx of sortedMonthsKeys">
-    <ng-container *ngLet="sortedMonths.get(idx) as value">
-      <!-- TODO : add billableDaySum ? => depends of TJM applied => all 5hr/day for now -->
-      <strong>{{ value }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} jours </strong>
-      <mwl-calendar-month-view
-        [viewDate]="idx"
-        [events]="eventsByMonths.get(value)"
-        [activeDayIsOpen]="false"
-        [weekStartsOn]="1"
-        [weekendDays]="[0, 1, 6]"
-        (beforeViewRender)="beforeMonthViewRender($event)"
-      >
-      </mwl-calendar-month-view>
-    </ng-container>
+
+<div class="bs">
+  <div class="container-fluid">
+    <div class="timeline-yearly-plan d-flex flex-row" cols="3">
+      <div class="col-4" *ngFor="let idx of sortedMonthsKeys">
+        <ng-container *ngLet="sortedMonths.get(idx) as value">
+          <!-- TODO : add billableDaySum ? => depends of TJM applied => all 5hr/day for now -->
+          <strong>{{ value }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} jours </strong>
+          <mwl-calendar-month-view
+            [viewDate]="idx"
+            [events]="eventsByMonths.get(value)"
+            [activeDayIsOpen]="false"
+            [weekStartsOn]="1"
+            [weekendDays]="[0, 1, 6]"
+            (beforeViewRender)="beforeMonthViewRender($event)"
+          >
+          </mwl-calendar-month-view>
+        </ng-container>
+      </div>
+    </div>
   </div>
 </div>
+
+<!--
+  mat-grid-list class="timeline-yearly-plan" cols="3">
+    <mat-grid-tile class="" *ngFor="let idx of sortedMonthsKeys">
+      <mat-card>
+        <ng-container *ngLet="sortedMonths.get(idx) as value">
+          <strong>{{ value }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} jours </strong>
+          <mwl-calendar-month-view
+            [viewDate]="idx"
+            [events]="eventsByMonths.get(value)"
+            [activeDayIsOpen]="false"
+            [weekStartsOn]="1"
+            [weekendDays]="[0, 1, 6]"
+            (beforeViewRender)="beforeMonthViewRender($event)"
+          >
+          </mwl-calendar-month-view>
+        </ng-container>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list
+-->

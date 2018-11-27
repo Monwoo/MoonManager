@@ -17,6 +17,7 @@ import { MediasBufferService } from '../../services/medias-buffer.service';
 })
 export class ClientFilesLoaderComponent implements OnInit {
   @Input() config?: any = {
+    paramTitle: 'Chargement des captures', // TODO translations
     timingEventType: 'capture',
     timingAuthor: 'MiguelMonwoo',
     timingSegmentDelta: 0.2,
@@ -25,11 +26,13 @@ export class ClientFilesLoaderComponent implements OnInit {
     captureRegex_0: '.*Capture d’écran ([0-9]{4})-([0-9]{2})-([0-9]{2}) ' + 'à ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.png',
     captureRegex_1: '.*Screenshot ([0-9]{4})-([0-9]{2})-([0-9]{2}) ' + 'at ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.png',
     captureRegex_2: null,
+    thumbW: 700,
+    thumbH: 400,
+    regExGitLogFile: '.*.csv',
     regExAuthor: '^[^/]+/([^/]+)/',
     regExProject: '^[^/]+/[^/]+/([^/]+)/',
     regExSubProject: '^[^/]+/[^/]+/[^/]+/([^/]+)/',
-    regExObjectif: '^[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/',
-    paramTitle: 'Chargement des captures' // TODO translations
+    regExObjectif: '^[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/'
   };
 
   @Output() onTimingFetch: EventEmitter<Timing> = new EventEmitter<Timing>();
@@ -37,6 +40,22 @@ export class ClientFilesLoaderComponent implements OnInit {
   @ViewChild('dropDetails') dropDetails: ElementRef<HTMLDivElement>; // TODO : fail to use for now
 
   public filesLoadPercent: number = 0;
+  public processingCount: number = 0;
+  public processLength: number = 0;
+
+  // Incrementing process number
+  processInc(fname: string) {
+    console.log('Will load : ', fname);
+    ++this.processLength;
+    this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
+  }
+  // Decrementing process number
+  processDec(fname: string) {
+    console.log('Did load : ', fname);
+    ++this.processingCount;
+    this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
+  }
+
   index: number = 0;
   constructor(private storage: LocalStorage, private selfRef: ElementRef, private medias: MediasBufferService) {
     // Parameters may change from other views, will need to reload on each on show to keep config ok
@@ -73,9 +92,15 @@ export class ClientFilesLoaderComponent implements OnInit {
     autoProcessQueue: false, // We will no upload to server, only local processings for V1.0.0
     autoQueue: false,
     addRemoveLinks: true,
-    thumbnailWidth: 600,
-    thumbnailHeight: 400,
-    clickable: false
+    thumbnailWidth: this.config.thumbW,
+    thumbnailHeight: this.config.thumbH,
+    clickable: false,
+    thumbnailMethod: 'contain',
+    acceptedFiles: 'image/*,.csv',
+    // transformFile: (f:any, done:any) => {
+    //   console.log("On transform", f.fullPath);
+    //   done(f); // https://www.dropzonejs.com/#config-transformFile
+    // },
     // TODO : can't set a preview container this way :
     // => only available after ngAfterViewInit, not at constructor time...
     // Hacked via CSS for now....
@@ -89,7 +114,27 @@ export class ClientFilesLoaderComponent implements OnInit {
     //   console.log(f.fullPath); // f.dataUrl may not be available yet
     //   isValidTrigger();
     // },
+
+    accept: (f: any, isValidTrigger: any) => {
+      // console.log("On accept", f);
+      this.processInc(f.fullPath);
+      if (new RegExp(this.config.regExGitLogFile, 'i').exec(f.fullPath)) {
+        this.processGitLogFile(f);
+      } else if (f.type.match(/image\/.*/i)) {
+        // Pictures file pre-processing before thumbnail loading...
+      } else {
+        // console.log("Ignoring file : ", f.fullPath);
+        this.processDec(f.fullPath);
+        return;
+      }
+      isValidTrigger();
+    }
   };
+
+  processGitLogFile(f: any) {
+    // console.log('TODO : process git log file : ', f);
+    this.processDec(f.fullPath);
+  }
 
   onImageThumbnail(args: any) {
     // https://www.dropzonejs.com/#dropzone-methods
@@ -97,6 +142,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     let f = args[0];
     let dataUrl = args[1];
     let config = this.config;
+    // console.log('On thumbnail', f.fullPath);
     // console.log('MoonManager will process : ', f.fullPath);
     let t = new Timing();
 
@@ -158,12 +204,21 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.isHidden = false;
 
     this.onTimingFetch.emit(t);
+    this.processDec(f.fullPath);
   }
 
   onImageUploadError(e: any) {
-    console.log(e);
+    console.log('Upload error', e);
   }
   onImageUploadSuccess(e: any) {
-    console.log(e);
+    console.log('Upload success : ', e);
+  }
+
+  onAddedfile(e: any) {
+    console.log('Added sucess : ', e);
+  }
+
+  onProcessingfile(e: any) {
+    console.log('Processing success : ', e);
   }
 }

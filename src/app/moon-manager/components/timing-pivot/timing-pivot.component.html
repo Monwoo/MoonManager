@@ -1,11 +1,16 @@
 <!-- form (submit)="reCompute()" -->
 <div>
   <p>
-    <strong>{{ summaryTitle }}</strong>
+    <strong>{{ config.summaryTitle }}</strong>
   </p>
   <div>
-    <div><strong>Nombre de jours facturés :</strong> {{ billedDays }} jours ({{ paidDays }} jours payés)</div>
-    <div><strong>Nombre de jours compensés :</strong> {{ compensatedDays }} jours ({{ receivedDays }} jours reçus)</div>
+    <div>
+      <strong>Nombre de jours facturés :</strong> {{ config.billedDays }} jours ({{ config.paidDays }} jours payés)
+    </div>
+    <div>
+      <strong>Nombre de jours compensés :</strong> {{ config.compensatedDays }} jours ({{ config.receivedDays }} jours
+      reçus)
+    </div>
     <div>
       <strong>Deltas horaire de segmentation :</strong>
       <span *ngFor="let idx of (HrSegmentBySource | keyvalue); let i = index">
@@ -40,7 +45,9 @@
   <button class="no-print" mat-button (click)="downloadTimingsVideo()">Exporter la Vidéo</button>
   <mat-progress-bar mode="determinate" [value]="videoLoadPercent"></mat-progress-bar>
 
-  <div class="video-renderer no-print"><canvas #videoCanvas class="video-canvas"></canvas></div>
+  <div class="video-renderer no-print">
+    <canvas #videoCanvas [class]="'video-canvas' + (lowRes ? ' low-res' : '')"></canvas>
+  </div>
 
   <p *ngFor="let skillsIdx of (skillsRef | keyvalue)">
     <!-- [{{skillsIdx.key}}] : {{skillsIdx.value}} -->
@@ -68,11 +75,13 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowNode let-treeData="rowData">
-        <!-- tr [ngStyle]="{'font-weight': treeData.TreeIdx < agregationsFields.length - 1 ? 'bold' : ''}" -->
+        <!-- tr [ngStyle]="{'font-weight': treeData.TreeIdx < config.agregationsFields.length - 1 ? 'bold' : ''}" -->
         <tr
-          [ngClass]="treeData.TreeIdx < agregationsFields.length - 1 ? ['summary-row', 'lvl-' + treeData.TreeIdx] : []"
+          [ngClass]="
+            treeData.TreeIdx < config.agregationsFields.length - 1 ? ['summary-row', 'lvl-' + treeData.TreeIdx] : []
+          "
         >
-          <td [ngStyle]="{ 'min-width.px': 300 }">
+          <td [ngStyle]="{ 'min-width.px': 150 }">
             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
             {{ treeData.Title }}
           </td>

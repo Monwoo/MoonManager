@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { set as setProperty } from 'lodash-es';
 import { get as getProperty } from 'lodash-es';
 import { has as hasProperty } from 'lodash-es';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 import { Timing } from '../../api/data-model/timing';
 import { MediasBufferService } from '../../services/medias-buffer.service';
@@ -21,6 +22,16 @@ declare var CCapture: any;
   styleUrls: ['./timing-pivot.component.scss']
 })
 export class TimingPivotComponent implements OnInit {
+  @Input() config?: any = {
+    paramTitle: 'Pivot temporel', // TODO translations
+    agregationsFields: ['Author', 'Project', 'SubProject', 'Objectif', 'Date', 'Time'],
+    billedDays: 0,
+    paidDays: 0,
+    compensatedDays: 0,
+    receivedDays: 0,
+    summaryTitle: "Compte rendu d'activité de M. Miguel Monwoo",
+    lowRes: false
+  };
   @Input() dataSrc: BehaviorSubject<Timing[]>;
 
   @Output() isFocused: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -33,19 +44,7 @@ export class TimingPivotComponent implements OnInit {
   public filteredDatasAsync: BehaviorSubject<Timing[]> = new BehaviorSubject<Timing[]>([]);
   public timingsTrees: TreeNode[] = [];
 
-  public agregationsFields = ['Author', 'Project', 'SubProject', 'Objectif', 'Date', 'Time'];
   public allObjectifs: Set<string> = new Set();
-
-  // TODO : improve by using array of all selected column and re-order all below
-  // ? or maybe enough to simply reorder agregationsFields ?
-  public selectedAgregation = 'Author';
-
-  public billedDays = 8; // TODO : from params or config & editable user form
-  public paidDays = 8;
-  public compensatedDays = 2.25;
-  public receivedDays = 2.25;
-  public summaryTitle = "Compte rendu d'activité de M. Miguel Monwoo";
-  public printableDetails = false;
 
   // TODO: normalizedUsedSegmentsMaxTjm => do not avoid change of TJM if more
   // valuable TJM is reached on same segment already used...
@@ -162,8 +161,32 @@ export class TimingPivotComponent implements OnInit {
   // to get useful Workload informations
   rowGroupMetadata: any;
 
-  constructor(private currencyPipe: CurrencyPipe, private medias: MediasBufferService) {
+  constructor(
+    private currencyPipe: CurrencyPipe,
+    private medias: MediasBufferService,
+    private storage: LocalStorage,
+    private selfRef: ElementRef
+  ) {
     this._originalTimeout = window.setTimeout;
+
+    let selector = this.selfRef.nativeElement.tagName.toLowerCase();
+    this.storage.getItem<any>('config', {}).subscribe(
+      (globalConfig: any) => {
+        // Called if data is valid or null
+        if (!globalConfig) globalConfig = {};
+        if (typeof globalConfig[selector] === 'undefined') {
+          globalConfig[selector] = this.config;
+        } else {
+          globalConfig[selector] = { ...this.config, ...globalConfig[selector] };
+          this.config = globalConfig[selector];
+        }
+        console.log('Fetching config : ', this.config);
+        this.storage.setItem('config', globalConfig).subscribe(() => {});
+      },
+      error => {
+        console.error('Fail to fetch config');
+      }
+    );
   }
   ngOnInit() {}
 
@@ -218,11 +241,11 @@ export class TimingPivotComponent implements OnInit {
       }
       setProperty(this.normalizedUsedSegments, segmentUsePath, segmentMaxTJM);
 
-      let linearSegmentUsePath = this.agregationsFields
+      let linearSegmentUsePath = this.config.agregationsFields
         .slice(0, -1)
-        .map(f => t[f])
+        .map((f: string) => t[f])
         .concat([formatedDate, segmentIndex]);
-      let linearUsed = getProperty(this.linearUsedSegments, linearSegmentUsePath);
+      let linearUsed: boolean = getProperty(this.linearUsedSegments, linearSegmentUsePath);
       if (!linearUsed) {
         LinearWorkloadAmount += this.normalizedSegmentFactor;
         linearUsed = true;
@@ -237,7 +260,7 @@ export class TimingPivotComponent implements OnInit {
     this.videoCtx = (<HTMLCanvasElement>this.videoCanvas.nativeElement).getContext('2d'); // TODO : BONUS add Unity to render in gameCtx => '3D'
     this.dataSrc.subscribe((timings: Timing[]) => {
       // timings.sort((t1, t2) => { // TODO : inject and sort global timings table => auto load past data when going done...
-      //   return this.agregationsFields.reduce((acc, field) => {
+      //   return this.config.agregationsFields.reduce((acc, field) => {
       //     return acc || (typeof t1[field] === 'string' || t1[field] instanceof String
       //       ? t1[field].localeCompare(t2[field])
       //       : t1[field] - t2[field]
@@ -246,7 +269,7 @@ export class TimingPivotComponent implements OnInit {
       // });
       // this.zone.run(() => {
       (() => {
-        console.log(timings);
+        // console.log(timings);
         this.filteredDatas = this.filteredDatas.concat(
           timings.reduce((acc, t) => {
             // TODO : DATA Transformers designs ...
@@ -291,8 +314,8 @@ export class TimingPivotComponent implements OnInit {
             this.workloadTotal += t.WorkloadAmount;
             this.workloadByBillableDayTotal += t.WorkloadAmount / t.TJMWorkloadByDay;
             this.billingTotal += t.Price;
-            this.daysMargin = this.paidDays + this.receivedDays - this.workloadByBillableDayTotal;
-            this.daysForseen = this.billedDays + this.compensatedDays;
+            this.daysMargin = this.config.paidDays + this.config.receivedDays - this.workloadByBillableDayTotal;
+            this.daysForseen = this.config.billedDays + this.config.compensatedDays;
 
             this.insertInTimingsTrees(t);
             this.allObjectifs.add(t.Objectif);
@@ -303,7 +326,7 @@ export class TimingPivotComponent implements OnInit {
         );
 
         this.filteredDatasAsync.next(this.filteredDatas.slice().reverse());
-        console.log('Filtered data : ', this.filteredDatas);
+        // console.log('Filtered data : ', this.filteredDatas);
 
         this.timingsByDayAsync.next(this.timingsByDay);
 
@@ -349,8 +372,8 @@ export class TimingPivotComponent implements OnInit {
         //   },
         // ];
 
-        console.log('timingsTrees', this.timingsTrees);
-        console.log('AgregationsLookup', this.agregationsLookup);
+        // console.log('timingsTrees', this.timingsTrees);
+        // console.log('AgregationsLookup', this.agregationsLookup);
       })(); // });
     });
   }
@@ -360,7 +383,7 @@ export class TimingPivotComponent implements OnInit {
   insertInTimingsTrees(t: Timing) {
     let agregationPath = '';
     let fieldPath = '';
-    this.agregationsFields.forEach((field, idx) => {
+    this.config.agregationsFields.forEach((field: string, idx: number) => {
       // TODO : let reduce = sum done via agregaor functions linked to argeged fields
       let title = t[field];
       fieldPath += `${field}<${title}>`;
@@ -473,7 +496,7 @@ export class TimingPivotComponent implements OnInit {
         TJM: this.currencyPipe.transform(t.TJM, 'EUR'),
         Price: t.Price
       };
-      if (idx !== this.agregationsFields.length - 1) {
+      if (idx !== this.config.agregationsFields.length - 1) {
         // Compute sum & agregation of sub-totals rows :
         // TODO : replace with better design patter : loop over lookup.computingsByField and
         // use same systeme as SF CVVideo patern ways as for forms keys bindings... : (OutputTransformers)
@@ -494,7 +517,7 @@ export class TimingPivotComponent implements OnInit {
           .join(', ');
         treeData.Price = lookup.computingsByField['Price'];
 
-        if (idx < this.agregationsFields.length - 3) {
+        if (idx < this.config.agregationsFields.length - 3) {
           setProperty(this.timingsTrees, path + '.expanded', true);
         }
       } else {
@@ -794,7 +817,8 @@ export class TimingPivotComponent implements OnInit {
 
     let finalizeFrame = (framePos: number, nbFrames: number) => {
       //check if its ready
-      self.videoLoadPercent = Math.floor((100 * framePos) / nbFrames);
+      // self.videoLoadPercent = Math.floor((100 * framePos) / nbFrames);
+      self.videoLoadPercent = (100 * framePos) / nbFrames;
       console.log('Pivot Finalise Frames :', framePos, nbFrames);
       if (framePos == nbFrames) {
         capturer.stop();
@@ -825,4 +849,8 @@ export class TimingPivotComponent implements OnInit {
     // TODO : data store ?
     t.isHidden = false;
   }
+  // toggleResolutions() {
+  //   this.config.lowRes = !this.config.lowRes;
+  //   save config
+  // }
 }

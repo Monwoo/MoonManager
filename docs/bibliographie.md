@@ -70,6 +70,8 @@ Dev stuffs :
 - https://material.angularjs.org/latest/layout/options
 - https://github.com/angular/flex-layout
 - https://material.angularjs.org/latest/layout/alignment
+- https://makitweb.com/how-to-change-thumbnail-for-non-image-file-in-dropzone/
+- https://getbootstrap.com/docs/4.1/utilities/flex/
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:

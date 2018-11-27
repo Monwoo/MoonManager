@@ -41,7 +41,7 @@ import { NgLetDirective } from './directives/ng-let.directive';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // maxFilesize: 50000,
-  // acceptedFiles: 'image/*'
+  acceptedFiles: null
 };
 
 @NgModule({

@@ -49,7 +49,7 @@ export class TimelineYearlyPlanComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.timingsByDayAsync.subscribe(timingsByDay => {
-      console.log('Yearly plan timings : ', timingsByDay);
+      // console.log('Yearly plan timings : ', timingsByDay);
       this.onTimginsByDayDidChange(timingsByDay);
     });
   }
@@ -100,7 +100,7 @@ export class TimelineYearlyPlanComponent implements OnInit {
         }
       });
     });
-    console.log('Having Maps : ', this.sortedMonths.entries(), this.eventsByMonths.entries());
+    // console.log('Having Maps : ', this.sortedMonths.entries(), this.eventsByMonths.entries());
     this.sortedMonthsKeys = Array.from(this.sortedMonths.keys())
       .sort()
       .reverse();

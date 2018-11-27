@@ -46,6 +46,13 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   saveAction(e: any) {
     let changes = this.paramsForm.form.value;
     console.log('Saving changes : ', changes);
+
+    // TODO : better deep objects mappings : reactive forms ?
+    // Quick hack for V1 pré-prod below :
+    let agFields = changes['moon-manager-timing-pivot'].agregationsFields;
+    agFields = typeof agFields === 'string' ? agFields.split(',') : agFields;
+    changes['moon-manager-timing-pivot'].agregationsFields = agFields;
+
     this.storage.setItem('config', changes).subscribe(() => {
       this.notif.success('Changements enregistré'); // TODO : tanslations
     });

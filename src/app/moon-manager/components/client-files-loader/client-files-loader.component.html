@@ -5,7 +5,10 @@
   (error)="onImageUploadError($event)"
   (success)="onImageUploadSuccess($event)"
   (thumbnail)="onImageThumbnail($event)"
+  (addedfile)="onAddedFile($event)"
+  (processing)="onProcessingFile($event)"
 ></dropzone>
+<span class="files-count" *ngIf="processingCount != processLength">{{ processingCount }}/{{ processLength }}</span>
 <mat-progress-bar mode="determinate" [value]="filesLoadPercent"></mat-progress-bar>
 <!-- TODO : need stop btn to be able to stop huge loads -->
 <!-- TODO : need progress barre to know when loading has end -->
