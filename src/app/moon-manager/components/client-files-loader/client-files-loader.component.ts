@@ -162,7 +162,7 @@ export class ClientFilesLoaderComponent implements OnInit {
         return dateStr ? true : false;
       }
     );
-    let date = moment(dateStr, ''); // TODO : regex extract from path
+    let date = dateStr ? moment(dateStr, '') : moment(); // TODO : regex extract from path
     let title = f.fullPath;
     let segmentDelta = this.config.timingSegmentDelta;
     let segmentOverride = Math.floor((date.hour() + date.minute() / 60) / segmentDelta);

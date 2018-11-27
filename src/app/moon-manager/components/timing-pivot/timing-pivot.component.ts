@@ -50,18 +50,31 @@ export class TimingPivotComponent implements OnInit {
   // valuable TJM is reached on same segment already used...
   public normalizedUsedSegments = {};
   public linearUsedSegments = {};
+  public timingsByDay = {};
+  public timingsByDayAsync: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
   // Minimum diviseur commun de tous les SegmentsDeltas ?
   // TODO : should be computed from dataset (Min diviseur commun), and configurable by end user form... :
   // Our dataset only handle 1hr for git log and 0.2hr for capture. 0.2 divid all of those => ok for now...
-  public normalizedSegmentFactor = 0.2;
-  public timingsByDay = {};
-  public timingsByDayAsync: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
+  public normalizedSegmentFactor = 0.2; // TODO : from param or auto-algo ? fixed for now
   public workloadTotal = 0;
   public workloadByBillableDayTotal = 0;
   public billingTotal = 0;
   public daysMargin = 0;
   public daysForseen = 0;
 
+  resetDataset() {
+    this.filteredDatas = [];
+    this.timingsTrees = [];
+    this.allObjectifs.clear();
+    this.normalizedUsedSegments = {};
+    this.linearUsedSegments = {};
+    this.timingsByDay = {};
+    this.workloadTotal = 0;
+    this.workloadByBillableDayTotal = 0;
+    this.billingTotal = 0;
+    this.daysMargin = 0;
+    this.daysForseen = 0;
+  }
   //  setTimeout is overwritten by
   // https://github.com/spite/ccapture.js/blob/master/src/CCapture.js
   // so need to keep original version for our custom delays, or use IMPORT from ??
@@ -270,6 +283,8 @@ export class TimingPivotComponent implements OnInit {
       // this.zone.run(() => {
       (() => {
         // console.log(timings);
+        // TODO : better incrementive algo for optim ? or over optim that will cost somwher else ?
+        this.resetDataset();
         this.filteredDatas = this.filteredDatas.concat(
           timings.reduce((acc, t) => {
             // TODO : DATA Transformers designs ...

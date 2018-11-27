@@ -56,4 +56,15 @@ a {
   .no-print * {
     display: none !important;
   }
+
+  // https://stackoverflow.com/questions/28757370/scale-html-table-before-printing-using-css
+  // https://css-tricks.com/almanac/properties/z/zoom/
+  body {
+    // transform: scale(1.57);
+    zoom: 0.57;
+  }
+  table,
+  img {
+    page-break-inside: avoid;
+  }
 }

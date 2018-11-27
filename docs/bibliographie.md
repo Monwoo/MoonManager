@@ -77,6 +77,8 @@ Dev stuffs :
 - https://quilljs.com/playground/
 - https://github.com/primefaces/primeflex
 - https://www.primefaces.org/primeng/#/flexgrid
+- https://stackoverflow.com/questions/28757370/scale-html-table-before-printing-using-css
+- https://css-tricks.com/almanac/properties/z/zoom/
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:

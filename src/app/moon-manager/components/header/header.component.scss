@@ -1,10 +1,16 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 
 header {
-  // padding: 7px;
+  padding: 7px;
   background: rgb(162, 171, 219);
   a {
     color: white;
+    text-decoration: none;
+
+    :hover {
+      text-decoration: none;
+      color: lightgrey;
+    }
   }
 
   .logo {

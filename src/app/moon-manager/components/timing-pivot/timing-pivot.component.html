@@ -43,7 +43,7 @@
   </div>
 
   <button class="no-print" mat-button (click)="downloadTimingsVideo()">Exporter la Vidéo</button>
-  <mat-progress-bar mode="determinate" [value]="videoLoadPercent"></mat-progress-bar>
+  <mat-progress-bar class="no-print" mode="determinate" [value]="videoLoadPercent"></mat-progress-bar>
 
   <div class="video-renderer no-print">
     <canvas #videoCanvas [class]="'video-canvas' + (config.lowRes ? ' low-res' : '')"></canvas>
