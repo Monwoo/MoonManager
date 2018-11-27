@@ -72,6 +72,11 @@ Dev stuffs :
 - https://material.angularjs.org/latest/layout/alignment
 - https://makitweb.com/how-to-change-thumbnail-for-non-image-file-in-dropzone/
 - https://getbootstrap.com/docs/4.1/utilities/flex/
+- https://killercodemonkey.github.io/ngx-quill-example/
+- https://github.com/KillerCodeMonkey/ngx-quill
+- https://quilljs.com/playground/
+- https://github.com/primefaces/primeflex
+- https://www.primefaces.org/primeng/#/flexgrid
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
@@ -89,6 +94,7 @@ yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications lodash-es @types/lodash-es
+yarn add ngx-quill primeflex
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 

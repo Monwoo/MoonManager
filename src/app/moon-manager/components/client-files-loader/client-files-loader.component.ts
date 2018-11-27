@@ -214,11 +214,11 @@ export class ClientFilesLoaderComponent implements OnInit {
     console.log('Upload success : ', e);
   }
 
-  onAddedfile(e: any) {
+  onAddedFile(e: any) {
     console.log('Added sucess : ', e);
   }
 
-  onProcessingfile(e: any) {
+  onProcessingFile(e: any) {
     console.log('Processing success : ', e);
   }
 }

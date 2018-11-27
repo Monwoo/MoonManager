@@ -5275,6 +5275,12 @@ ngx-dropzone-wrapper@^7.1.0:
   dependencies:
     dropzone "^5.5.0"
 
+ngx-quill@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/ngx-quill/-/ngx-quill-4.3.0.tgz#41db4c6fa2d38dc422458270d105f3eded4aaaf7"
+  dependencies:
+    tslib "^1.9.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
@@ -6130,6 +6136,10 @@ pretty-quick@^1.6.0:
     find-up "^2.1.0"
     ignore "^3.3.7"
     mri "^1.1.0"
+
+primeflex@^1.0.0-rc.1:
+  version "1.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/primeflex/-/primeflex-1.0.0-rc.1.tgz#8f3555522238870500baa8587e360095261fff5f"
 
 primeicons@^1.0.0:
   version "1.0.0"

@@ -29,7 +29,14 @@
               "src/manifest.json",
               "src/assets"
             ],
-            "styles": ["node_modules/angular-calendar/css/angular-calendar.css", "src/main.scss"],
+            "styles": [
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/angular-calendar/css/angular-calendar.css",
+              "src/main.scss"
+            ],
             "scripts": [
               "./node_modules/hammerjs/hammer.min.js",
               "./node_modules/moment/moment.js",

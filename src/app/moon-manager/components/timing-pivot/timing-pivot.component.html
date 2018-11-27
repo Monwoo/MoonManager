@@ -46,7 +46,7 @@
   <mat-progress-bar mode="determinate" [value]="videoLoadPercent"></mat-progress-bar>
 
   <div class="video-renderer no-print">
-    <canvas #videoCanvas [class]="'video-canvas' + (lowRes ? ' low-res' : '')"></canvas>
+    <canvas #videoCanvas [class]="'video-canvas' + (config.lowRes ? ' low-res' : '')"></canvas>
   </div>
 
   <p *ngFor="let skillsIdx of (skillsRef | keyvalue)">
