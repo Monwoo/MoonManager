@@ -160,6 +160,8 @@ Design stuffs :
 - https://tacticalinvestor.com/ultimate-futures-timing-indicator/
 - https://www.google.fr/search?q=timing+indicator&source=lnms&tbm=isch&sa=X
 
+bon, voilà, en mode bitMap là, à placer des points sur la carte. Va falloir passer en mode SVG (So Vastly Good) [by Miguel]
+
 ---
 
 Pushing to this repo :
