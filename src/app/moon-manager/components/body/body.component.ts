@@ -17,7 +17,7 @@ export class BodyComponent implements OnInit {
   ngOnInit() {}
 
   didFetchTiming(t: any) {
-    console.log('Did fetch : ', t);
+    // console.log('Did fetch : ', t);
     this.filteredDatas.push(t);
     this.filteredDatasAsync.next(this.filteredDatas.slice());
   }

@@ -52,6 +52,8 @@ export class TimingPivotComponent implements OnInit {
   public linearUsedSegments = {};
   public timingsByDay = {};
   public timingsByDayAsync: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
+  private agregationsLookup = {};
+
   // Minimum diviseur commun de tous les SegmentsDeltas ?
   // TODO : should be computed from dataset (Min diviseur commun), and configurable by end user form... :
   // Our dataset only handle 1hr for git log and 0.2hr for capture. 0.2 divid all of those => ok for now...
@@ -69,6 +71,7 @@ export class TimingPivotComponent implements OnInit {
     this.normalizedUsedSegments = {};
     this.linearUsedSegments = {};
     this.timingsByDay = {};
+    this.agregationsLookup = {};
     this.workloadTotal = 0;
     this.workloadByBillableDayTotal = 0;
     this.billingTotal = 0;
@@ -170,9 +173,6 @@ export class TimingPivotComponent implements OnInit {
   };
 
   @ViewChild('pivot_grid') pivot: ElementRef;
-  // TODO : Quick version, doing computation based on spreadsheet Timing Extractor
-  // to get useful Workload informations
-  rowGroupMetadata: any;
 
   constructor(
     private currencyPipe: CurrencyPipe,
@@ -271,7 +271,15 @@ export class TimingPivotComponent implements OnInit {
 
   ngAfterViewInit() {
     this.videoCtx = (<HTMLCanvasElement>this.videoCanvas.nativeElement).getContext('2d'); // TODO : BONUS add Unity to render in gameCtx => '3D'
+    let canvas: HTMLCanvasElement = <HTMLCanvasElement>this.videoCanvas.nativeElement;
+    canvas.width = canvas.clientWidth; // Resize computed canvas size to browser client size
+    canvas.height = canvas.clientHeight;
+
     this.dataSrc.subscribe((timings: Timing[]) => {
+      timings.sort((t1, t2) => {
+        // TODO : inject and sort global timings table => auto load past data when going done...
+        return -(t1.DateTime.getTime() - t2.DateTime.getTime());
+      });
       // timings.sort((t1, t2) => { // TODO : inject and sort global timings table => auto load past data when going done...
       //   return this.config.agregationsFields.reduce((acc, field) => {
       //     return acc || (typeof t1[field] === 'string' || t1[field] instanceof String
@@ -392,8 +400,6 @@ export class TimingPivotComponent implements OnInit {
       })(); // });
     });
   }
-
-  private agregationsLookup = {};
 
   insertInTimingsTrees(t: Timing) {
     let agregationPath = '';
@@ -553,7 +559,7 @@ export class TimingPivotComponent implements OnInit {
   exportsTimingsToVideoAsWebM() {
     // CF source code of :
     // http://techslides.com/demos/image-video/create.html
-    let self = this;
+    let self: TimingPivotComponent = this;
     let computeDelayMs = 42; // 1/24*1000 = 41.66
     // => will add 1 frame at chosen FPS speed to capture...
     let stackDelayFrame = 0; // will wait for compute : stackDelayFrame * computeDelayMs
@@ -569,7 +575,9 @@ export class TimingPivotComponent implements OnInit {
     var capturer = new CCapture({
       framerate: 24, // stackDelayFrame will wait 1/24 sec for vid output
       verbose: false,
-      format: 'webm'
+      format: 'webm',
+      display: true,
+      quality: 99
     });
     capturer.start();
 
@@ -609,15 +617,14 @@ export class TimingPivotComponent implements OnInit {
         context.fillStyle = 'white';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
-        context.font = '10px Arial';
-        context.font = '10px Comic Sans MS';
+        context.font = self.config.lowRes ? '10px Comic Sans MS' : '10px Comic Sans MS';
         context.fillStyle = 'rgb(60,0,108)';
         context.textAlign = 'center';
         context.fillText('© Monwoo', canvas.width / 2, 12);
-        context.font = '9px Arial';
+        context.font = self.config.lowRes ? '9px Arial' : '18px Arial';
         context.textAlign = 'left';
         context.fillText(frame.Comment, 0, 90);
-        context.font = '7px Arial';
+        context.font = self.config.lowRes ? '7px Arial' : '14px Arial';
         context.fillText(
           `${frame.Date} ${frame.Time} - ` + `${frame.SubProject} [${frame.Objectif}]`,
           2,
@@ -636,19 +643,20 @@ export class TimingPivotComponent implements OnInit {
       //load image and drop into canvas
       img.onload = function() {
         let drawInfos = () => {
+          let deltaHeight = self.config.lowRes ? 18 : 35;
+          let fillHeight = self.config.lowRes ? 10 : 20;
           context.globalAlpha = 1;
-          context.font = '10px Arial';
-          context.font = '10px Comic Sans MS';
+          context.font = self.config.lowRes ? '10px Comic Sans MS' : '20px Comic Sans MS';
           context.fillStyle = 'rgb(60,0,108)'; // Primary color
           context.textAlign = 'center';
-          context.fillText('© Monwoo', canvas.width / 2, 12);
+          context.fillText('© Monwoo', canvas.width / 2, fillHeight);
 
           context.fillStyle = 'white';
-          context.fillRect(0, canvas.height - 15, canvas.width, 10);
+          context.fillRect(0, canvas.height - deltaHeight, canvas.width, fillHeight);
 
           context.fillStyle = 'rgb(60,0,108)'; // Primary color
           context.textAlign = 'left';
-          context.font = '8px Arial';
+          context.font = self.config.lowRes ? '8px Arial' : '16px Arial';
           // context.strokeStyle = 'white'; // secondary color
           // context.strokeText(
           //   `${frame.Date} ${frame.Time} - `
@@ -658,7 +666,7 @@ export class TimingPivotComponent implements OnInit {
             // White shadow to allow changing Bg
             `${frame.Date} ${frame.Time} - ` + `${frame.SubProject} [${frame.Objectif}]`,
             2,
-            canvas.height - 7
+            canvas.height - fillHeight
           );
           // context.stroke();
           // context.fill();
@@ -718,7 +726,7 @@ export class TimingPivotComponent implements OnInit {
         drawInfos();
 
         finalizeFrame(frameIndex + 1, frames.length);
-        stackDelayFrame = 24;
+        stackDelayFrame = 4;
       };
       img.src = self.medias.getDataUrlMedia(frame.MediaUrl);
 

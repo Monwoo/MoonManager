@@ -45,13 +45,13 @@ export class ClientFilesLoaderComponent implements OnInit {
 
   // Incrementing process number
   processInc(fname: string) {
-    console.log('Will load : ', fname);
+    // console.log('Will load : ', fname);
     ++this.processLength;
     this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
   }
   // Decrementing process number
   processDec(fname: string) {
-    console.log('Did load : ', fname);
+    // console.log('Did load : ', fname);
     ++this.processingCount;
     this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
   }
