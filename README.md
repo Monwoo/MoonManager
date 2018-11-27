@@ -8,6 +8,8 @@
 Timely funded and founded by Monwoo 2018.
 Financé temporellement et fondé par Monwoo 2018.
 
+Démo : https://monwoo.com/MoonManager/Demo/
+
 #### FR
 
 Nos ancêtres ont fait au mieux en France pour nous apporter les 35 heures avec congés payés.
