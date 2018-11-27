@@ -1,10 +1,10 @@
 # MoonManager
 
-![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/MoonManager-128.png) ![alt text](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/MoonManager-64-secondary.png)
+![alt logo MoonManager](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/MoonManager-128.png) ![alt logo MoonManager Secondary](https://raw.githubusercontent.com/monwoo/MoonManager/master/src/assets/logos/MoonManager-64-secondary.png)
 
 **Easy project management software for human workloads best fits**
 
-![alt text](http://www.monwoo.com/LogoMonwoo-64.png)
+![alt logo Monwoo](http://www.monwoo.com/LogoMonwoo-64.png)
 Timely funded and founded by Monwoo 2018.
 Financé temporellement et fondé par Monwoo 2018.
 
@@ -39,21 +39,7 @@ L'idée est donc de produire en équipe, et là, on as tous envi de jouer comme 
 
 MoonManager essayera de limiter la durée de l'esclavage moderne via 4 codes couleurs dans le thème de base :
 
-```diff
-+ En vert les jours inférieur ou égual à 1 heure
-```
-
-```css
-{ En bleu les jours inférieur ou égual à 5 heures
-```
-
-```js
-' En jaune les jours entre 5 et 7 heures';
-```
-
-```diff
-- En rouge les jours de plus de 7 heures
-```
+![alt Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Vert : 5hr < j < 7hr, Rouge : j >= 7hr](src/assets/TimingsIndicatorStory.png)
 
 Humainement parlant, l'objectif c'est de faire moins de 1hr par jours pour la réussite d'un objectif de charge vendu 1 journée au TJM du marché avec un résultat satisfaisant.
 
@@ -171,6 +157,8 @@ Design stuffs :
 - https://www.wikihow.com/Woo-a-Girl
 - https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/
 - https://fontawesome.com/icons?d=gallery&m=free
+- https://tacticalinvestor.com/ultimate-futures-timing-indicator/
+- https://www.google.fr/search?q=timing+indicator&source=lnms&tbm=isch&sa=X
 
 ---
 
@@ -298,15 +286,19 @@ Please, if you push to my repo, add your crédits below with a short description
 
 ---
 
-**2018/11/26 : (prévisionnel)** Load git logs, Improve design, usability and parameters for timing components
+**2018/11/27 :** Création du visuel TimingsIndicatorStory.png par M. Miguel Monwoo, © Monwoo 2018
 
 ---
 
-**2018/11/26 : (prévisionnel)** Import/export of timings dataset (csv)
+**2018/11/27 : (prévisionnel)** Load git logs, Improve design, usability and parameters for timing components
 
 ---
 
-**2018/11/26 : (prévisionnel)** Import/export of medias dataset (json)
+**2018/11/27 : (prévisionnel)** Import/export of timings dataset (csv)
+
+---
+
+**2018/11/27 : (prévisionnel)** Import/export of medias dataset (json)
 
 ---
 
