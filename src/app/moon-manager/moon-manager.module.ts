@@ -18,6 +18,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatGridListModule } from '@angular/material/grid-list';
+
 import { TreeTableModule } from 'primeng/primeng';
 
 import { MoonManagerRoutingModule } from './moon-manager-routing.module';
@@ -74,6 +76,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MatFormFieldModule,
     MatSelectModule,
     MatProgressBarModule,
+    MatGridListModule,
     ScrollingModule,
     PlatformModule,
     TreeTableModule,

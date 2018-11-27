@@ -36,6 +36,7 @@ export class ClientFilesLoaderComponent implements OnInit {
 
   @ViewChild('dropDetails') dropDetails: ElementRef<HTMLDivElement>; // TODO : fail to use for now
 
+  public filesLoadPercent: number = 0;
   index: number = 0;
   constructor(private storage: LocalStorage, private selfRef: ElementRef, private medias: MediasBufferService) {
     // Parameters may change from other views, will need to reload on each on show to keep config ok

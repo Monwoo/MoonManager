@@ -58,6 +58,18 @@ Dev stuffs :
 - https://dzone.com/articles/angular-components-pass-by-reference-or-pass-by-va
 - https://stackoverflow.com/questions/43520257/angular2-service-testing-inject-a-dependency-with-beforeeach
 - https://stackoverflow.com/questions/27978819/extract-time-from-moment-js-object
+- https://material.io/develop/web/components/layout-grid/
+- https://material-ui.com/layout/grid/
+- https://material.io/design/layout/responsive-layout-grid.html
+- https://material-ui.com/api/grid/
+- https://material.angular.io/components/tabs/overview
+- https://material.angular.io/components/expansion/overview
+- https://material.angular.io/components/card/overview
+- https://material.io/design/components/app-bars-top.html#
+- https://stackoverflow.com/questions/28959615/how-to-set-space-between-two-flexbox
+- https://material.angularjs.org/latest/layout/options
+- https://github.com/angular/flex-layout
+- https://material.angularjs.org/latest/layout/alignment
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:

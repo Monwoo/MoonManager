@@ -44,7 +44,7 @@ export class TimingPivotComponent implements OnInit {
   public paidDays = 8;
   public compensatedDays = 2.25;
   public receivedDays = 2.25;
-  public summaryTitle = "Compte rendu d'activité de M. Miguel Monwoo A.K.A. Mickaël Moreau pour VivaO via C. Mollet";
+  public summaryTitle = "Compte rendu d'activité de M. Miguel Monwoo";
   public printableDetails = false;
 
   // TODO: normalizedUsedSegmentsMaxTjm => do not avoid change of TJM if more
@@ -122,10 +122,10 @@ export class TimingPivotComponent implements OnInit {
     RemoteFeaturesForcast: 700,
     RemoteFullTutorialAndKnowledgeTransfert: 800
   };
-  // public HrSegmentBySource = {
-  //   capture: 0.2,
-  //   'git-log': 1
-  // };
+  public HrSegmentBySource = {
+    capture: 0.2,
+    'git-log': 1
+  };
   public authorReferencial = {
     MiguelMonwoo: 'Miguel Monwoo',
     'Mickael Moreau': 'Miguel Monwoo',

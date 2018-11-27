@@ -1,6 +1,7 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 
 header {
+  padding: 7px;
   background: rgb(162, 171, 219);
   a {
     color: white;
@@ -26,8 +27,16 @@ header {
     }
   }
 
+  .fill-space {
+    // https://material.angular.io/components/toolbar/overview
+    /* This fills the remaining space, by using flexbox. 
+    Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+
   nav {
-    justify-self: right;
+    float: right;
+    line-height: 64px;
 
     ul {
       list-style-type: none;

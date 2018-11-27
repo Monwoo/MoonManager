@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Items imports
 import { MatButtonModule, MatTooltipModule } from '@angular/material';
+import { MatCardModule } from '@angular/material';
 // Local source codes imports
 import { MoonManagerComponent } from './moon-manager.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -19,8 +20,9 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     SimpleNotificationsModule.forRoot(),
     RouterModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule
   ],
-  exports: [MoonManagerComponent, MatButtonModule, MatTooltipModule]
+  exports: [MoonManagerComponent, MatButtonModule, MatTooltipModule, MatCardModule]
 })
 export class MonwooMoonManagerWrapModule {}

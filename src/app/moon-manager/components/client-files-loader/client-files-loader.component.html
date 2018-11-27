@@ -6,6 +6,7 @@
   (success)="onImageUploadSuccess($event)"
   (thumbnail)="onImageThumbnail($event)"
 ></dropzone>
+<mat-progress-bar mode="determinate" [value]="filesLoadPercent"></mat-progress-bar>
 <!-- TODO : need stop btn to be able to stop huge loads -->
 <!-- TODO : need progress barre to know when loading has end -->
 
