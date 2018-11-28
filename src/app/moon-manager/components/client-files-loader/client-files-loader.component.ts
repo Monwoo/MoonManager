@@ -6,6 +6,7 @@ import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild }
 // import moment from 'moment/src/moment';
 import * as moment from 'moment';
 import { LocalStorage } from '@ngx-pwa/local-storage';
+import { Papa } from 'ngx-papaparse';
 
 import { Timing } from '../../api/data-model/timing';
 import { MediasBufferService } from '../../services/medias-buffer.service';
@@ -58,7 +59,12 @@ export class ClientFilesLoaderComponent implements OnInit {
   }
 
   index: number = 0;
-  constructor(private storage: LocalStorage, private selfRef: ElementRef, private medias: MediasBufferService) {
+  constructor(
+    private storage: LocalStorage,
+    private selfRef: ElementRef,
+    private medias: MediasBufferService,
+    private papaParse: Papa
+  ) {
     // Parameters may change from other views, will need to reload on each on show to keep config ok
 
     // TODO : below config will work only if user check components page
@@ -137,8 +143,63 @@ export class ClientFilesLoaderComponent implements OnInit {
   }
 
   processGitLogFile(f: any) {
-    // console.log('TODO : process git log file : ', f);
-    this.processDec(this.getFilePath(f));
+    const file: File = f;
+    const reader: FileReader = new FileReader();
+    reader.onload = e => {
+      const csv: string = <string>reader.result;
+      const parsed = this.papaParse.parse(csv, { header: false });
+      console.log('TODO : process git log datas : ', parsed);
+      // TODO : scheme checking ? what if bad format ?
+
+      parsed.data.forEach((row: string[]) => {
+        let t = new Timing();
+        let date = moment(row[2], ''); // TODO : regex extract from path
+        let segmentDelta = 1; // TODO : curently hard coded, need to be loaded with eventSource
+        let segmentOverride = Math.floor((date.hour() + date.minute() / 60) / segmentDelta);
+
+        t.id = ++this.index;
+        t.DateTime = date.toDate();
+        t.EventSource = 'git-log'; // TODO : configurable from parameters ?
+        t.ExpertiseLevel = row.length > 7 ? row[7] : '';
+        t.Project = row.length > 5 ? row[5] : '';
+        t.SubProject = row.length > 5 ? row[5] : '';
+        t.Objectif = row.length > 6 ? row[6] : '';
+        t.Comment = row[3];
+        t.Title = t.Comment.substring(0, 100);
+        t.MediaUrl = row[0];
+        t.Author = row.length > 4 ? row[4] : '';
+        t.ReviewedComment = '';
+        t.OverrideSequence = '';
+        t.OverrideReduction = '';
+        t.SegmentOverride = segmentOverride;
+        // t.SegmentMin = minDate; TODO : refactor, not really used
+        t.SegmentDeltaHr = segmentDelta;
+        t.SegmentMax = date.toDate();
+        t.Date = date.format('YYYY/MM/DD');
+        t.Time = date.format('HH:mm:ss');
+        t.Month = '';
+        t.Year = '';
+        // Client side computed fields :
+        t.LinearWorkloadAmount = 0;
+        t.WorkloadAmount = 0;
+        t.TJM = 0;
+        t.TJMWorkloadByDay = 0;
+        t.Price = 0;
+        t.isHidden = false;
+
+        this.onTimingFetch.emit(t);
+      });
+      this.processDec(this.getFilePath(f));
+    };
+    reader.onabort = (ev: ProgressEvent) => {
+      console.log('Aborting : ', f);
+      this.processDec(this.getFilePath(f));
+    };
+    reader.onerror = (ev: ProgressEvent) => {
+      console.error('Error for : ', f);
+      this.processDec(this.getFilePath(f));
+    };
+    reader.readAsText(file);
   }
 
   onImageThumbnail(args: any) {
@@ -171,7 +232,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     let title = this.getFilePath(f);
     let segmentDelta = this.config.timingSegmentDelta;
     let segmentOverride = Math.floor((date.hour() + date.minute() / 60) / segmentDelta);
-    let minDate = date.toDate();
+    let minDate = date.toDate(); // TODO : refactor : minDate not realy used...
     let author = new RegExp(this.config.regExAuthor, 'i').exec(this.getFilePath(f));
     let project = new RegExp(this.config.regExProject, 'i').exec(this.getFilePath(f));
     let subProject = new RegExp(this.config.regExSubProject, 'i').exec(this.getFilePath(f));

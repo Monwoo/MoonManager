@@ -5281,6 +5281,13 @@ ngx-dropzone-wrapper@^7.1.0:
   dependencies:
     dropzone "^5.5.0"
 
+ngx-papaparse@3:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-papaparse/-/ngx-papaparse-3.0.0.tgz#d7cf20eb33b7766e7cf2dc95b78ce912f5752028"
+  dependencies:
+    papaparse "~4.4.0"
+    tslib "^1.9.0"
+
 ngx-quill@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/ngx-quill/-/ngx-quill-4.3.0.tgz#41db4c6fa2d38dc422458270d105f3eded4aaaf7"
@@ -5727,6 +5734,10 @@ pac-resolver@^3.0.0:
 pako@~1.0.2, pako@~1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
+
+papaparse@~4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.4.0.tgz#6bcdbda80873e00cfb0bdcd7a4571c72a9a40168"
 
 parallel-transform@^1.1.0:
   version "1.1.0"

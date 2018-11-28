@@ -40,6 +40,7 @@ import { UrlTransformerPipe } from './pipes/url-transformer.pipe';
 import { TimelineYearlyPlanComponent } from './components/timeline-yearly-plan/timeline-yearly-plan.component';
 import { NgLetDirective } from './directives/ng-let.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { PapaParseModule } from 'ngx-papaparse';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // maxFilesize: 50000,
@@ -63,6 +64,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     BrowserAnimationsModule,
     // NoopAnimationsModule,
     MoonManagerRoutingModule,
+    PapaParseModule,
     DropzoneModule,
     CalendarModule.forRoot({
       provide: DateAdapter,

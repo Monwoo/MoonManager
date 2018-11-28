@@ -87,6 +87,11 @@ Dev stuffs :
 - https://medium.com/letsboot/quick-start-with-angular-material-and-flex-layout-1b065aa1476c
 - https://github.com/angular/flex-layout/wiki/fxLayoutAlign-API
 - https://www.primefaces.org/primeng/#/flexgrid
+- https://github.com/TypeCtrl/ngx-csv
+- https://www.npmjs.com/package/angular2-csv
+- https://github.com/javabypatel/Angular2-Read-CSV-File
+- https://www.reddit.com/r/Angular2/comments/8ak2ol/upload_a_csv_file_and_parse_it_with_papaparse/
+- https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/ArrayBuffer
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
@@ -104,7 +109,7 @@ yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications lodash-es @types/lodash-es
-yarn add ngx-quill primeflex @angular/flex-layout
+yarn add ngx-quill primeflex @angular/flex-layout ngx-papaparse@3
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 
