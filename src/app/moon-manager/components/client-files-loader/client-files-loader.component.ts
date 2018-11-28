@@ -46,15 +46,15 @@ export class ClientFilesLoaderComponent implements OnInit {
   public processLength: number = 0;
 
   // Incrementing process number
-  processInc(fname: string) {
+  processInc(fname: string, step = 1) {
     // console.log('Will load : ', fname);
-    ++this.processLength;
+    this.processLength += step;
     this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
   }
   // Decrementing process number
-  processDec(fname: string) {
+  processDec(fname: string, step = 1) {
     // console.log('Did load : ', fname);
-    ++this.processingCount;
+    this.processingCount += step;
     this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
   }
 
@@ -150,7 +150,7 @@ export class ClientFilesLoaderComponent implements OnInit {
       const parsed = this.papaParse.parse(csv, { header: false });
       console.log('TODO : process git log datas : ', parsed);
       // TODO : scheme checking ? what if bad format ?
-
+      this.processInc(null, parsed.data.length);
       parsed.data.forEach((row: string[]) => {
         let t = new Timing();
         let date = moment(row[2], ''); // TODO : regex extract from path
@@ -188,6 +188,7 @@ export class ClientFilesLoaderComponent implements OnInit {
         t.isHidden = false;
 
         this.onTimingFetch.emit(t);
+        this.processDec(this.getFilePath(f));
       });
       this.processDec(this.getFilePath(f));
     };

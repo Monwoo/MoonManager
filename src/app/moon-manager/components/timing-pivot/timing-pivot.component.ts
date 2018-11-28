@@ -610,7 +610,7 @@ export class TimingPivotComponent implements OnInit {
     // CF source code of :
     // http://techslides.com/demos/image-video/create.html
     let self: TimingPivotComponent = this;
-    let computeDelayMs = 42; // 1/24*1000 = 41.66
+    let computeDelayMs = 1; // 42; // 1/24*1000 = 41.66
     // => will add 1 frame at chosen FPS speed to capture...
     let stackDelayFrame = 0; // will wait for compute : stackDelayFrame * computeDelayMs
     let bulkDownloadSize = 2500; // TODO : split video if too long ??? bulk download is halfSolution...
@@ -681,8 +681,21 @@ export class TimingPivotComponent implements OnInit {
           canvas.height - 7
         );
 
+        let dailyWorkload = self.workloadsByAuthorAndDay[frame.Author][frame.Date];
+        // Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr
+        let indicatorSummary =
+          dailyWorkload >= 7 ? 'red' : dailyWorkload > 5 ? 'yellow' : dailyWorkload > 1 ? 'blue' : 'green';
+        let indicatorImg = self.indicatorAssets[indicatorSummary].img;
+        context.drawImage(
+          indicatorImg,
+          canvas.width - 64,
+          64 - indicatorImg.height,
+          indicatorImg.width,
+          indicatorImg.height
+        );
+
         capturer.capture(canvas);
-        stackDelayFrame = 69; // will wait 42 frame, since recording at 24FPS ~ 2 sec ?
+        stackDelayFrame = 7; // 69; // will wait 42 frame, since recording at 24FPS ~ 2 sec ?
 
         finalizeFrame(frameIndex + 1, frames.length);
         return; // Done for non-pictures medias
