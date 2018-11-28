@@ -12,8 +12,9 @@ const proxyConfig = [
   {
     context: '/api',
     pathRewrite: { '^/api': '' },
-    target: 'https://api.chucknorris.io',
-    changeOrigin: true,
+    // target: 'https://api.chucknorris.io',
+    target: '/',
+    // changeOrigin: true,
     secure: false
   }
 ];
@@ -32,7 +33,9 @@ function setupForCorporateProxy(proxyConfig) {
   if (proxyServer) {
     console.log(`Using corporate proxy server: ${proxyServer}`);
     agent = new HttpsProxyAgent(proxyServer);
-    proxyConfig.forEach(entry => { entry.agent = agent; });
+    proxyConfig.forEach(entry => {
+      entry.agent = agent;
+    });
   }
 
   return proxyConfig;

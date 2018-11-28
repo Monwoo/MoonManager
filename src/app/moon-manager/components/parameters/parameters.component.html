@@ -2,6 +2,14 @@
 <button mat-button color="primary" matTooltip="Reset parameters to factory" (click)="resetConfigAction($event)">
   Reset
 </button>
+<p-panel class="story" header="Légende des indicateurs temporels :">
+  <img
+    class=""
+    src="assets/TimingsIndicatorStory.png"
+    alt="Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr"
+  />
+</p-panel>
+
 <form #paramsForm="ngForm">
   <!--
     div><label>Firstname:</label> <input type="text" name="firstName" ngModel /></div>

@@ -2,6 +2,7 @@
 
 import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 import { BehaviorSubject } from 'rxjs';
 import { TreeNode } from 'primeng/primeng';
@@ -51,6 +52,13 @@ export class TimingPivotComponent implements OnInit {
   public normalizedUsedSegments = {};
   public linearUsedSegments = {};
   public timingsByDay = {};
+  public workloadsByAuthorAndDay = {};
+  public indicatorAssets = {
+    green: { url: 'assets/logos/MoonManager-64.png' },
+    blue: { url: 'assets/logos/MoonManager-32.png' },
+    yellow: { url: 'assets/logos/MoonManager-32-secondary.png' },
+    red: { url: 'assets/logos/MoonManager-64-secondary.png' }
+  };
   public timingsByDayAsync: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
   private agregationsLookup = {};
 
@@ -88,7 +96,7 @@ export class TimingPivotComponent implements OnInit {
       title: 'Remote easy dev', // TODO : translation
       idx: 'RED',
       description: `Service de développement sur demande pour des objectifs
-      simples executable en 1 journée au maximum
+      faciles et executable en 1 journée au maximum
       sans nécessité de suivi ni gestion de projet.`, // TODO : translation
       maxBusyHrByDay: 5,
       justificatifs: `5hr max via capture d'écran valant ${0.2}hr et
@@ -178,7 +186,8 @@ export class TimingPivotComponent implements OnInit {
     private currencyPipe: CurrencyPipe,
     private medias: MediasBufferService,
     private storage: LocalStorage,
-    private selfRef: ElementRef
+    private selfRef: ElementRef,
+    private http: HttpClient
   ) {
     this._originalTimeout = window.setTimeout;
 
@@ -201,7 +210,9 @@ export class TimingPivotComponent implements OnInit {
       }
     );
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadIndicatorAssets();
+  }
 
   // async delay(ms: number, resultCallback) {
   //   await new Promise(resolve =>
@@ -267,6 +278,32 @@ export class TimingPivotComponent implements OnInit {
     }
     t.LinearWorkloadAmount = LinearWorkloadAmount;
     t.WorkloadAmount = workloadAmount;
+  }
+
+  loadIndicatorAssets() {
+    Object.keys(this.indicatorAssets).forEach(k => {
+      let asset = this.indicatorAssets[k];
+      var reader = new FileReader();
+      reader.onload = function(event: any) {
+        var dataUri = event.target.result;
+        var img = new Image();
+        img.onload = function() {
+          asset.img = img;
+          console.log('Asset loaded : ', asset.url);
+        };
+        img.src = dataUri;
+      };
+      reader.onerror = function(event: any) {
+        console.error('File could not be read! Code ' + event.target.error.code);
+      };
+      this.http.get(asset.url, { responseType: 'blob' }).subscribe((blob: Blob) => {
+        if (blob) {
+          reader.readAsDataURL(blob); // new File(blob, `frame-${frameIndex}.png`)
+        } else {
+          console.error('Fail to import asset : ', asset.url);
+        }
+      });
+    });
   }
 
   ngAfterViewInit() {
@@ -350,6 +387,20 @@ export class TimingPivotComponent implements OnInit {
 
         this.filteredDatasAsync.next(this.filteredDatas.slice().reverse());
         // console.log('Filtered data : ', this.filteredDatas);
+        this.workloadsByAuthorAndDay = Object.entries(this.timingsByDay).reduce((acc: any, entry: any) => {
+          let day: string = entry[0];
+          entry[1].reduce((acc: any, t: Timing) => {
+            if (!(t.Author in acc)) {
+              acc[t.Author] = {};
+            }
+            if (!(day in acc[t.Author])) {
+              acc[t.Author][day] = 0; // initial value for worload daily summaries
+            }
+            acc[t.Author][day] += t.WorkloadAmount;
+            return acc;
+          }, acc);
+          return acc;
+        }, {});
 
         this.timingsByDayAsync.next(this.timingsByDay);
 
@@ -670,6 +721,19 @@ export class TimingPivotComponent implements OnInit {
           );
           // context.stroke();
           // context.fill();
+
+          let dailyWorkload = self.workloadsByAuthorAndDay[frame.Author][frame.Date];
+          // Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr
+          let indicatorSummary =
+            dailyWorkload >= 7 ? 'red' : dailyWorkload > 5 ? 'yellow' : dailyWorkload > 1 ? 'blue' : 'green';
+          let indicatorImg = self.indicatorAssets[indicatorSummary].img;
+          context.drawImage(
+            indicatorImg,
+            canvas.width - 64,
+            64 - indicatorImg.height,
+            indicatorImg.width,
+            indicatorImg.height
+          );
 
           capturer.capture(canvas);
           //capturer.capture(canvas);

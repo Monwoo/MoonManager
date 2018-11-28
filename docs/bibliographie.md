@@ -79,6 +79,9 @@ Dev stuffs :
 - https://www.primefaces.org/primeng/#/flexgrid
 - https://stackoverflow.com/questions/28757370/scale-html-table-before-printing-using-css
 - https://css-tricks.com/almanac/properties/z/zoom/
+- https://en.wikipedia.org/wiki/Morphism_of_schemes
+- https://www.primefaces.org/showcase/ui/misc/responsive.xhtml (Not angular js, but nice copy/past doc from primeNg ?)
+- https://www.primefaces.org/primeng/#/panel
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:

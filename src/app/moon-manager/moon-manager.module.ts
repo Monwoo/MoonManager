@@ -21,6 +21,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { TreeTableModule } from 'primeng/primeng';
+import { PanelModule } from 'primeng/primeng';
 
 import { MoonManagerRoutingModule } from './moon-manager-routing.module';
 import { BodyComponent } from './components/body/body.component';
@@ -80,6 +81,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     ScrollingModule,
     PlatformModule,
     TreeTableModule,
+    PanelModule,
     MonwooMoonManagerWrapModule
   ],
   exports: [NgLetDirective],

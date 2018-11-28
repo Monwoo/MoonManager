@@ -39,7 +39,7 @@ L'idée est donc de produire en équipe, et là, on as tous envi de jouer comme 
 
 MoonManager essayera de limiter la durée de l'esclavage moderne via 4 codes couleurs dans le thème de base :
 
-![alt Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Vert : 5hr < j < 7hr, Rouge : j >= 7hr](src/assets/TimingsIndicatorStory.png)
+![alt Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr](src/assets/TimingsIndicatorStory.png)
 
 Humainement parlant, l'objectif c'est de faire moins de 1hr par jours pour la réussite d'un objectif de charge vendu 1 journée au TJM du marché avec un résultat satisfaisant.
 
@@ -112,17 +112,45 @@ zip -r "MoonManager-Prod.zip" dist
 ```bash
 # extract you git data for times report upload :
 git log --all --date=iso --pretty=format:'"%h","%an","%ad","%s"' > git_logs.csv
+<<COMMENT
+To overwrite defaults computing on base scheme,
+you can extend previouly generated model of those 4 optionnals columns :
+"<author>","<project>","<subproject>","<objectif>","<skillId>"
+COMMENT
+
 
 # extract you captures data for times report upload :
 <<COMMENT
 No Need to extract captures via command lines.
 For version 1, MoonManager will load your picture folder under last Google Chrome Webbrowser.
-You just need to ensure directory architecture following this pattern :
-
-<author>/<project>/<subproject>/<objectif>/<captureRegex>
-
 => you can use command lines to do so, but simple Operting System finder tool
 may be easyer to quickly look at the capture and move it to the right location...
+
+You just need to ensure directory architecture following this pattern :
+<author>/<project>/<subproject>/<objectif>/<skillId>/<captureRegex>
+
+All thoses are optionnal, and will default to empty strings if not provided,
+except for skillId that will default to : 'RemoteEasyDev'
+
+Build for service@monwoo.com,
+HT basis, is currently available at same rate than TTC basis.
+Indeed, due to financials issues and art. 22 of financial French law for 2018,
+basic theme available skills could be described as :
+- RemoteEasyDev (TJM 400€/5hr) : Service de développement sur demande pour des objectifs :
+  - faciles et executable en 1 journée au maximum.
+  - sans nécessité de suivi ni gestion de projet.
+- RemoteProjectManagement (TJM 500€/5hr) : Service de gestion de projet.
+- RemoteReverseEngineering (TJM 600€/5hr) : Service d'analyse logiciel.
+- RemoteFeaturesForcast (TJM 700€/5hr) : Service de veille technique et prévisionnelle
+- RemoteFullTutorialAndKnowledgeTransfert (TJM 800€/5hr) :
+  - Service d'analyse de connaissances
+  - Service transfert de connaissances
+  - Service de formation
+
+Pour faire simple facilement :
+- apprenez à vous connaitre pour faciliter vos objectifs
+- appréhendez et accompagnez le context pour atteindre au mieux un résultat simple
+
 COMMENT
 
 ```
