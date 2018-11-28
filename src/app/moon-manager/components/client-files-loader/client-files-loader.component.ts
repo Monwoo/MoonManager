@@ -32,7 +32,8 @@ export class ClientFilesLoaderComponent implements OnInit {
     regExAuthor: '^[^/]+/([^/]+)/',
     regExProject: '^[^/]+/[^/]+/([^/]+)/',
     regExSubProject: '^[^/]+/[^/]+/[^/]+/([^/]+)/',
-    regExObjectif: '^[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/'
+    regExObjectif: '^[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/',
+    regExSkillsId: '^[^/]+/[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/'
   };
 
   @Output() onTimingFetch: EventEmitter<Timing> = new EventEmitter<Timing>();
@@ -175,6 +176,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     let project = new RegExp(this.config.regExProject, 'i').exec(this.getFilePath(f));
     let subProject = new RegExp(this.config.regExSubProject, 'i').exec(this.getFilePath(f));
     let objectif = new RegExp(this.config.regExObjectif, 'i').exec(this.getFilePath(f));
+    let skillsId = new RegExp(this.config.regExSkillsId, 'i').exec(this.getFilePath(f));
 
     t.id = ++this.index;
     t.DateTime = date.toDate();
@@ -198,7 +200,8 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.Time = date.format('HH:mm:ss');
     t.Month = '';
     t.Year = '';
-    t.SkillsId = '';
+    // t.SkillsId = // TODO : refactor model to Skills
+    t.ExpertiseLevel = skillsId ? skillsId[1] : '';
     // Client side computed fields :
     t.LinearWorkloadAmount = 0;
     t.WorkloadAmount = 0;
