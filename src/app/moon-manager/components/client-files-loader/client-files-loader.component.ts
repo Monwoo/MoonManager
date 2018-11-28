@@ -19,7 +19,7 @@ export class ClientFilesLoaderComponent implements OnInit {
   @Input() config?: any = {
     paramTitle: 'Chargement des captures', // TODO translations
     timingEventType: 'capture',
-    timingAuthor: 'MiguelMonwoo',
+    timingAuthor: 'John Doe',
     timingSegmentDelta: 0.2,
     // TODO : improve Parameters up to deep properties lookup with auto-gen forms for edit
     // then transform below captureRegex to flexible array....
@@ -98,7 +98,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     thumbnailMethod: 'contain',
     acceptedFiles: 'image/*,.csv',
     // transformFile: (f:any, done:any) => {
-    //   console.log("On transform", f.fullPath);
+    //   console.log("On transform", this.getFilePath(f));
     //   done(f); // https://www.dropzonejs.com/#config-transformFile
     // },
     // TODO : can't set a preview container this way :
@@ -111,29 +111,33 @@ export class ClientFilesLoaderComponent implements OnInit {
     // accept: (f:any, isValidTrigger:any) => {
     //   // regex filter ? how to invalidate ? ok with current filtering for now
     //   // TODO : filter already imported pictures ? let user config this behavior....
-    //   console.log(f.fullPath); // f.dataUrl may not be available yet
+    //   console.log(this.getFilePath(f)); // f.dataUrl may not be available yet
     //   isValidTrigger();
     // },
 
     accept: (f: any, isValidTrigger: any) => {
       // console.log("On accept", f);
-      this.processInc(f.fullPath);
-      if (new RegExp(this.config.regExGitLogFile, 'i').exec(f.fullPath)) {
+      this.processInc(this.getFilePath(f));
+      if (new RegExp(this.config.regExGitLogFile, 'i').exec(this.getFilePath(f))) {
         this.processGitLogFile(f);
       } else if (f.type.match(/image\/.*/i)) {
         // Pictures file pre-processing before thumbnail loading...
       } else {
-        // console.log("Ignoring file : ", f.fullPath);
-        this.processDec(f.fullPath);
+        // console.log("Ignoring file : ", this.getFilePath(f));
+        this.processDec(this.getFilePath(f));
         return;
       }
       isValidTrigger();
     }
   };
 
+  getFilePath(f: any) {
+    return f.fullPath ? f.fullPath : f.name;
+  }
+
   processGitLogFile(f: any) {
     // console.log('TODO : process git log file : ', f);
-    this.processDec(f.fullPath);
+    this.processDec(this.getFilePath(f));
   }
 
   onImageThumbnail(args: any) {
@@ -142,17 +146,17 @@ export class ClientFilesLoaderComponent implements OnInit {
     let f = args[0];
     let dataUrl = args[1];
     let config = this.config;
-    // console.log('On thumbnail', f.fullPath);
-    // console.log('MoonManager will process : ', f.fullPath);
+    // console.log('On thumbnail', this.getFilePath(f));
+    // console.log('MoonManager will process : ', this.getFilePath(f));
     let t = new Timing();
 
     let dateStr: string = null;
 
     [this.config.captureRegex_0, this.config.captureRegex_1, this.config.captureRegex_2].some(
       (pattern: any, idx: number, arr: any[]) => {
-        // let matches = f.fullPath.match(pattern);
+        // let matches = this.getFilePath(f).match(pattern);
         let rgEx = new RegExp(pattern, 'i');
-        let m = rgEx.exec(f.fullPath);
+        let m = rgEx.exec(this.getFilePath(f));
         // console.log('Matches : ', m);
         if (m) {
           // TODO : extract should be by regex, lucky for now, having same pattern...
@@ -163,14 +167,14 @@ export class ClientFilesLoaderComponent implements OnInit {
       }
     );
     let date = dateStr ? moment(dateStr, '') : moment(); // TODO : regex extract from path
-    let title = f.fullPath;
+    let title = this.getFilePath(f);
     let segmentDelta = this.config.timingSegmentDelta;
     let segmentOverride = Math.floor((date.hour() + date.minute() / 60) / segmentDelta);
     let minDate = date.toDate();
-    let author = new RegExp(this.config.regExAuthor, 'i').exec(f.fullPath);
-    let project = new RegExp(this.config.regExProject, 'i').exec(f.fullPath);
-    let subProject = new RegExp(this.config.regExSubProject, 'i').exec(f.fullPath);
-    let objectif = new RegExp(this.config.regExObjectif, 'i').exec(f.fullPath);
+    let author = new RegExp(this.config.regExAuthor, 'i').exec(this.getFilePath(f));
+    let project = new RegExp(this.config.regExProject, 'i').exec(this.getFilePath(f));
+    let subProject = new RegExp(this.config.regExSubProject, 'i').exec(this.getFilePath(f));
+    let objectif = new RegExp(this.config.regExObjectif, 'i').exec(this.getFilePath(f));
 
     t.id = ++this.index;
     t.DateTime = date.toDate();
@@ -204,7 +208,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.isHidden = false;
 
     this.onTimingFetch.emit(t);
-    this.processDec(f.fullPath);
+    this.processDec(this.getFilePath(f));
   }
 
   onImageUploadError(e: any) {

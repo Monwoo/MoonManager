@@ -114,7 +114,7 @@ zip -r "MoonManager-Prod.zip" dist
 git log --all --date=iso --pretty=format:'"%h","%an","%ad","%s"' > git_logs.csv
 <<COMMENT
 To overwrite defaults computing on base scheme,
-you can extend previouly generated model of those 4 optionnals columns :
+you can extend previouly generated model of those 5 optionnals columns :
 "<author>","<project>","<subproject>","<objectif>","<skillId>"
 COMMENT
 
@@ -130,7 +130,8 @@ You just need to ensure directory architecture following this pattern :
 <author>/<project>/<subproject>/<objectif>/<skillId>/<captureRegex>
 
 All thoses are optionnal, and will default to empty strings if not provided,
-except for skillId that will default to : 'RemoteEasyDev'
+except for <skillId> that will default to : 'RemoteEasyDev'
+and for <author> that will default to : localStorage param config or default 'John Doe'
 
 Build for service@monwoo.com,
 HT basis, is currently available at same rate than TTC basis.

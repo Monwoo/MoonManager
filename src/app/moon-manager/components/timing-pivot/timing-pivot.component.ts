@@ -30,7 +30,7 @@ export class TimingPivotComponent implements OnInit {
     paidDays: 0,
     compensatedDays: 0,
     receivedDays: 0,
-    summaryTitle: "Compte rendu d'activité de M. Miguel Monwoo",
+    summaryTitle: "Compte rendu d'activité de M. John Doe",
     lowRes: false
   };
   @Input() dataSrc: BehaviorSubject<Timing[]>;
@@ -150,14 +150,11 @@ export class TimingPivotComponent implements OnInit {
     'git-log': 1
   };
   public authorReferencial = {
-    MiguelMonwoo: 'Miguel Monwoo',
-    'Mickael Moreau': 'Miguel Monwoo',
-    'mickael moreau': 'Miguel Monwoo',
-    'Elmis David Hernandez': 'Elmis Hernandez',
-    'elmis-hernandez': 'Elmis Hernandez',
-    'Erwan Le Breton': 'Erwan Le Breton'
+    JohnDoe: 'John Doe',
+    'John Doe': 'John Doe',
+    'J. D.': 'John Doe'
   };
-  public authorFilterList = ['Miguel Monwoo'];
+  public authorFilterList = ['John Doe'];
 
   public classByMonth = {
     '01': 'mat-gray-400',
@@ -388,8 +385,9 @@ export class TimingPivotComponent implements OnInit {
         this.filteredDatasAsync.next(this.filteredDatas.slice().reverse());
         // console.log('Filtered data : ', this.filteredDatas);
         this.workloadsByAuthorAndDay = Object.entries(this.timingsByDay).reduce((acc: any, entry: any) => {
-          let day: string = entry[0];
+          // let dayKey: string = entry[0]; // TODO : refactor or ok ?? No same format as t.Date (-/)
           entry[1].reduce((acc: any, t: Timing) => {
+            let day = t.Date;
             if (!(t.Author in acc)) {
               acc[t.Author] = {};
             }
@@ -776,18 +774,20 @@ export class TimingPivotComponent implements OnInit {
         //this should be a loop based on some user input
         drawInfos();
 
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        context.globalAlpha = 0.8;
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
-        drawInfos();
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        context.globalAlpha = 0.6;
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
-        drawInfos();
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        context.globalAlpha = 0.4;
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
-        drawInfos();
+        // Pb : need timeout LOOP : will not take in account if no waits in
+        // betweens ??? => having full transparent img for now
+        // context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        // context.globalAlpha = 0.8;
+        // context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        // drawInfos();
+        // context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        // context.globalAlpha = 0.6;
+        // context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        // drawInfos();
+        // context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        // context.globalAlpha = 0.4;
+        // context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        // drawInfos();
 
         finalizeFrame(frameIndex + 1, frames.length);
         stackDelayFrame = 4;
