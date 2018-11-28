@@ -14,25 +14,52 @@
   </div>
 </p-panel>
 
-<form #paramsForm="ngForm">
-  <!--
-    div><label>Firstname:</label> <input type="text" name="firstName" ngModel /></div>
-    <div><label>Lastname:</label> <input type="text" name="lastName" ngModel /></div
-  -->
-  <ng-container *ngFor="let c of (config | keyvalue)">
-    <h1>{{ c.value.paramTitle | default: c.key }}</h1>
-    <fieldset [ngModelGroup]="c.key">
-      <ng-container *ngFor="let p of (c.value | keyvalue)">
-        <div>
-          <label>{{ p.key }}:</label> <input type="text" [name]="p.key" [(ngModel)]="p.value" />
-        </div>
+<mat-card>
+  <mat-card-content>
+    <form #paramsForm="ngForm">
+      <!--
+        div><label>Firstname:</label> <input type="text" name="firstName" ngModel /></div>
+        <div><label>Lastname:</label> <input type="text" name="lastName" ngModel /></div
+      -->
+      <ng-container *ngFor="let c of (config | keyvalue)">
+        <h1>{{ c.value.paramTitle | default: c.key }}</h1>
+        <fieldset [ngModelGroup]="c.key">
+          <ng-container *ngFor="let p of (c.value | keyvalue)">
+            <mat-form-field *ngIf="!(p.value | hasType: 'boolean')">
+              <input
+                matNativeControl
+                [type]="(p.value | hasType: 'number') ? 'number' : 'text'"
+                [placeholder]="p.key"
+                [name]="p.key"
+                [(ngModel)]="p.value"
+              />
+            </mat-form-field>
+            <mat-checkbox
+              class=""
+              *ngIf="(p.value | hasType: 'boolean')"
+              [name]="p.key"
+              [(ngModel)]="p.value"
+              labelPosition="before"
+              [disabled]="false"
+            >
+              {{ p.key }}
+            </mat-checkbox>
+          </ng-container>
+        </fieldset>
       </ng-container>
-    </fieldset>
-  </ng-container>
-</form>
+    </form>
+  </mat-card-content>
+</mat-card>
 
 <button mat-button color="primary" matTooltip="Save params" (click)="saveAction($event)">
   <i class="fas fa-save"></i> Save
 </button>
 
-<pre>{{ paramsForm.value | json }}</pre>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Debug </mat-panel-title>
+    <mat-panel-description> </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <pre>{{ paramsForm.value | json }}</pre>
+</mat-expansion-panel>

@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add the imports!
-import { MatButtonModule, MatCheckboxModule, MatTooltipModule } from '@angular/material';
+// import { MatButtonModule, MatCheckboxModule, MatTooltipModule } from '@angular/material';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PlatformModule } from '@angular/cdk/platform';
 import { MatCardModule } from '@angular/material';
@@ -15,10 +15,15 @@ import { MatCardModule } from '@angular/material';
 import { CurrencyPipe } from '@angular/common';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { TreeTableModule } from 'primeng/primeng';
 import { PanelModule } from 'primeng/primeng';
@@ -41,6 +46,8 @@ import { TimelineYearlyPlanComponent } from './components/timeline-yearly-plan/t
 import { NgLetDirective } from './directives/ng-let.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PapaParseModule } from 'ngx-papaparse';
+import { HasTypePipe } from './pipes/has-type.pipe';
+// import { FormioModule } from 'angular-formio';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // maxFilesize: 50000,
@@ -57,7 +64,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DefaultPipe,
     UrlTransformerPipe,
     TimelineYearlyPlanComponent,
-    NgLetDirective
+    NgLetDirective,
+    HasTypePipe
   ],
   imports: [
     CommonModule,
@@ -79,13 +87,16 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MatTooltipModule,
     MatCardModule,
     MatFormFieldModule,
+    MatInputModule,
     MatSelectModule,
     MatProgressBarModule,
     MatGridListModule,
+    MatExpansionModule,
     ScrollingModule,
     PlatformModule,
     TreeTableModule,
     PanelModule,
+    // FormioModule,
     MonwooMoonManagerWrapModule
   ],
   exports: [NgLetDirective],

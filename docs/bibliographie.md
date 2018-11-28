@@ -92,6 +92,21 @@ Dev stuffs :
 - https://github.com/javabypatel/Angular2-Read-CSV-File
 - https://www.reddit.com/r/Angular2/comments/8ak2ol/upload_a_csv_file_and_parse_it_with_papaparse/
 - https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/ArrayBuffer
+- https://angular.io/guide/reactive-forms
+- https://stackoverflow.com/questions/43270564/dividing-a-form-into-multiple-components-with-validation
+- https://medium.com/codingthesmartway-com-blog/angular-material-b1973e5a2ee6
+- https://github.com/ultrasonicsoft/angular-template-form-builder
+- ** https://github.com/formio/angular-formio **
+- https://formio.github.io/angular-demo/
+- https://github.com/formio/angular-formio/wiki/Data-Table
+- https://github.com/formio/angular-formio/wiki/Form-Renderer
+- https://help.form.io/tutorials/walkthroughs/submission/
+- https://help.form.io/tutorials/walkthroughs/translations/
+- https://docs.angularjs.org/api/ng/input/input%5Bcheckbox%5D
+- https://material.angular.io/components/form-field/overview
+- https://material.angular.io/components/input/overview
+- https://material.angular.io/components/checkbox/examples
+- https://material.angular.io/components/expansion/overview
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
@@ -110,6 +125,7 @@ yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications lodash-es @types/lodash-es
 yarn add ngx-quill primeflex @angular/flex-layout ngx-papaparse@3
+yarn add angular-formio
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 

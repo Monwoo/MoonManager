@@ -48,6 +48,7 @@
     "@ngx-translate/core": "^10.0.1",
     "@types/lodash-es": "^4.17.1",
     "angular-calendar": "^0.26.4",
+    "angular-formio": "^3.9.0",
     "angular-material-source": "angular/material",
     "angular2-logger": "^0.7.0",
     "angular2-notifications": "^1.0.4",
