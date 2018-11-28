@@ -8,8 +8,7 @@
     *cdkVirtualFor="let t of (filteredDatasAsync.asObservable() | async)"
     [ngClass]="'p-col-12 animated lightSpeedIn timing-idx-' + t.id"
   >
-    {{ t.Title }}
-    <div><img class="primary-brand" [src]="t.MediaUrl | urlTransformer" alt="Timing preview" /></div>
+    <moon-manager-timing-form [t]="t"></moon-manager-timing-form>
   </div>
 </cdk-virtual-scroll-viewport>
 
