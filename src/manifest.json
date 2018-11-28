@@ -1,10 +1,10 @@
 {
   "name": "MoonManager",
   "short_name": "MoonManager",
-  "theme_color": "#11589a",
+  "theme_color": "#57ed00",
   "background_color": "#FFFFFF",
-  "scope": "/",
-  "start_url": "/",
+  "scope": "/MoonManager/Demo/?source=pwa",
+  "start_url": "/MoonManager/Demo/",
   "display": "standalone",
   "icons": [
     {

@@ -101,6 +101,9 @@ yarn run test:ci
 # export dev project as Zip file :
 git archive --format=zip -o ~/goinfre/MonwooMoonManager.zip HEAD
 
+# Ajusts manifest to setup Prod base url (TODO : from env file ? + same for proxy...)
+# https://developers.google.com/web/fundamentals/web-app-manifest/
+emacs src/manifest.json
 # build productions file in dist folder with correct base-href for deploy :
 yarn run build --base-href '/MoonManager/Demo/'
 # zip result for Production Software delivery :
@@ -188,6 +191,10 @@ Design stuffs :
 - https://fontawesome.com/icons?d=gallery&m=free
 - https://tacticalinvestor.com/ultimate-futures-timing-indicator/
 - https://www.google.fr/search?q=timing+indicator&source=lnms&tbm=isch&sa=X
+- https://mycolor.space/gradient
+- http://www.colorzilla.com/gradient-editor/
+- https://cssgradient.io/
+- http://angrytools.com/gradient/
 
 bon, voilà, en mode bitMap là, à placer des points sur la carte. Va falloir passer en mode SVG (So Vastly Good) [by Miguel]
 

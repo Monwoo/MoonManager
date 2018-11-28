@@ -94,7 +94,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     addRemoveLinks: true,
     thumbnailWidth: this.config.thumbW,
     thumbnailHeight: this.config.thumbH,
-    clickable: false,
+    clickable: true,
     thumbnailMethod: 'contain',
     acceptedFiles: 'image/*,.csv',
     // transformFile: (f:any, done:any) => {

@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatTooltipModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 // import { PanelModule } from 'primeng/primeng';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Local source codes imports
 import { MoonManagerComponent } from './moon-manager.component';
@@ -23,14 +24,16 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     RouterModule,
     MatButtonModule,
     MatTooltipModule,
-    MatCardModule
+    MatCardModule,
+    FlexLayoutModule
     // PanelModule,
   ],
   exports: [
     MoonManagerComponent,
     MatButtonModule,
     MatTooltipModule,
-    MatCardModule
+    MatCardModule,
+    FlexLayoutModule
     // PanelModule,
   ]
 })

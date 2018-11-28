@@ -154,7 +154,8 @@ export class TimingPivotComponent implements OnInit {
     'John Doe': 'John Doe',
     'J. D.': 'John Doe'
   };
-  public authorFilterList = ['John Doe'];
+  // public authorFilterList = ['John Doe'];
+  public authorFilterList: string[] = [];
 
   public classByMonth = {
     '01': 'mat-gray-400',
@@ -333,7 +334,7 @@ export class TimingPivotComponent implements OnInit {
             if (t.Author in this.authorReferencial) {
               t.Author = this.authorReferencial[t.Author];
             }
-            if (!this.authorFilterList.includes(t.Author)) {
+            if (this.authorFilterList.length && !this.authorFilterList.includes(t.Author)) {
               return acc; // avoid filtered datas
             }
 

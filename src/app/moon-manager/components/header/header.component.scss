@@ -1,8 +1,13 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
+@import "src/theme/theme-variables";
 
 header {
   padding: 7px;
-  background: rgb(162, 171, 219);
+  background: $lightBlue;
+  background-image: linear-gradient(to right top, #a2abdb, #76a9d7, #44a6c8, #0ba1ae, #119a8c);
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  margin-bottom: 4px;
   a {
     color: white;
     text-decoration: none;
@@ -14,7 +19,8 @@ header {
   }
 
   .logo {
-    font-weight: bold;
+    // font-weight: bold;
+    font-family: monospace;
 
     .primary-brand {
       /*

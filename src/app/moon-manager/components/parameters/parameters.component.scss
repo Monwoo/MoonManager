@@ -1,4 +1,11 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 .story {
   text-align: center;
+
+  // TODO : why need ng-deep for it to work ? bad html structure ?
+  ::ng-deep img {
+    // TODO : dig in https://github.com/angular/flex-layout/wiki/fxLayoutAlign-API
+    // need a way to do it with class/directives only...
+    max-width: 100%;
+  }
 }

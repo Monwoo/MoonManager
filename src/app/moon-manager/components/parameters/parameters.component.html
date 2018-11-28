@@ -3,11 +3,15 @@
   Reset
 </button>
 <p-panel class="story" header="Légende des indicateurs temporels :">
-  <img
-    class=""
-    src="assets/TimingsIndicatorStory.png"
-    alt="Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr"
-  />
+  <div fxLayout="row" fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="94%">
+      <img
+        class=""
+        src="assets/TimingsIndicatorStory.png"
+        alt="Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr"
+      />
+    </div>
+  </div>
 </p-panel>
 
 <form #paramsForm="ngForm">

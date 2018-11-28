@@ -82,6 +82,11 @@ Dev stuffs :
 - https://en.wikipedia.org/wiki/Morphism_of_schemes
 - https://www.primefaces.org/showcase/ui/misc/responsive.xhtml (Not angular js, but nice copy/past doc from primeNg ?)
 - https://www.primefaces.org/primeng/#/panel
+- https://stackoverflow.com/questions/31270365/how-to-make-img-and-md-card-responsive-in-angular-material
+- https://github.com/angular/flex-layout
+- https://medium.com/letsboot/quick-start-with-angular-material-and-flex-layout-1b065aa1476c
+- https://github.com/angular/flex-layout/wiki/fxLayoutAlign-API
+- https://www.primefaces.org/primeng/#/flexgrid
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
@@ -99,7 +104,7 @@ yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications lodash-es @types/lodash-es
-yarn add ngx-quill primeflex
+yarn add ngx-quill primeflex @angular/flex-layout
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 

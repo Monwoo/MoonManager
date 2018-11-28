@@ -5,22 +5,20 @@
 <p><strong style="color:rgb(173, 33, 33)">En rouge </strong> les jours de plus de 7 heures</p>
 
 <div class="bs">
-  <div class="container-fluid m-2">
-    <div class="timeline-yearly-plan d-flex flex-row" cols="3">
-      <div class="col-4" *ngFor="let idx of sortedMonthsKeys">
-        <div class="month-plan" *ngLet="sortedMonths.get(idx) as value">
-          <!-- TODO : add billableDaySum ? => depends of TJM applied => all 5hr/day for now -->
-          <strong>{{ value }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} jours </strong>
-          <mwl-calendar-month-view
-            [viewDate]="idx"
-            [events]="eventsByMonths.get(value)"
-            [activeDayIsOpen]="false"
-            [weekStartsOn]="1"
-            [weekendDays]="[0, 1, 6]"
-            (beforeViewRender)="beforeMonthViewRender($event)"
-          >
-          </mwl-calendar-month-view>
-        </div>
+  <div class="timeline-yearly-plan row">
+    <div class="col col-md-4 col-pr-4" *ngFor="let idx of sortedMonthsKeys">
+      <div class="month-plan" *ngLet="sortedMonths.get(idx) as value">
+        <!-- TODO : add billableDaySum ? => depends of TJM applied => all 5hr/day for now -->
+        <strong>{{ value }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} jours </strong>
+        <mwl-calendar-month-view
+          [viewDate]="idx"
+          [events]="eventsByMonths.get(value)"
+          [activeDayIsOpen]="false"
+          [weekStartsOn]="1"
+          [weekendDays]="[0, 1, 6]"
+          (beforeViewRender)="beforeMonthViewRender($event)"
+        >
+        </mwl-calendar-month-view>
       </div>
     </div>
   </div>

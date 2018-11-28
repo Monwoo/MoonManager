@@ -68,3 +68,64 @@ a {
     page-break-inside: avoid;
   }
 }
+@import "~bootstrap/scss/_mixins";
+// TODO : col-pr seem to be ok on media print debug rendering, but fail
+// on realy pdf export : using value from col- instead of col-pr-....
+// https://gist.github.com/TheSharpieOne/27f338c93d5de166ed1e35f5fc753228
+@mixin make-print-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $name: "pr") {
+  @media print {
+    // Common properties
+    %grid-column-print {
+      position: relative;
+      // width: 100%;
+      min-height: 1px; // Prevent columns from collapsing when empty
+      padding-right: ($gutter / 2);
+      padding-left: ($gutter / 2);
+    }
+
+    // Allow columns to stretch full width below their breakpoints
+    @for $i from 1 through $columns {
+      .col-#{$name}-#{$i} {
+        @extend %grid-column-print;
+      }
+    }
+    .col-#{$name} {
+      @extend %grid-column-print;
+    }
+
+    // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+    .col-#{$name} {
+      flex-basis: 0;
+      flex-grow: 1;
+      max-width: 100%;
+    }
+    .col-#{$name}-auto {
+      flex: 0 0 auto;
+      width: auto;
+    }
+
+    @for $i from 1 through $columns {
+      .col-#{$name}-#{$i} {
+        @include make-col($i, $columns);
+      }
+    }
+
+    .order-#{$name}-first {
+      order: -1;
+    }
+
+    @for $i from 1 through $columns {
+      .order-#{$name}-#{$i} {
+        order: $i;
+      }
+    }
+
+    // `$columns - 1` because offsetting by the width of an entire row isn't possible
+    @for $i from 0 through ($columns - 1) {
+      .offset-#{$name}-#{$i} {
+        @include make-col-offset($i, $columns);
+      }
+    }
+  }
+}
+@include make-print-grid-columns($grid-columns, $grid-gutter-width, "pr");
