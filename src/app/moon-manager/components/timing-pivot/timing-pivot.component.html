@@ -64,7 +64,7 @@
     <p-treeTable [value]="timingsTrees">
       <ng-template pTemplate="header">
         <tr>
-          <th [ngStyle]="{ 'width.px': 400 }">Groupe</th>
+          <th [ngStyle]="{ 'width.px': 320 }">Groupe</th>
           <!-- th class="priority-2">Heures</th -->
           <th class="priority-3">Compétances</th>
           <th class="priority-3">Source</th>
@@ -84,6 +84,12 @@
           <td [ngStyle]="{ 'min-width.px': 150 }">
             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
             {{ treeData.Title }}
+            <div class="visibility-sm">
+              | {{ treeData.SkillsId }} | {{ treeData.EventSource }} |
+              {{ treeData.LinearWorkloadAmount | number: '1.2-2' }} heures |
+              {{ treeData.WorkloadAmount | number: '1.2-2' }} heures | {{ treeData.TJM }} |
+              {{ treeData.Price | currency: 'EUR' }} |
+            </div>
           </td>
           <!-- td class="text-center priority-2">{{treeData.Time}}</td -->
           <td class="text-right priority-3" [innerHtml]="treeData.SkillsId"></td>
