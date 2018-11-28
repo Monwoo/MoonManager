@@ -751,26 +751,83 @@ export class TimingPivotComponent implements OnInit {
           // });
         };
 
+        // https://stackoverflow.com/questions/23104582/scaling-an-image-to-fit-on-canvas
+        var hRatio = canvas.width / img.width;
+        var vRatio = canvas.height / img.height;
+        var ratio = Math.min(hRatio, vRatio);
+        var centerShift_x = (canvas.width - img.width * ratio) / 2;
+        var centerShift_y = (canvas.height - img.height * ratio) / 2;
+
         //a custom fade in and out slideshow
         context.globalAlpha = 0.2;
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        context.drawImage(
+          img,
+          0,
+          0,
+          img.width,
+          img.height,
+          centerShift_x,
+          centerShift_y,
+          img.width * ratio,
+          img.height * ratio
+        );
         // video.add(context);
         drawInfos();
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         context.globalAlpha = 0.4;
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        context.drawImage(
+          img,
+          0,
+          0,
+          img.width,
+          img.height,
+          centerShift_x,
+          centerShift_y,
+          img.width * ratio,
+          img.height * ratio
+        );
         drawInfos();
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         context.globalAlpha = 0.6;
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        context.drawImage(
+          img,
+          0,
+          0,
+          img.width,
+          img.height,
+          centerShift_x,
+          centerShift_y,
+          img.width * ratio,
+          img.height * ratio
+        );
         drawInfos();
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         context.globalAlpha = 0.8;
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        context.drawImage(
+          img,
+          0,
+          0,
+          img.width,
+          img.height,
+          centerShift_x,
+          centerShift_y,
+          img.width * ratio,
+          img.height * ratio
+        );
         drawInfos();
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         context.globalAlpha = 1;
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        context.drawImage(
+          img,
+          0,
+          0,
+          img.width,
+          img.height,
+          centerShift_x,
+          centerShift_y,
+          img.width * ratio,
+          img.height * ratio
+        );
 
         //this should be a loop based on some user input
         drawInfos();
