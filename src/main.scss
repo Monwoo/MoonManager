@@ -57,6 +57,11 @@ a {
 //   margin: 0 auto;
 //   padding: 2em;
 // }
+
+.no-display {
+  display: none;
+}
+
 @media print {
   .no-print,
   .no-print * {

@@ -122,6 +122,10 @@ Dev stuffs :
 - https://www.sitepoint.com/dealing-color-schemes-sass/
 - https://gist.github.com/kreo/c77e1ef2c5f49631d8df
 
+- https://www.w3schools.com/howto/howto_css_aspect_ratio.asp
+
+- http://tutorials.jenkov.com/html5-canvas/state.html
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

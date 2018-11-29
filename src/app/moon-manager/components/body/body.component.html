@@ -3,7 +3,7 @@
 <moon-manager-client-files-loader class="no-print" (onTimingFetch)="didFetchTiming($event)">
 </moon-manager-client-files-loader>
 
-<cdk-virtual-scroll-viewport class="list-container list-group no-print" [itemSize]="73">
+<cdk-virtual-scroll-viewport *ngIf="filteredDatas.length" class="list-container list-group no-print" [itemSize]="73">
   <div
     *cdkVirtualFor="let t of (filteredDatasAsync.asObservable() | async)"
     [ngClass]="'p-col-12 animated lightSpeedIn timing-idx-' + t.id"

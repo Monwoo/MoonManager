@@ -1,63 +1,69 @@
 <!-- form (submit)="reCompute()" -->
 <div>
-  <p>
-    <strong>{{ config.summaryTitle }}</strong>
-  </p>
-  <div>
+  <mat-card>
+    <p>
+      <strong>{{ config.summaryTitle }}</strong>
+    </p>
     <div>
-      <strong>Nombre de jours facturés :</strong> {{ config.billedDays }} jours ({{ config.paidDays }} jours payés)
+      <div>
+        <strong>Nombre de jours facturés :</strong> {{ config.billedDays }} jours ({{ config.paidDays }} jours payés)
+      </div>
+      <div>
+        <strong>Nombre de jours compensés :</strong> {{ config.compensatedDays }} jours ({{ config.receivedDays }} jours
+        reçus)
+      </div>
+      <div>
+        <strong>Deltas horaire de segmentation :</strong>
+        <span *ngFor="let idx of (HrSegmentBySource | keyvalue); let i = index">
+          <span *ngIf="i > 0">, </span> [{{ idx.key }} : {{ idx.value }} hr]
+        </span>
+      </div>
     </div>
+
     <div>
-      <strong>Nombre de jours compensés :</strong> {{ config.compensatedDays }} jours ({{ config.receivedDays }} jours
-      reçus)
+      <strong>Liste des jours :</strong>
+      <!--
+        span *ngFor="let idx of timingsByDay | keyvalue; let i=index;">
+          <span *ngIf="i > 0">, </span>
+          {{idx.key | date : "dd"}} /
+          <strong [ngClass]="classByMonth[idx.key | date : 'MM']">
+            {{idx.key | date : 'MM'}}
+          </strong>
+        </span
+      -->
+      <moon-manager-timeline-yearly-plan [timingsByDayAsync]="timingsByDayAsync"></moon-manager-timeline-yearly-plan>
     </div>
+    <div><strong>Total horaire :</strong> {{ workloadTotal | number: '1.2-2' }} heures</div>
+    <div><strong>Total en jour facturables :</strong> {{ workloadByBillableDayTotal | number: '1.2-2' }} jours</div>
     <div>
-      <strong>Deltas horaire de segmentation :</strong>
-      <span *ngFor="let idx of (HrSegmentBySource | keyvalue); let i = index">
-        <span *ngIf="i > 0">, </span> [{{ idx.key }} : {{ idx.value }} hr]
-      </span>
+      <strong>Marge utilisable :</strong>
+      <strong [class.positive-value]="daysMargin > 0" [class.negative-value]="daysMargin < 0">
+        {{ daysMargin | number: '1.2-2' }} jours
+      </strong>
+      pour une opportunité de {{ daysForseen | number: '1.2-2' }} jours
     </div>
-  </div>
+  </mat-card>
 
-  <div>
-    <strong>Liste des jours :</strong>
-    <!--
-      span *ngFor="let idx of timingsByDay | keyvalue; let i=index;">
-        <span *ngIf="i > 0">, </span>
-        {{idx.key | date : "dd"}} /
-        <strong [ngClass]="classByMonth[idx.key | date : 'MM']">
-          {{idx.key | date : 'MM'}}
-        </strong>
-      </span
-    -->
-    <moon-manager-timeline-yearly-plan [timingsByDayAsync]="timingsByDayAsync"></moon-manager-timeline-yearly-plan>
-  </div>
-  <div><strong>Total horaire :</strong> {{ workloadTotal | number: '1.2-2' }} heures</div>
-  <div><strong>Total en jour facturables :</strong> {{ workloadByBillableDayTotal | number: '1.2-2' }} jours</div>
-  <div>
-    <strong>Marge utilisable :</strong>
-    <strong [class.positive-value]="daysMargin > 0" [class.negative-value]="daysMargin < 0">
-      {{ daysMargin | number: '1.2-2' }} jours
-    </strong>
-    pour une opportunité de {{ daysForseen | number: '1.2-2' }} jours
-  </div>
+  <mat-card>
+    <button class="no-print" mat-button (click)="downloadTimingsVideo()">Exporter la Vidéo</button>
+    <mat-progress-bar class="no-print" mode="determinate" [value]="videoLoadPercent"></mat-progress-bar>
 
-  <button class="no-print" mat-button (click)="downloadTimingsVideo()">Exporter la Vidéo</button>
-  <mat-progress-bar class="no-print" mode="determinate" [value]="videoLoadPercent"></mat-progress-bar>
+    <div [class]="'video-renderer no-print' + (videoLoadPercent > 0 ? '' : ' no-display')">
+      <canvas #videoCanvas class="video-canvas"></canvas>
+    </div>
+  </mat-card>
 
-  <div class="video-renderer no-print">
-    <canvas #videoCanvas [class]="'video-canvas' + (config.lowRes ? ' low-res' : '')"></canvas>
-  </div>
-
-  <p *ngFor="let skillsIdx of (skillsRef | keyvalue)">
-    <!-- [{{skillsIdx.key}}] : {{skillsIdx.value}} -->
-    <strong>
-      TJM : {{ TJMBySkillsId[skillsIdx.key] }} € [{{ skillsIdx.value.title }}] ({{ skillsIdx.value.idx }}.)
-    </strong>
-    <br />
-    {{ skillsIdx.value.description }} <br />
-    Justificatifs : {{ skillsIdx.value.justificatifs }}
-  </p>
+  <mat-card>
+    <p *ngFor="let skillsIdx of (skillsRef | keyvalue)">
+      <!-- [{{skillsIdx.key}}] : {{skillsIdx.value}} -->
+      <strong>
+        TJM : {{ TJMBySkillsId[skillsIdx.key] }} € [{{ skillsIdx.value.title }}] ({{ skillsIdx.value.idx }}.)
+      </strong>
+      <br />
+      {{ skillsIdx.value.description }} <br />
+      Justificatifs : {{ skillsIdx.value.justificatifs }}
+    </p>
+  </mat-card>
 
   <div>
     <!-- pre>{{timingsTrees|json}}</pre -->

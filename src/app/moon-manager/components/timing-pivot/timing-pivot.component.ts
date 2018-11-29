@@ -304,11 +304,22 @@ export class TimingPivotComponent implements OnInit {
     });
   }
 
+  ajustCanvasResolution() {
+    let canvas: HTMLCanvasElement = <HTMLCanvasElement>this.videoCanvas.nativeElement;
+    // canvas.width = canvas.clientWidth; // Resize computed canvas size to browser client size
+    // canvas.height = canvas.clientHeight;
+    if (this.config.lowRes) {
+      canvas.width = 400;
+      canvas.height = 320;
+    } else {
+      canvas.width = 700;
+      canvas.height = 400;
+    }
+  }
+
   ngAfterViewInit() {
     this.videoCtx = (<HTMLCanvasElement>this.videoCanvas.nativeElement).getContext('2d'); // TODO : BONUS add Unity to render in gameCtx => '3D'
-    let canvas: HTMLCanvasElement = <HTMLCanvasElement>this.videoCanvas.nativeElement;
-    canvas.width = canvas.clientWidth; // Resize computed canvas size to browser client size
-    canvas.height = canvas.clientHeight;
+    this.ajustCanvasResolution();
 
     this.dataSrc.subscribe((timings: Timing[]) => {
       timings.sort((t1, t2) => {
@@ -629,7 +640,6 @@ export class TimingPivotComponent implements OnInit {
       // display: true,
       quality: 99
     });
-    capturer.start();
 
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>this.videoCanvas.nativeElement;
     let context: CanvasRenderingContext2D = this.videoCtx; // TODO from elts ref.
@@ -657,16 +667,24 @@ export class TimingPivotComponent implements OnInit {
         }); //.then(()=>{console.log('Delay OK')});
       }
     };
+
+    let clearScreen = () => {
+      // TODO
+      context.save(); // state pushed onto stack.
+      context.fillStyle = 'white';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.restore(); // state popped from stack, and set on 2D Context.
+    };
+
+    clearScreen();
+    capturer.start();
     loopFrames(0);
 
     function process(frame: Timing, frameIndex: number) {
       let file = frame.MediaUrl;
       if ('capture' !== frame.EventSource || typeof frame.MediaUrl !== 'string') {
         // It's unknonw Frame : TODO : show to end user...
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = 'white';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-
+        clearScreen();
         context.font = self.config.lowRes ? '10px Comic Sans MS' : '10px Comic Sans MS';
         context.fillStyle = 'rgb(60,0,108)';
         context.textAlign = 'center';
@@ -764,15 +782,20 @@ export class TimingPivotComponent implements OnInit {
           // });
         };
 
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        clearScreen(); // Will tick white bg...
         // https://stackoverflow.com/questions/23104582/scaling-an-image-to-fit-on-canvas
         var hRatio = canvas.width / img.width;
         var vRatio = canvas.height / img.height;
         var ratio = Math.min(hRatio, vRatio);
+        if (ratio > 1) {
+          ratio = 1; // removing scaling Up effect, keep lower pict size at original size
+        }
         var centerShift_x = (canvas.width - img.width * ratio) / 2;
         var centerShift_y = (canvas.height - img.height * ratio) / 2;
 
         //a custom fade in and out slideshow
-        context.globalAlpha = 0.2;
+        context.globalAlpha = 0.6;
         context.drawImage(
           img,
           0,
@@ -786,8 +809,8 @@ export class TimingPivotComponent implements OnInit {
         );
         // video.add(context);
         drawInfos();
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        context.globalAlpha = 0.4;
+        // clearScreen();
+        context.globalAlpha = 0.65;
         context.drawImage(
           img,
           0,
@@ -800,8 +823,8 @@ export class TimingPivotComponent implements OnInit {
           img.height * ratio
         );
         drawInfos();
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        context.globalAlpha = 0.6;
+        // clearScreen();
+        context.globalAlpha = 0.7;
         context.drawImage(
           img,
           0,
@@ -814,7 +837,7 @@ export class TimingPivotComponent implements OnInit {
           img.height * ratio
         );
         drawInfos();
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        // clearScreen();
         context.globalAlpha = 0.8;
         context.drawImage(
           img,
@@ -828,7 +851,7 @@ export class TimingPivotComponent implements OnInit {
           img.height * ratio
         );
         drawInfos();
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        // clearScreen();
         context.globalAlpha = 1;
         context.drawImage(
           img,
@@ -847,15 +870,15 @@ export class TimingPivotComponent implements OnInit {
 
         // Pb : need timeout LOOP : will not take in account if no waits in
         // betweens ??? => having full transparent img for now
-        // context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        // clearScreen();
         // context.globalAlpha = 0.8;
         // context.drawImage(img, 0, 0, canvas.width, canvas.height);
         // drawInfos();
-        // context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        // clearScreen();
         // context.globalAlpha = 0.6;
         // context.drawImage(img, 0, 0, canvas.width, canvas.height);
         // drawInfos();
-        // context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        // clearScreen();
         // context.globalAlpha = 0.4;
         // context.drawImage(img, 0, 0, canvas.width, canvas.height);
         // drawInfos();
