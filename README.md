@@ -195,6 +195,7 @@ Design stuffs :
 - http://www.colorzilla.com/gradient-editor/
 - https://cssgradient.io/
 - http://angrytools.com/gradient/
+- https://www.webcreatorbox.com/en/tutorials/sass-mixin-en
 
 bon, voilà, en mode bitMap là, à placer des points sur la carte. Va falloir passer en mode SVG (So Vastly Good) [by Miguel]
 

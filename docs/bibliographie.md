@@ -108,6 +108,12 @@ Dev stuffs :
 - https://material.angular.io/components/checkbox/examples
 - https://material.angular.io/components/expansion/overview
 
+- http://zerosixthree.se/8-sass-mixins-you-must-have-in-your-toolbox/
+- https://www.sassmeister.com/
+- https://www.webcreatorbox.com/en/tutorials/sass-mixin-en
+- https://medium.com/@DavidPollet/mes-mixins-sass-ec370e2bd6a0
+- https://gist.github.com/pascalduez/10011785
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
