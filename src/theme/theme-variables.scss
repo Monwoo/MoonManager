@@ -1,3 +1,5 @@
+// Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
+
 /*
  * Application global variables.
  */
@@ -59,37 +61,11 @@ $greenLeaf: #119a4c; // TODO : add tool to inject inside index.html instead of  
 $deepBlue: #11589a;
 $lightBlue: #a2abdb;
 
-// https://gist.github.com/pascalduez/10011785
-@function capitalize($string) {
-  @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
-}
-
-// inspired from :
-// https://www.webcreatorbox.com/en/tutorials/sass-mixin-en
-@mixin css3($property, $value) {
-  @each $prefix in -webkit-, -moz-, -ms-, -o-, "" {
-    #{$prefix}#{$property}: $value;
-  }
-}
-
+@import "theme-mixins";
 .border_radius {
   @include css3(transition, 0.5s);
 }
 
-@mixin setupColor($name, $color, $prefix) {
-  // @each $specificPrefix in -webkit-, -moz-, -ms-, -o-, '' {
-  //   #{$specificPrefix}#{$property}: $value;
-  // }
-  // TODO : $#{$prefix}#{capitalize($name)}: $color;
-
-  .#{$prefix}-c-#{$name} {
-    color: $color;
-  }
-
-  .#{$prefix}-bg-#{$name} {
-    background: $color;
-  }
-}
 // TODO : improve setupColor to generate varialbes,
 // ay need theme refactoring : using Map every where ???
 // https://stackoverflow.com/questions/8533432/creating-or-referencing-variables-dynamically-in-sass

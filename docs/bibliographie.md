@@ -113,6 +113,14 @@ Dev stuffs :
 - https://www.webcreatorbox.com/en/tutorials/sass-mixin-en
 - https://medium.com/@DavidPollet/mes-mixins-sass-ec370e2bd6a0
 - https://gist.github.com/pascalduez/10011785
+- https://itnext.io/sharing-variables-between-js-and-sass-using-webpack-sass-loader-713f51fa7fa0
+- https://til.hashrocket.com/posts/sxbrscjuqu-share-scss-variables-with-javascript
+- https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+
+- http://www.zingdesign.com/how-to-generate-a-colour-palette-with-compass/
+- https://gist.github.com/samuel-holt/82ef9305fa4779ed4f08
+- https://www.sitepoint.com/dealing-color-schemes-sass/
+- https://gist.github.com/kreo/c77e1ef2c5f49631d8df
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:

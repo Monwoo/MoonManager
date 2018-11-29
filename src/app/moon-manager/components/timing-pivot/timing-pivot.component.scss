@@ -6,6 +6,7 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 // @include mat-core();
+@import "src/theme/theme-variables";
 
 .giga-grid {
   background: white; // TODO : colors taxonomie or framework : background color...
@@ -25,11 +26,13 @@
   // https://github.com/angular/material2/blob/master/guides/theming-your-components.md
   // color : mat-palette($mat-light-green);
   //
-  color: #7cb342;
+  // color: #7cb342;
+  @extend .indicator-c-green;
 }
 .negative-value {
   // @extend .red, .darken-2;
-  color: #e53935;
+  // color: #e53935;
+  @extend .indicator-c-red;
 }
 
 .summary-row {

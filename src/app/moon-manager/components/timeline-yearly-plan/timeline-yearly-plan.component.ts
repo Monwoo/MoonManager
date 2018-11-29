@@ -9,21 +9,26 @@ import { Timing } from '../../api/data-model/timing';
 
 // TODO : load from scss template file ?
 const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
+  // TODO : load from src/theme/theme-variables.scss
+  // or better theming design system :
+  // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+  // https://til.hashrocket.com/posts/sxbrscjuqu-share-scss-variables-with-javascript
+  // https://itnext.io/sharing-variables-between-js-and-sass-using-webpack-sass-loader-713f51fa7fa0
+  green: {
+    primary: '#146601',
+    secondary: '#01663f'
   },
   blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
+    primary: '#11589a',
+    secondary: '#31119a'
   },
   yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
+    primary: '#c3c11c',
+    secondary: '#c3971c'
   },
-  green: {
+  red: {
     primary: '#1eff31',
-    secondary: '#1eff83'
+    secondary: '#d13212'
   }
 };
 
