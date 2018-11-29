@@ -46,10 +46,12 @@
 
   <mat-card>
     <button class="no-print" mat-button (click)="downloadTimingsVideo()">Exporter la Vidéo</button>
-    <mat-progress-bar class="no-print" mode="determinate" [value]="videoLoadPercent"></mat-progress-bar>
+    <div class="video-wrapper">
+      <mat-progress-bar class="no-print" mode="determinate" [value]="videoLoadPercent"></mat-progress-bar>
 
-    <div [class]="'video-renderer no-print' + (videoLoadPercent > 0 ? '' : ' no-display')">
-      <canvas #videoCanvas class="video-canvas"></canvas>
+      <div [class]="'video-renderer no-print' + (videoLoadPercent > 0 ? '' : ' no-display')">
+        <canvas #videoCanvas class="video-canvas"></canvas>
+      </div>
     </div>
   </mat-card>
 
