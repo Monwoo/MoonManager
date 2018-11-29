@@ -241,10 +241,12 @@ cdk-virtual-scroll-viewport {
 // }
 
 // https://www.primefaces.org/primeng/#/treetable/responsive
-:host ::ng-deep .priority-2,
-:host ::ng-deep .priority-3,
-:host ::ng-deep .visibility-sm {
-  display: none;
+@media screen {
+  :host ::ng-deep .priority-2,
+  :host ::ng-deep .priority-3,
+  :host ::ng-deep .visibility-sm {
+    display: none; // will be reset afterward
+  }
 }
 
 @media screen and (max-width: 39.938em) {
