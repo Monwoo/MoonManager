@@ -732,8 +732,10 @@ export class TimingPivotComponent implements OnInit {
           context.textAlign = 'center';
           context.fillText('© Monwoo (Private data)', canvas.width / 2, fillHeight);
 
+          context.globalAlpha = 0.75;
           context.fillStyle = 'white';
           context.fillRect(0, canvas.height - deltaHeight, canvas.width, fillHeight);
+          context.globalAlpha = 1;
 
           context.fillStyle = 'rgb(60,0,108)'; // Primary color
           context.textAlign = 'left';
@@ -794,64 +796,64 @@ export class TimingPivotComponent implements OnInit {
         var centerShift_x = (canvas.width - img.width * ratio) / 2;
         var centerShift_y = (canvas.height - img.height * ratio) / 2;
 
-        //a custom fade in and out slideshow
-        context.globalAlpha = 0.6;
-        context.drawImage(
-          img,
-          0,
-          0,
-          img.width,
-          img.height,
-          centerShift_x,
-          centerShift_y,
-          img.width * ratio,
-          img.height * ratio
-        );
-        // video.add(context);
-        drawInfos();
-        // clearScreen();
-        context.globalAlpha = 0.65;
-        context.drawImage(
-          img,
-          0,
-          0,
-          img.width,
-          img.height,
-          centerShift_x,
-          centerShift_y,
-          img.width * ratio,
-          img.height * ratio
-        );
-        drawInfos();
-        // clearScreen();
-        context.globalAlpha = 0.7;
-        context.drawImage(
-          img,
-          0,
-          0,
-          img.width,
-          img.height,
-          centerShift_x,
-          centerShift_y,
-          img.width * ratio,
-          img.height * ratio
-        );
-        drawInfos();
-        // clearScreen();
-        context.globalAlpha = 0.8;
-        context.drawImage(
-          img,
-          0,
-          0,
-          img.width,
-          img.height,
-          centerShift_x,
-          centerShift_y,
-          img.width * ratio,
-          img.height * ratio
-        );
-        drawInfos();
-        // clearScreen();
+        // //a custom fade in and out slideshow
+        // context.globalAlpha = 0.6;
+        // context.drawImage(
+        //   img,
+        //   0,
+        //   0,
+        //   img.width,
+        //   img.height,
+        //   centerShift_x,
+        //   centerShift_y,
+        //   img.width * ratio,
+        //   img.height * ratio
+        // );
+        // // video.add(context);
+        // drawInfos();
+        // // clearScreen();
+        // context.globalAlpha = 0.65;
+        // context.drawImage(
+        //   img,
+        //   0,
+        //   0,
+        //   img.width,
+        //   img.height,
+        //   centerShift_x,
+        //   centerShift_y,
+        //   img.width * ratio,
+        //   img.height * ratio
+        // );
+        // drawInfos();
+        // // clearScreen();
+        // context.globalAlpha = 0.7;
+        // context.drawImage(
+        //   img,
+        //   0,
+        //   0,
+        //   img.width,
+        //   img.height,
+        //   centerShift_x,
+        //   centerShift_y,
+        //   img.width * ratio,
+        //   img.height * ratio
+        // );
+        // drawInfos();
+        // // clearScreen();
+        // context.globalAlpha = 0.8;
+        // context.drawImage(
+        //   img,
+        //   0,
+        //   0,
+        //   img.width,
+        //   img.height,
+        //   centerShift_x,
+        //   centerShift_y,
+        //   img.width * ratio,
+        //   img.height * ratio
+        // );
+        // drawInfos();
+        // // clearScreen();
         context.globalAlpha = 1;
         context.drawImage(
           img,
@@ -884,7 +886,7 @@ export class TimingPivotComponent implements OnInit {
         // drawInfos();
 
         finalizeFrame(frameIndex + 1, frames.length);
-        stackDelayFrame = 4;
+        stackDelayFrame = 12;
       };
       img.src = self.medias.getDataUrlMedia(frame.MediaUrl);
 
