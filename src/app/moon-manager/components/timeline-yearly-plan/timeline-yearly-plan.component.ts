@@ -27,7 +27,7 @@ const colors: any = {
     secondary: '#c3971c'
   },
   red: {
-    primary: '#1eff31',
+    primary: '#d11232',
     secondary: '#d13212'
   }
 };

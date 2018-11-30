@@ -52,6 +52,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     let agFields = changes['moon-manager-timing-pivot'].agregationsFields;
     agFields = typeof agFields === 'string' ? agFields.split(',') : agFields;
     changes['moon-manager-timing-pivot'].agregationsFields = agFields;
+    // TODO : ensure array for selected jointure have lenght > 2, or summary is not yet fully right...
 
     this.storage.setItem('config', changes).subscribe(() => {
       this.notif.success('Changements enregistré'); // TODO : tanslations

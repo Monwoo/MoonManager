@@ -26,5 +26,5 @@
   <div *ngIf="'capture' === t.EventSource">
     <img class="primary-brand" [src]="t.MediaUrl | urlTransformer" alt="Timing preview" />
   </div>
-  <div *ngIf="'git-log' === t.EventSource">{{ t.MediaUrl }} : {{ t.comment }}</div>
+  <div *ngIf="'git-log' === t.EventSource">{{ t.MediaUrl }} : {{ t.Comment }}</div>
 </p-panel>
