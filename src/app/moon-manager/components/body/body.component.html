@@ -4,8 +4,8 @@
 </moon-manager-client-files-loader>
 
 <moon-manager-timing-pivot [dataSrc]="filteredDatasAsync.asObservable()"></moon-manager-timing-pivot>
-
-<cdk-virtual-scroll-viewport *ngIf="filteredDatas.length" class="list-container list-group no-print" [itemSize]="73">
+<!-- TODO : did fix itemSize with empiric value, need autosize for flexibles items -->
+<cdk-virtual-scroll-viewport *ngIf="filteredDatas.length" class="list-container list-group no-print" [itemSize]="94">
   <div
     *cdkVirtualFor="let t of (filteredDatasAsync.asObservable() | async)"
     [ngClass]="'p-col-12 animated lightSpeedIn timing-idx-' + t.id"

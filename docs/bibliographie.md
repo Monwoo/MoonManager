@@ -135,6 +135,12 @@ Dev stuffs :
 - https://stackoverflow.com/questions/44669340/how-to-truncate-text-in-angular2
 - https://angular.io/api/common/SlicePipe
 - https://www.primefaces.org/primeng/#/splitbutton
+- https://github.com/angular/material2
+- https://material.angular.io/cdk/scrolling/overview
+
+- https://www.reddit.com/r/Angular2/comments/8n2g6p/angular_material_620_virtual_scroll_in_cdk/
+- https://stackblitz.com/edit/angular-h4xptu?file=app%2Fselect-reset-example.html
+- https://stackblitz.com/edit/angular-h4xptu?file=main.ts
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
@@ -153,7 +159,7 @@ yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications lodash-es @types/lodash-es
 yarn add ngx-quill primeflex @angular/flex-layout ngx-papaparse@3
-yarn add angular-formio
+yarn add angular-formio @angular/cdk-experimental
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 

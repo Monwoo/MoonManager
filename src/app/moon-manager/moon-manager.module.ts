@@ -8,8 +8,10 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add the imports!
 // import { MatButtonModule, MatCheckboxModule, MatTooltipModule } from '@angular/material';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+// import { ScrollingModule as ExperimentalScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { PlatformModule } from '@angular/cdk/platform';
 import { MatCardModule } from '@angular/material';
+
 // TODO : try to integrate nice logger module... or find starter ways...
 // import { Logger, Options as LogOpt, Level as LogLvl } from 'angular2-logger/dist/es6/core';
 import { CurrencyPipe } from '@angular/common';
@@ -96,6 +98,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MatGridListModule,
     MatExpansionModule,
     ScrollingModule,
+    // ExperimentalScrollingModule,
     PlatformModule,
     TreeTableModule,
     SplitButtonModule,
