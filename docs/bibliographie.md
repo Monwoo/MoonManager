@@ -160,6 +160,27 @@ Dev stuffs :
 - https://github.com/neoighodaro/Angular-SEO-friendly-example
 - https://makina-corpus.com/blog/metier/2017/comment-mettre-en-place-angular-universal
 - https://github.com/lgraubner/sitemap-generator
+- https://raw.githubusercontent.com/lgraubner/sitemap-generator/master/README.md
+- https://github.com/lgraubner/sitemap-generator-cli
+- https://codecraft.tv/courses/angular/angular-cli/overview/
+- https://medium.com/@amcdnl/version-stamping-your-app-with-the-angular-cli-d563284bb94d
+- https://medium.com/@tomastrajan/how-to-style-angular-application-loading-with-angular-cli-like-a-boss-cdd4f5358554
+- https://github.com/angular/angular-cli/issues/11816
+- https://github.com/manfredsteyer/ngx-build-plus
+- https://www.sitepoint.com/ultimate-angular-cli-reference/
+- https://stackoverflow.com/questions/39538464/how-to-include-custom-files-with-angular-cli-build
+- https://www.npmjs.com/package/html-webpack-plugin
+- https://medium.com/dailyjs/inserting-variables-into-html-and-javascript-with-webpack-80f33625edc6
+- https://www.edc4it.com/blog/web/helloworld-angular2.html
+- https://medium.com/@amcdnl/version-stamping-your-app-with-the-angular-cli-d563284bb94d
+
+- https://www.npmjs.com/package/gulp-inject
+
+- https://hackernoon.com/getting-started-with-gulp-4-for-angular-1280a78fa91a
+
+- https://www.alsacreations.com/article/lire/560-dtd-doctype-html-xhtml-comment-choisir.html
+
+-
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
