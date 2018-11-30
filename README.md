@@ -187,6 +187,7 @@ MoonManager is simply some configuration and some more stuffs added to it.
 
 <details>
 <summary>Design stuffs :</summary>
+
 - http://www.favicomatic.com/
 - https://www.wikihow.com/Woo-a-Girl
 - https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/
@@ -212,6 +213,7 @@ bon, voilà, en mode bitMap là, à placer des points sur la carte. Va falloir p
 
 <details>
 <summary>Pushing to this repo :</summary>
+
 - https://help.github.com/articles/duplicating-a-repository/
 - https://help.github.com/articles/fork-a-repo/
 - https://gist.github.com/jacquesd/85097472043b697ab57ba1b1c7530274
