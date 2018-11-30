@@ -1,6 +1,15 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 
-import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  NgZone
+} from '@angular/core';
 import { NgForm, FormGroup } from '@angular/forms';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 import { NotificationsService } from 'angular2-notifications';
@@ -22,6 +31,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   formGroup: FormGroup;
 
   constructor(
+    private ngZone: NgZone,
     private storage: LocalStorage,
     private notif: NotificationsService,
     private formService: DynamicFormService
@@ -31,18 +41,6 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit() {
     this.formGroup = this.formService.createFormGroup(this.formModel);
-
-    // Load from params from local storage :
-    this.storage.getItem<any>('config', {}).subscribe(
-      config => {
-        // Called if data is valid or null
-        console.log('Fetching config : ', config);
-        this.config = config;
-      },
-      error => {
-        console.error('Fail to fetch config');
-      }
-    );
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -50,6 +48,24 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // Load from params from local storage :
+    this.storage.getItem<any>('config', {}).subscribe(
+      config => {
+        // Called if data is valid or null
+        console.log('Fetching config : ', config);
+        this.config = config;
+        this.ngZone.run(() => {
+          // TODO : solve error :
+          // ERROR Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'null:
+          // Non bloquant : ca fonctionne qd meme....
+          this.paramsForm.form.patchValue(this.config);
+        });
+      },
+      error => {
+        console.error('Fail to fetch config');
+      }
+    );
+
     // TODO : will not change if live edit in form, pb about form building ?
     // may need to build form structure JS Side ? solved by simple 'save btn' for now...
     // this.paramsForm.form.valueChanges.subscribe(allConfigs => {
@@ -68,9 +84,23 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     changes['moon-manager-timing-pivot'].agregationsFields = agFields;
     // TODO : ensure array for selected jointure have lenght > 2, or summary is not yet fully right...
 
-    this.storage.setItem('config', changes).subscribe(() => {
-      this.notif.success('Changements enregistré'); // TODO : tanslations
-    });
+    let errorHandler = (error: any) => {
+      this.notif.error("Echec de l'enregistrement"); // TODO : tanslations
+      console.log(error);
+    };
+
+    this.storage.getItem<any>('config', {}).subscribe((globalConfig: any) => {
+      // Called if data is valid or null
+      if (!globalConfig) globalConfig = {};
+      this.storage
+        .setItem('config', {
+          ...globalConfig,
+          ...changes
+        })
+        .subscribe(() => {
+          this.notif.success('Changements enregistré'); // TODO : tanslations
+        }, errorHandler);
+    }, errorHandler);
   }
 
   resetConfigAction(e: any) {

@@ -149,7 +149,9 @@ Dev stuffs :
 
 - https://github.com/text-mask/text-mask/#readme
 - https://github.com/udos86/ng-dynamic-forms/blob/bfea1d8b/packages/core/src/model/misc/dynamic-form-control-layout.model.ts#L8
--
+- https://toddmotto.com/angular-2-form-controls-patch-value-set-value
+
+- https://angular.io/api/core/NgZone
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:

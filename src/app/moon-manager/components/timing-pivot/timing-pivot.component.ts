@@ -14,6 +14,7 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 
 import { Timing } from '../../api/data-model/timing';
 import { MediasBufferService } from '../../services/medias-buffer.service';
+import { ConfigDefaults } from './config-form.model';
 
 declare var CCapture: any;
 
@@ -23,16 +24,7 @@ declare var CCapture: any;
   styleUrls: ['./timing-pivot.component.scss']
 })
 export class TimingPivotComponent implements OnInit {
-  @Input() config?: any = {
-    paramTitle: 'Pivot temporel', // TODO translations
-    agregationsFields: ['Author', 'Project', 'SubProject', 'Objectif', 'Date', 'Time'],
-    billedDays: 0,
-    paidDays: 0,
-    compensatedDays: 0,
-    receivedDays: 0,
-    summaryTitle: "Compte rendu d'activité de M. John Doe",
-    lowRes: false
-  };
+  @Input() config?: any = ConfigDefaults();
   @Input() dataSrc: BehaviorSubject<Timing[]>;
 
   @Output() isFocused: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -688,7 +680,7 @@ export class TimingPivotComponent implements OnInit {
         context.font = self.config.lowRes ? '10px Comic Sans MS' : '10px Comic Sans MS';
         context.fillStyle = 'rgb(60,0,108)';
         context.textAlign = 'center';
-        context.fillText('© Monwoo', canvas.width / 2, 12);
+        context.fillText(self.config.videoCopyright, canvas.width / 2, 12);
         context.font = self.config.lowRes ? '9px Arial' : '18px Arial';
         context.textAlign = 'left';
         context.fillText(frame.Comment, 0, 90);
@@ -730,7 +722,7 @@ export class TimingPivotComponent implements OnInit {
           context.font = self.config.lowRes ? '10px Comic Sans MS' : '20px Comic Sans MS';
           context.fillStyle = 'rgb(60,0,108)'; // Primary color
           context.textAlign = 'center';
-          context.fillText('© Monwoo (Private data)', canvas.width / 2, fillHeight);
+          context.fillText(self.config.videoCopyright, canvas.width / 2, fillHeight);
 
           context.globalAlpha = 0.75;
           context.fillStyle = 'white';
