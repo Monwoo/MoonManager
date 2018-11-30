@@ -180,7 +180,7 @@ Dev stuffs :
 
 - https://www.alsacreations.com/article/lire/560-dtd-doctype-html-xhtml-comment-choisir.html
 
--
+- https://kb.iu.edu/d/aeet
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
