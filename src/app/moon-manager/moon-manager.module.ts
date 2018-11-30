@@ -27,6 +27,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 
+import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
+
 // TODO : try to combine Material and PrimeNg, failing import about splitbutton for now...
 import { SplitButtonModule } from 'primeng/splitbutton';
 
@@ -97,6 +100,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MatProgressBarModule,
     MatGridListModule,
     MatExpansionModule,
+    DynamicFormsCoreModule,
+    DynamicFormsMaterialUIModule,
     ScrollingModule,
     // ExperimentalScrollingModule,
     PlatformModule,

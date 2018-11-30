@@ -94,6 +94,7 @@ yarn run generate component moon-manager/components/Body --module=moon-manager
 yarn run generate component moon-manager/components/Footer --module=moon-manager
 yarn run generate pipe moon-manager/pipes/Default --module=moon-manager
 yarn run generate directive moon-manager/directives/NgLet --module=moon-manager
+yarn run generate class moon-manager/components/client-files-loader/ConfigFormModel --module=moon-manager
 
 # running tests for continous integration (will test all only once) :
 yarn run test:ci

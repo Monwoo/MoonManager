@@ -10,6 +10,7 @@ import { Papa } from 'ngx-papaparse';
 
 import { Timing } from '../../api/data-model/timing';
 import { MediasBufferService } from '../../services/medias-buffer.service';
+import { ConfigDefaults } from './config-form.model';
 
 @Component({
   selector: 'moon-manager-client-files-loader',
@@ -17,25 +18,7 @@ import { MediasBufferService } from '../../services/medias-buffer.service';
   styleUrls: ['./client-files-loader.component.scss']
 })
 export class ClientFilesLoaderComponent implements OnInit {
-  @Input() config?: any = {
-    paramTitle: 'Chargement des captures', // TODO translations
-    timingEventType: 'capture',
-    timingAuthor: 'John Doe',
-    timingSegmentDelta: 0.2,
-    // TODO : improve Parameters up to deep properties lookup with auto-gen forms for edit
-    // then transform below captureRegex to flexible array....
-    captureRegex_0: '.*Capture d’écran ([0-9]{4})-([0-9]{2})-([0-9]{2}) ' + 'à ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.png',
-    captureRegex_1: '.*Screenshot ([0-9]{4})-([0-9]{2})-([0-9]{2}) ' + 'at ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.png',
-    captureRegex_2: null,
-    thumbW: 700,
-    thumbH: 400,
-    regExGitLogFile: '.*.csv',
-    regExAuthor: '^[^/]+/([^/]+)/',
-    regExProject: '^[^/]+/[^/]+/([^/]+)/',
-    regExSubProject: '^[^/]+/[^/]+/[^/]+/([^/]+)/',
-    regExObjectif: '^[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/',
-    regExSkillsId: '^[^/]+/[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/'
-  };
+  @Input() config?: any = ConfigDefaults();
 
   @Output() onTimingFetch: EventEmitter<Timing> = new EventEmitter<Timing>();
 

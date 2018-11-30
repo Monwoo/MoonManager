@@ -142,6 +142,13 @@ Dev stuffs :
 - https://stackblitz.com/edit/angular-h4xptu?file=app%2Fselect-reset-example.html
 - https://stackblitz.com/edit/angular-h4xptu?file=main.ts
 
+- https://github.com/udos86/ng-dynamic-forms
+- https://angular.io/guide/forms
+- https://angular.io/guide/dynamic-form
+
+- https://github.com/text-mask/text-mask/#readme
+-
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
@@ -160,6 +167,7 @@ yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications lodash-es @types/lodash-es
 yarn add ngx-quill primeflex @angular/flex-layout ngx-papaparse@3
 yarn add angular-formio @angular/cdk-experimental
+yarn add @ng-dynamic-forms/core @ng-dynamic-forms/ui-material angular2-text-mask
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 

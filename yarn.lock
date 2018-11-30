@@ -364,6 +364,14 @@
   dependencies:
     tslib "^1.9.0"
 
+"@ng-dynamic-forms/core@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-7.0.1.tgz#907cda6adeb06b5cba068cdb82a1110d3877a937"
+
+"@ng-dynamic-forms/ui-material@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-material/-/ui-material-7.0.1.tgz#870817a2d4e4ec17b29df28533f2bc7486bf8c7d"
+
 "@ngtools/webpack@7.0.6":
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-7.0.6.tgz#cc4f4189765f6743417b4eee946fb69590f93ce1"
@@ -765,6 +773,12 @@ angular2-logger@^0.7.0:
 angular2-notifications@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/angular2-notifications/-/angular2-notifications-1.0.4.tgz#7b3c449dbad45503965f8cd8ac00e998a4463544"
+
+angular2-text-mask@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/angular2-text-mask/-/angular2-text-mask-9.0.0.tgz#70490170a8096241fc3ce9482ed6a758ddbce8ea"
+  dependencies:
+    text-mask-core "^5.0.0"
 
 ansi-colors@^3.0.0:
   version "3.2.1"
@@ -8165,6 +8179,10 @@ terser@^3.8.1:
 text-mask-addons@^3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/text-mask-addons/-/text-mask-addons-3.8.0.tgz#17b61ef665a4f36811f2ea1f01a223b4be61ab26"
+
+text-mask-core@^5.0.0:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.1.2.tgz#80dd5ebe04825757e46619e691407a9f8b3c1b6f"
 
 then-fs@^2.0.0:
   version "2.0.0"
