@@ -160,10 +160,10 @@ export class ClientFilesLoaderComponent implements OnInit {
         t.id = ++this.index;
         t.DateTime = date.toDate();
         t.EventSource = 'git-log'; // TODO : configurable from parameters ?
-        t.ExpertiseLevel = row.length > 7 ? row[7] : '';
+        t.ExpertiseLevel = row.length > 8 ? row[8] : '';
         t.Project = row.length > 5 ? row[5] : '';
-        t.SubProject = row.length > 5 ? row[5] : '';
-        t.Objectif = row.length > 6 ? row[6] : '';
+        t.SubProject = row.length > 6 ? row[6] : '';
+        t.Objectif = row.length > 7 ? row[7] : '';
         t.Comment = row[3];
         t.Title = t.Comment.substring(0, 100);
         t.MediaUrl = row[0];
