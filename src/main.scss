@@ -78,6 +78,10 @@ a {
   img {
     page-break-inside: avoid;
   }
+
+  .mat-card {
+    box-shadow: none !important;
+  }
 }
 @import "~bootstrap/scss/_mixins";
 // TODO : col-pr seem to be ok on media print debug rendering, but fail

@@ -1,6 +1,30 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 @media print {
-  .month-plan {
+  .col-screen {
+    -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
+    break-inside: avoid;
+    display: inline-block;
+
+    .month-plan {
+      // Below may not work, since seem to work only on 'block' displayed objects....
+      // https://css-tricks.com/almanac/properties/b/break-inside/
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      display: inline-block !important;
+      // padding: 10px;
+      max-width: 100%; // having issue with grid system ? why need to set max-width to print fine ?
+    }
+  }
+}
+
+@media screen {
+  // TODO : col is ok for screen, but mess up Pdf print... custom one to avoid print issue
+  .col-screen {
+    width: 100%;
+  }
+  .month-plan {
+    margin: 10px 0px;
   }
 }

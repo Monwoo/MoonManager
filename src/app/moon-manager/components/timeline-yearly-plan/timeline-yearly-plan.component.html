@@ -6,21 +6,24 @@
 
 <div class="bs">
   <div class="timeline-yearly-plan row">
-    <div class="col col-md-4 col-pr-4" *ngFor="let idx of sortedMonthsKeys">
-      <div class="month-plan" *ngLet="sortedMonths.get(idx) as value">
-        <!-- TODO : add billableDaySum ? => depends of TJM applied => all 5hr/day for now -->
-        <strong>{{ value | titlecase }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} jours </strong>
-        <mwl-calendar-month-view
-          [viewDate]="idx"
-          [events]="eventsByMonths.get(value)"
-          [activeDayIsOpen]="false"
-          [weekStartsOn]="1"
-          [weekendDays]="[0, 1, 6]"
-          (beforeViewRender)="beforeMonthViewRender($event)"
-        >
-        </mwl-calendar-month-view>
+    <ng-container *ngFor="let idx of sortedMonthsKeys; let i = index">
+      <div class="col-screen col-md-4 col-pr-4">
+        <div class="month-plan" *ngLet="sortedMonths.get(idx) as value">
+          <!-- TODO : add billableDaySum ? => depends of TJM applied => all 5hr/day for now -->
+          <strong>{{ value | titlecase }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} jours </strong>
+          <mwl-calendar-month-view
+            [viewDate]="idx"
+            [events]="eventsByMonths.get(value)"
+            [activeDayIsOpen]="false"
+            [weekStartsOn]="1"
+            [weekendDays]="[0, 1, 6]"
+            (beforeViewRender)="beforeMonthViewRender($event)"
+          >
+          </mwl-calendar-month-view>
+        </div>
       </div>
-    </div>
+      <div class="allow-print-break col-12" *ngIf="i && (i + 1) % 3 === 0"><br /></div>
+    </ng-container>
   </div>
 </div>
 
