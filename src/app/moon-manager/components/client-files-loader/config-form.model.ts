@@ -50,19 +50,19 @@ export const CONFIG_FORM_LAYOUT = {
 
 export const CONFIG_FORM_MODEL: DynamicFormModel = [
   // TODO : tool to auto gen ? or always time lost since design of form will bring back to specific.. ?
-  new DynamicInputModel({
-    id: 'paramTitle',
-    label: 'Titre de la config', // TODO : translate
-    maxLength: 42,
-    placeholder: 'Votre titre'
-  }),
+  // new DynamicInputModel({
+  //   id: 'paramTitle',
+  //   label: 'Titre de la config', // TODO : translate
+  //   maxLength: 42,
+  //   placeholder: 'Votre titre'
+  // }),
 
-  new DynamicInputModel({
-    id: 'timingAuthor',
-    label: 'Autheur à inspecter', // TODO : translate
-    maxLength: 42,
-    placeholder: "Nom d'autheur à regrouper"
-  }),
+  // new DynamicInputModel({
+  //   id: 'timingAuthor',
+  //   label: 'Autheur à inspecter', // TODO : translate
+  //   maxLength: 42,
+  //   placeholder: "Nom d'autheur à regrouper"
+  // }),
 
   new DynamicInputModel({
     id: 'captureRegex',
@@ -79,5 +79,12 @@ export const CONFIG_FORM_MODEL: DynamicFormModel = [
     inputType: 'number',
     placeholder: 'Largeur',
     value: _conf.thumbW // well, ovewritten by param config obj loaded from storage...
+  }),
+  new DynamicInputModel({
+    id: 'thumbH',
+    label: 'Hauteur du thumbnail', // TODO : translate
+    inputType: 'number',
+    placeholder: 'Hauteur',
+    value: _conf.thumbH // well, ovewritten by param config obj loaded from storage...
   })
 ];
