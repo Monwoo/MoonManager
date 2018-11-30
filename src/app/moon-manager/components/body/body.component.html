@@ -3,6 +3,8 @@
 <moon-manager-client-files-loader class="no-print" (onTimingFetch)="didFetchTiming($event)">
 </moon-manager-client-files-loader>
 
+<moon-manager-timing-pivot [dataSrc]="filteredDatasAsync.asObservable()"></moon-manager-timing-pivot>
+
 <cdk-virtual-scroll-viewport *ngIf="filteredDatas.length" class="list-container list-group no-print" [itemSize]="73">
   <div
     *cdkVirtualFor="let t of (filteredDatasAsync.asObservable() | async)"
@@ -11,5 +13,3 @@
     <moon-manager-timing-form [t]="t"></moon-manager-timing-form>
   </div>
 </cdk-virtual-scroll-viewport>
-
-<moon-manager-timing-pivot [dataSrc]="filteredDatasAsync.asObservable()"></moon-manager-timing-pivot>

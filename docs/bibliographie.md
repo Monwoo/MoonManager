@@ -126,6 +126,16 @@ Dev stuffs :
 
 - http://tutorials.jenkov.com/html5-canvas/state.html
 
+- https://angular.io/api/common/TitleCasePipe
+
+- https://stackoverflow.com/questions/9911172/changing-the-primefaces-header-style-of-panel-component
+- https://stackoverrun.com/fr/q/11740141
+- https://www.journaldev.com/3917/primefaces-panel-panelgrid-panelmenu-example-tutorial
+- https://github.com/sudheerj/generator-jhipster-primeng/blob/master/generators/app/templates/src/main/webapp/app/primeng/panel/panel/paneldemo.component.html
+- https://stackoverflow.com/questions/44669340/how-to-truncate-text-in-angular2
+- https://angular.io/api/common/SlicePipe
+- https://www.primefaces.org/primeng/#/splitbutton
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

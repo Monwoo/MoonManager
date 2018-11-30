@@ -25,8 +25,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 
-import { TreeTableModule } from 'primeng/primeng';
-import { PanelModule } from 'primeng/primeng';
+// TODO : try to combine Material and PrimeNg, failing import about splitbutton for now...
+import { SplitButtonModule } from 'primeng/splitbutton';
+
+import { TreeTableModule } from 'primeng/treetable';
+import { PanelModule } from 'primeng/panel';
 
 import { MoonManagerRoutingModule } from './moon-manager-routing.module';
 import { BodyComponent } from './components/body/body.component';
@@ -95,6 +98,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     ScrollingModule,
     PlatformModule,
     TreeTableModule,
+    SplitButtonModule,
     PanelModule,
     // FormioModule,
     MonwooMoonManagerWrapModule

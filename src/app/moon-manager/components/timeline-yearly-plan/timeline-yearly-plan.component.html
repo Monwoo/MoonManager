@@ -9,7 +9,7 @@
     <div class="col col-md-4 col-pr-4" *ngFor="let idx of sortedMonthsKeys">
       <div class="month-plan" *ngLet="sortedMonths.get(idx) as value">
         <!-- TODO : add billableDaySum ? => depends of TJM applied => all 5hr/day for now -->
-        <strong>{{ value }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} jours </strong>
+        <strong>{{ value | titlecase }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} jours </strong>
         <mwl-calendar-month-view
           [viewDate]="idx"
           [events]="eventsByMonths.get(value)"

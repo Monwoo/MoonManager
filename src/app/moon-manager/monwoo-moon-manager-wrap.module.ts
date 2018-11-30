@@ -6,7 +6,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Items imports
 import { MatButtonModule, MatTooltipModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
+
+// TODO : try to combine Material and PrimeNg, failing import about splitbutton for now...
 // import { PanelModule } from 'primeng/primeng';
+// import {SplitButtonModule} from 'primeng/splitbutton';
+// import {SplitButtonModule} from 'primeng/splitbutton';
+// import {TreeTableModule} from 'primeng/treetable';
+// import { PanelModule } from 'primeng/panel';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Local source codes imports
@@ -27,6 +34,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     MatCardModule,
     FlexLayoutModule
     // PanelModule,
+    // TreeTableModule,
+    // SplitButtonModule,
   ],
   exports: [
     MoonManagerComponent,
@@ -35,6 +44,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     MatCardModule,
     FlexLayoutModule
     // PanelModule,
+    // TreeTableModule,
+    // SplitButtonModule,
   ]
 })
 export class MonwooMoonManagerWrapModule {}

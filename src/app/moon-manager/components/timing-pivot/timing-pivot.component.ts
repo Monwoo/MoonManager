@@ -5,7 +5,7 @@ import { CurrencyPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
 import { BehaviorSubject } from 'rxjs';
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode } from 'primeng/api';
 import * as moment from 'moment';
 import { set as setProperty } from 'lodash-es';
 import { get as getProperty } from 'lodash-es';
