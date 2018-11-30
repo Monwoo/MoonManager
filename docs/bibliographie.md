@@ -153,6 +153,14 @@ Dev stuffs :
 
 - https://angular.io/api/core/NgZone
 
+- https://medium.com/slalom-engineering/bringing-seo-to-angular-applications-9de14995dc67
+- https://medium.com/@maciejtreder/angular-server-side-rendering-with-ng-toolkit-universal-c08479ca688
+- https://coursetro.com/posts/code/155/Angular-6-SEO-Tutorial-from-Scratch---It's-Super-Simple-Now!
+- https://blog.pusher.com/make-angular-4-app-seo-friendly/
+- https://github.com/neoighodaro/Angular-SEO-friendly-example
+- https://makina-corpus.com/blog/metier/2017/comment-mettre-en-place-angular-universal
+- https://github.com/lgraubner/sitemap-generator
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

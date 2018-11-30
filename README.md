@@ -185,8 +185,8 @@ MoonManager is simply some configuration and some more stuffs added to it.
 
 ---
 
-Design stuffs :
-
+<details>
+<summary>Design stuffs :</summary>
 - http://www.favicomatic.com/
 - https://www.wikihow.com/Woo-a-Girl
 - https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/
@@ -206,11 +206,12 @@ bon, voilà, en mode bitMap là, à placer des points sur la carte. Va falloir p
 - https://gist.github.com/jareware/4738651
 
 - https://www.sessions.edu/color-calculator/
+  </details>
 
 ---
 
-Pushing to this repo :
-
+<details>
+<summary>Pushing to this repo :</summary>
 - https://help.github.com/articles/duplicating-a-repository/
 - https://help.github.com/articles/fork-a-repo/
 - https://gist.github.com/jacquesd/85097472043b697ab57ba1b1c7530274
@@ -268,6 +269,8 @@ git branch
 # check local branches AND remotes branches :
 git branch -a
 ```
+
+</details>
 
 ---
 
