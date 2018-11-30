@@ -1,9 +1,11 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 
 import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup } from '@angular/forms';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 import { NotificationsService } from 'angular2-notifications';
+import { CONFIG_FORM_LAYOUT, CONFIG_FORM_MODEL } from './config-form.model';
+import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -13,11 +15,23 @@ import { NotificationsService } from 'angular2-notifications';
 export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paramsForm') paramsForm: NgForm; // TODO : fail to use for now
 
-  constructor(private storage: LocalStorage, private notif: NotificationsService) {}
+  formModel: DynamicFormModel = CONFIG_FORM_MODEL;
+  // TODO : how to custom layout for embed form with NO html code ?
+  // Need some code pattern to avoid id's clash ?
+  formLayout: DynamicFormLayout = CONFIG_FORM_LAYOUT;
+  formGroup: FormGroup;
+
+  constructor(
+    private storage: LocalStorage,
+    private notif: NotificationsService,
+    private formService: DynamicFormService
+  ) {}
 
   public config: any;
 
   ngOnInit() {
+    this.formGroup = this.formService.createFormGroup(this.formModel);
+
     // Load from params from local storage :
     this.storage.getItem<any>('config', {}).subscribe(
       config => {

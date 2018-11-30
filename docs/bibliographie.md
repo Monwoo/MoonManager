@@ -145,8 +145,10 @@ Dev stuffs :
 - https://github.com/udos86/ng-dynamic-forms
 - https://angular.io/guide/forms
 - https://angular.io/guide/dynamic-form
+- https://github.com/udos86/ng-dynamic-forms/blob/master/sample/app/ui-material/material-sample-form.model.ts
 
 - https://github.com/text-mask/text-mask/#readme
+- https://github.com/udos86/ng-dynamic-forms/blob/bfea1d8b/packages/core/src/model/misc/dynamic-form-control-layout.model.ts#L8
 -
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli

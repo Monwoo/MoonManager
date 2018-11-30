@@ -198,20 +198,18 @@ export class ClientFilesLoaderComponent implements OnInit {
 
     let dateStr: string = null;
 
-    [this.config.captureRegex_0, this.config.captureRegex_1, this.config.captureRegex_2].some(
-      (pattern: any, idx: number, arr: any[]) => {
-        // let matches = this.getFilePath(f).match(pattern);
-        let rgEx = new RegExp(pattern, 'i');
-        let m = rgEx.exec(this.getFilePath(f));
-        // console.log('Matches : ', m);
-        if (m) {
-          // TODO : extract should be by regex, lucky for now, having same pattern...
-          // "$1/$2/$3 $4:$5:$6"
-          dateStr = `${m[1]}/${m[2]}/${m[3]} ${m[4]}:${m[5]}:${m[6]}`;
-        }
-        return dateStr ? true : false;
+    this.config.captureRegex.some((pattern: any, idx: number, arr: any[]) => {
+      // let matches = this.getFilePath(f).match(pattern);
+      let rgEx = new RegExp(pattern, 'i');
+      let m = rgEx.exec(this.getFilePath(f));
+      // console.log('Matches : ', m);
+      if (m) {
+        // TODO : extract should be by regex, lucky for now, having same pattern...
+        // "$1/$2/$3 $4:$5:$6"
+        dateStr = `${m[1]}/${m[2]}/${m[3]} ${m[4]}:${m[5]}:${m[6]}`;
       }
-    );
+      return dateStr ? true : false;
+    });
     let date = dateStr ? moment(dateStr, '') : moment(); // TODO : regex extract from path
     let title = this.getFilePath(f);
     let segmentDelta = this.config.timingSegmentDelta;
