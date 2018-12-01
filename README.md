@@ -12,7 +12,7 @@ Démo : https://monwoo.com/MoonManager/Demo/
 
 Exemple de reporting généré :
 
-- [MoonManager Pdf printed report for MoonWashBeta] (docs/outputSamples/MoonManager_Private data_For_MoonWashBeta.pdf)
+- [MoonManager Pdf printed report for MoonWashBeta](docs/outputSamples/MoonManager_Private data_For_MoonWashBeta.pdf)
 - [Générated youtube vidéo](https://youtu.be/__Q21B1TTb8)
 
 #### FR
