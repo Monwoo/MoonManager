@@ -27,7 +27,12 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
   imports: [
     CommonModule,
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot(),
+    SimpleNotificationsModule.forRoot({
+      timeOut: 3000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true
+    }),
     RouterModule,
     MatButtonModule,
     MatTooltipModule,
