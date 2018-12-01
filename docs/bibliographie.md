@@ -185,6 +185,20 @@ Dev stuffs :
 - https://material.io/design/components/cards.html
 - https://material.angular.io/components/card/overview
 
+- https://github.com/ngx-translate/core
+- https://github.com/biesbjerg/ngx-translate-extract
+- https://github.com/biesbjerg/ngx-translate-po-http-loader
+
+- https://material-components.github.io/material-components-web-catalog/#/component/select
+
+- https://material.io/develop/web/components/input-controls/select-menus/
+- https://github.com/material-components/material-components-web/blob/master/demos/toolbar/waterfall-flexible-toolbar-custom-style.html
+
+- https://material.angular.io/components/select/api
+
+- https://github.com/ngx-rocket/generator-ngx-rocket/commit/71d1c0233097536859b8478e84e2ded091f920db
+- https://stackoverflow.com/questions/37304160/typescript-wait-for-an-observable-promise-to-finish-and-return-observable
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

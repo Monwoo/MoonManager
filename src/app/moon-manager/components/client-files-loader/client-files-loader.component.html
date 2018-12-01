@@ -1,7 +1,7 @@
 <!-- Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com -->
 <dropzone
   [config]="dropzoneConfig"
-  [message]="'Drag structured folder of your captures (and|or) git_logs.csv over here to load them in MoonManager'"
+  [message]="trans.dropZonePlaceholder | translate"
   (error)="onImageUploadError($event)"
   (success)="onImageUploadSuccess($event)"
   (thumbnail)="onImageThumbnail($event)"

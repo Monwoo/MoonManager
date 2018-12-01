@@ -6,17 +6,18 @@ import {
   DynamicInputModel,
   DynamicRadioGroupModel
 } from '@ng-dynamic-forms/core';
+import { extract } from '@app/core';
 
 export const ConfigDefaults: ((caller?: any) => any) = (caller?: any) => ({
-  paramTitle: 'Pivot temporel', // TODO translations
+  paramTitle: extract('Pivot temporel'),
   agregationsFields: ['Author', 'Project', 'SubProject', 'Objectif', 'Date', 'Time'],
   billedDays: 0,
   paidDays: 0,
   compensatedDays: 0,
   receivedDays: 0,
-  summaryTitle: "Compte rendu d'activité de M. John Doe",
-  videoCopyright: '© Monwoo (Private data)',
-  videoFontColor: 'rgb(60,0,108)',
+  summaryTitle: extract("Compte rendu d'activité de M. John Doe"),
+  videoCopyright: extract('© Monwoo (Private data)'),
+  videoFontColor: extract('rgb(60,0,108)'),
   lowRes: false
 });
 
@@ -48,44 +49,44 @@ export const CONFIG_FORM_MODEL: DynamicFormModel = [
   // }),
   new DynamicInputModel({
     id: 'videoCopyright',
-    label: 'Titre de la vidéo', // TODO : translate
+    label: extract('Titre de la vidéo'), // TODO : translate
     maxLength: 69,
-    placeholder: 'Copyright de la vidéo'
+    placeholder: extract('Copyright de la vidéo')
   }),
 
   new DynamicInputModel({
     id: 'videoFontColor',
-    label: 'Couleur du text vidéo', // TODO : translate
+    label: extract('Couleur du text vidéo'), // TODO : translate
     maxLength: 69,
-    placeholder: 'Couleur du text'
+    placeholder: extract('Couleur du text')
   }),
 
   new DynamicCheckboxModel({
     id: 'lowRes',
-    label: 'Activer le mode vidéo basse résolution'
+    label: extract('Activer le mode vidéo basse résolution')
   }),
 
   new DynamicInputModel({
     id: 'summaryTitle',
-    label: "Titre pour le comptre rendue d'activité",
-    placeholder: 'Votre titre'
+    label: extract("Titre pour le comptre rendue d'activité"),
+    placeholder: extract('Votre titre')
   }),
 
   new DynamicInputModel({
     id: 'billedDays',
     inputType: 'number',
-    placeholder: 'Nombre de jours facturé',
+    placeholder: extract('Nombre de jours facturé'),
     // hint: "La somme de vos factures en jours",
-    hint: 'Total jours facturés'
+    hint: extract('Total jours facturés')
     // max: 5,
     // min: 0
   }),
   new DynamicInputModel({
     id: 'paidDays',
     inputType: 'number',
-    placeholder: 'Nombre de jours payé',
+    placeholder: extract('Nombre de jours payé'),
     // hint: "La somme de vos encaissements à jours",
-    hint: 'Total jours encaissés'
+    hint: extract('Total jours encaissés')
     // max: 5,
     // min: 0
   }),
@@ -94,8 +95,8 @@ export const CONFIG_FORM_MODEL: DynamicFormModel = [
     inputType: 'number',
     // placeholder: "Nombre de jours via compensation diverse négocié",
     // hint: "La somme des compensations non facturés admise",
-    placeholder: 'Compensations négociées aquises en jours',
-    hint: 'Total jours compensés'
+    placeholder: extract('Compensations négociées aquises en jours'),
+    hint: extract('Total jours compensés')
     // max: 5,
     // min: 0
   }),
@@ -104,8 +105,8 @@ export const CONFIG_FORM_MODEL: DynamicFormModel = [
     inputType: 'number',
     // placeholder: "Nombre de jours compensé",
     // hint: "Compensations diverses reçues en jours",
-    placeholder: 'Compensations reçuses en jours',
-    hint: 'Total jours reçus'
+    placeholder: extract('Compensations reçuses en jours'),
+    hint: extract('Total jours reçus')
     // max: 5,
     // min: 0
   })

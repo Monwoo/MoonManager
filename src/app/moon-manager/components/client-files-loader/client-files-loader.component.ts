@@ -7,6 +7,7 @@ import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild }
 import * as moment from 'moment';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 import { Papa } from 'ngx-papaparse';
+import { extract } from '@app/core';
 
 import { Timing } from '../../api/data-model/timing';
 import { MediasBufferService } from '../../services/medias-buffer.service';
@@ -18,6 +19,12 @@ import { ConfigDefaults } from './config-form.model';
   styleUrls: ['./client-files-loader.component.scss']
 })
 export class ClientFilesLoaderComponent implements OnInit {
+  trans = {
+    dropZonePlaceholder: extract(
+      'Drag structured folder of your captures (and|or) git_logs.csv over here to load them in MoonManager'
+    )
+  };
+
   @Input() config?: any = ConfigDefaults();
 
   @Output() onTimingFetch: EventEmitter<Timing> = new EventEmitter<Timing>();

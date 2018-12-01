@@ -10,8 +10,8 @@ export const environment = {
   version: env.npm_package_version + '-dev',
   // serverUrl: '/api',
   serverUrl: '/',
-  defaultLanguage: 'en-US',
-  supportedLanguages: ['en-US', 'fr-FR']
+  defaultLanguage: 'fr-FR',
+  supportedLanguages: ['fr-FR', 'en-US']
 };
 
 /*

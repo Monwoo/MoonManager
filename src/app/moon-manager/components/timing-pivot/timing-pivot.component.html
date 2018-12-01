@@ -1,7 +1,7 @@
 <!-- form (submit)="reCompute()" -->
 <div>
   <mat-card>
-    <button class="no-print" mat-button (click)="downloadTimingsVideo()">Exporter la Vidéo</button>
+    <button class="no-print" mat-button (click)="downloadTimingsVideo()">{{ 'Exporter la Vidéo' | translate }}</button>
     <div class="video-wrapper">
       <mat-progress-bar class="no-print" mode="determinate" [value]="videoLoadPercent"></mat-progress-bar>
 
@@ -13,18 +13,19 @@
 
   <mat-card>
     <p>
-      <strong>{{ config.summaryTitle }}</strong>
+      <strong>{{ config.summaryTitle | translate }}</strong>
     </p>
     <div>
       <div>
-        <strong>Nombre de jours facturés :</strong> {{ config.billedDays }} jours ({{ config.paidDays }} jours payés)
+        <strong>{{ 'Nombre de jours facturés :' | translate }}</strong> {{ config.billedDays }}
+        {{ 'jours' | translate }} ({{ config.paidDays }} {{ 'jours payés' | translate }})
       </div>
       <div>
-        <strong>Nombre de jours compensés :</strong> {{ config.compensatedDays }} jours ({{ config.receivedDays }} jours
-        reçus)
+        <strong>{{ 'Nombre de jours compensés :' | translate }}</strong> {{ config.compensatedDays }}
+        {{ 'jours' | translate }} ({{ config.receivedDays }} {{ 'jours reçus' | translate }})
       </div>
       <div>
-        <strong>Deltas horaire de segmentation :</strong>
+        <strong>{{ 'Deltas horaire de segmentation :' | translate }}</strong>
         <span *ngFor="let idx of (HrSegmentBySource | keyvalue); let i = index">
           <span *ngIf="i > 0">, </span> [{{ idx.key }} : {{ idx.value }} hr]
         </span>
@@ -43,29 +44,39 @@
             </span>
         </div>
     -->
-    <div><strong>Total horaire :</strong> {{ workloadTotal | number: '1.2-2' }} heures</div>
-    <div><strong>Total en jour facturables :</strong> {{ workloadByBillableDayTotal | number: '1.2-2' }} jours</div>
     <div>
-      <strong>Marge utilisable :</strong>
+      <strong>{{ 'Total horaire :' | translate }}</strong> {{ workloadTotal | number: '1.2-2' }}
+      {{ 'heures' | translate }}
+    </div>
+    <div>
+      <strong>{{ 'Total en jour facturables :' | translate }}</strong>
+      {{ workloadByBillableDayTotal | number: '1.2-2' }} {{ 'jours' | translate }}
+    </div>
+    <div>
+      <strong>{{ 'Marge utilisable :' | translate }}</strong>
       <strong [class.positive-value]="daysMargin > 0" [class.negative-value]="daysMargin < 0">
-        {{ daysMargin | number: '1.2-2' }} jours
+        {{ daysMargin | number: '1.2-2' }} {{ 'jours' | translate }}
       </strong>
-      pour une opportunité de {{ daysForseen | number: '1.2-2' }} jours
+      {{ 'pour une opportunité de' | translate }} {{ daysForseen | number: '1.2-2' }} {{ 'jours' | translate }}
     </div>
 
     <mat-card>
       <div *ngFor="let skillsIdx of (skillsRef | keyvalue)">
         <!-- [{{skillsIdx.key}}] : {{skillsIdx.value}} -->
         <strong class="skills-title">
-          TJM : {{ TJMBySkillsId[skillsIdx.key] }} € [{{ skillsIdx.value.title }}] ({{ skillsIdx.value.idx }}.)
+          {{ 'TJM :' | translate }} {{ TJMBySkillsId[skillsIdx.key] }} € [{{ skillsIdx.value.title | translate }}] ({{
+            skillsIdx.value.idx
+          }}.)
         </strong>
-        <div class="skills-detail">{{ skillsIdx.value.description }}</div>
-        <div class="skills-setup">Justificatifs : {{ skillsIdx.value.justificatifs }}</div>
+        <div class="skills-detail">{{ skillsIdx.value.description | translate }}</div>
+        <div class="skills-setup">
+          {{ 'Justificatifs :' | translate }} {{ skillsIdx.value.justificatifs | translate }}
+        </div>
       </div>
     </mat-card>
 
     <div>
-      <strong>Liste des jours :</strong>
+      <strong>{{ 'Liste des jours :' | translate }}</strong>
       <moon-manager-timeline-yearly-plan [timingsByDayAsync]="timingsByDayAsync"></moon-manager-timeline-yearly-plan>
     </div>
   </mat-card>
@@ -74,14 +85,14 @@
     <p-treeTable [value]="timingsTrees">
       <ng-template pTemplate="header">
         <tr>
-          <th class="timing-tree-group-col">Groupe</th>
+          <th class="timing-tree-group-col">{{ 'Groupe' | translate }}</th>
           <!-- th class="priority-2">Heures</th -->
-          <th class="priority-3">Compétances</th>
-          <th class="priority-3">Source</th>
-          <th class="priority-3">Charge linéaire</th>
-          <th class="priority-3">Charge segmentée</th>
-          <th class="priority-3">T.J.M. Applicable</th>
-          <th class="priority-2">Prix T.T.C.</th>
+          <th class="priority-3">{{ 'Compétances' | translate }}</th>
+          <th class="priority-3">{{ 'Source' | translate }}</th>
+          <th class="priority-3">{{ 'Charge linéaire' | translate }}</th>
+          <th class="priority-3">{{ 'Charge segmentée' | translate }}</th>
+          <th class="priority-3">{{ 'T.J.M. Applicable' | translate }}</th>
+          <th class="priority-2">{{ 'Prix T.T.C.' | translate }}</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowNode let-treeData="rowData">
@@ -96,16 +107,20 @@
             {{ treeData.Title }}
             <div class="visibility-sm no-print">
               | {{ treeData.SkillsId }} | {{ treeData.EventSource }} |
-              {{ treeData.LinearWorkloadAmount | number: '1.2-2' }} heures |
-              {{ treeData.WorkloadAmount | number: '1.2-2' }} heures | {{ treeData.TJM }} |
+              {{ treeData.LinearWorkloadAmount | number: '1.2-2' }} {{ 'heures' | translate }} |
+              {{ treeData.WorkloadAmount | number: '1.2-2' }} {{ 'heures' | translate }} | {{ treeData.TJM }} |
               {{ treeData.Price | currency: 'EUR' }} |
             </div>
           </td>
           <!-- td class="text-center priority-2">{{treeData.Time}}</td -->
           <td class="text-right priority-3" [innerHtml]="treeData.SkillsId"></td>
           <td class="text-right priority-3" [innerHtml]="treeData.EventSource"></td>
-          <td class="text-right priority-3">{{ treeData.LinearWorkloadAmount | number: '1.2-2' }} heures</td>
-          <td class="text-right priority-3">{{ treeData.WorkloadAmount | number: '1.2-2' }} heures</td>
+          <td class="text-right priority-3">
+            {{ treeData.LinearWorkloadAmount | number: '1.2-2' }} {{ 'heures' | translate }}
+          </td>
+          <td class="text-right priority-3">
+            {{ treeData.WorkloadAmount | number: '1.2-2' }} {{ 'heures' | translate }}
+          </td>
           <td class="text-right priority-3">{{ treeData.TJM }}</td>
           <td class="text-right priority-2">{{ treeData.Price | currency: 'EUR' }}</td>
         </tr>

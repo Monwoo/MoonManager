@@ -3,6 +3,7 @@
 import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { extract } from '@app/core';
 
 import { BehaviorSubject } from 'rxjs';
 import { TreeNode } from 'primeng/api';
@@ -85,47 +86,49 @@ export class TimingPivotComponent implements OnInit {
 
   public skillsRef = {
     RemoteEasyDev: {
-      title: 'Remote easy dev', // TODO : translation
-      idx: 'RED',
-      description: `Service de développement sur demande pour des objectifs
+      title: extract('Remote easy dev'),
+      idx: extract('RED'),
+      description: extract(`Service de développement sur demande pour des objectifs
       faciles et executable en 1 journée au maximum
-      sans nécessité de suivi ni gestion de projet.`, // TODO : translation
+      sans nécessité de suivi ni gestion de projet.`),
       maxBusyHrByDay: 5,
-      justificatifs: `5hr max via capture d'écran valant ${0.2}hr et
-      git log valant ${1}hr` // TODO : times from form fields
+      // justificatifs: extract(`5hr max via capture d'écran valant ${0.2}hr et
+      // git log valant ${1}hr`) // TODO : times from form fields
+      justificatifs: extract(`5hr max via capture d'écran valant 0.2hr et
+      git log valant 1hr`) // TODO : times from form fields
     },
     RemoteProjectManagement: {
-      title: 'Remote project management', // TODO : translation
-      idx: 'RPM',
-      description: 'Service de gestion de projet', // TODO : translation
+      title: extract('Remote project management'),
+      idx: extract('RPM'),
+      description: extract('Service de gestion de projet'),
       maxBusyHrByDay: 5,
-      justificatifs: `5hr max via capture d'écran valant ${0.2}hr et
-      git log valant ${1}hr` // TODO : times from form fields
+      justificatifs: extract(`5hr max via capture d'écran valant 0.2hr et
+      git log valant 1hr`) // TODO : times from form fields
     },
     RemoteReverseEngineering: {
-      title: 'Remote reverse engineering', // TODO : translation
-      idx: 'RRE',
-      description: `Service d'analyse logiciel`, // TODO : translation
+      title: extract('Remote reverse engineering'),
+      idx: extract('RRE'),
+      description: extract(`Service d'analyse logiciel`),
       maxBusyHrByDay: 5,
-      justificatifs: `5hr max via capture d'écran valant ${0.2}hr et
-      git log valant ${1}hr` // TODO : times from form fields
+      justificatifs: extract(`5hr max via capture d'écran valant 0.2hr et
+      git log valant 1hr`) // TODO : times from form fields
     },
     RemoteFeaturesForcast: {
-      title: 'Remote features forcast', // TODO : translation
-      idx: 'RFF',
-      description: `Service de veille technique et prévisionnelle`, // TODO : translation
+      title: extract('Remote features forcast'),
+      idx: extract('RFF'),
+      description: extract(`Service de veille technique et prévisionnelle`),
       maxBusyHrByDay: 5,
-      justificatifs: `5hr max via capture d'écran valant ${0.2}hr et
-      git log valant ${1}hr` // TODO : times from form fields
+      justificatifs: extract(`5hr max via capture d'écran valant 0.2hr et
+      git log valant 1hr`) // TODO : times from form fields
     },
     RemoteFullTutorialAndKnowledgeTransfert: {
-      title: 'Remote full tutorial and knowledge transfert', // TODO : translation
-      idx: 'RFTKT',
-      description: `Service de formation, de transfert
-      et d'analyse de connaissances`, // TODO : translation
+      title: extract('Remote full tutorial and knowledge transfert'),
+      idx: extract('RFTKT'),
+      description: extract(`Service de formation, de transfert
+      et d'analyse de connaissances`),
       maxBusyHrByDay: 5,
-      justificatifs: `5hr max via capture d'écran valant ${0.2}hr et
-      git log valant ${1}hr` // TODO : times from form fields
+      justificatifs: extract(`5hr max via capture d'écran valant 0.2hr et
+      git log valant 1hr`) // TODO : times from form fields
     }
   };
 
@@ -142,9 +145,9 @@ export class TimingPivotComponent implements OnInit {
     'git-log': 1
   };
   public authorReferencial = {
-    JohnDoe: 'John Doe',
-    'John Doe': 'John Doe',
-    'J. D.': 'John Doe'
+    JohnDoe: extract('John Doe'),
+    'John Doe': extract('John Doe'),
+    'J. D.': extract('John Doe')
   };
   // public authorFilterList = ['John Doe'];
   public authorFilterList: string[] = [];
@@ -167,7 +170,7 @@ export class TimingPivotComponent implements OnInit {
   // TODO : find fully integrated with Max common tools language system
   // Quick hack for now :
   public trans = {
-    toggleDataLoadBtn: 'Arrêter le chargement'
+    toggleDataLoadBtn: extract('Arrêter le chargement')
   };
 
   @ViewChild('pivot_grid') pivot: ElementRef;

@@ -1,17 +1,22 @@
 <!-- Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com -->
-<button mat-button color="primary" matTooltip="Reset parameters to factory" (click)="resetConfigAction($event)">
-  <i class="fas fa-power-off"></i> Reset
+<button
+  mat-button
+  color="primary"
+  matTooltip="{{'Reset parameters to factory'|translate}}"
+  (click)="resetConfigAction($event)"
+>
+  <i class="fas fa-power-off"></i> {{ 'Reset' | translate }}
 </button>
 <!-- < p-panel class="story" header="Légende des indicateurs temporels :"> -->
 <mat-card class="story">
   <mat-card-content>
-    <h1 class="param-title text-left">Légende des indicateurs temporels :</h1>
+    <h1 class="param-title text-left">{{ 'Légende des indicateurs temporels :' | translate }}</h1>
     <div fxLayout="row" fxLayoutGap="0.5%" fxLayoutAlign="center">
       <div fxFlex="94%" class="text-center">
         <img
           class=""
           src="assets/TimingsIndicatorStory.png"
-          alt="Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr"
+          alt="{{'Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr'|translate}}"
         />
       </div>
     </div>
@@ -26,8 +31,8 @@
   </mat-card-content>
 </mat-card>
 
-<button mat-button color="primary" matTooltip="Save params" (click)="saveAction($event)">
-  <i class="fas fa-save"></i> Save
+<button mat-button color="primary" matTooltip="{{'Save params'|translate}}" (click)="saveAction($event)">
+  <i class="fas fa-save"></i> {{ 'Save' | translate }}
 </button>
 
 <!--
@@ -42,5 +47,15 @@
 -->
 
 <mat-card>
-  <a href="https://github.com/Monwoo/MoonManager"> Project under M.I.T. Licence. Build by Monwoo. </a>
+  <a href="https://github.com/Monwoo/MoonManager">
+    {{ 'Project under M.I.T. Licence. Build by Monwoo.' | translate }}
+  </a>
 </mat-card>
+
+<mat-form-field>
+  <mat-select placeholder="{{langPlaceholder|translate}}" [value]="currentLanguage">
+    <mat-option *ngFor="let language of languages" (click)="setLanguage(language)" [value]="language">
+      {{ language | translate }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

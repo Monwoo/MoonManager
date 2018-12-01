@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Items imports
 import { MatButtonModule, MatTooltipModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
+import { TranslateModule } from '@ngx-translate/core';
 
 // TODO : try to combine Material and PrimeNg, failing import about splitbutton for now...
 // import { PanelModule } from 'primeng/primeng';
@@ -27,8 +28,9 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
   imports: [
     CommonModule,
     BrowserAnimationsModule,
+    TranslateModule,
     SimpleNotificationsModule.forRoot({
-      timeOut: 3000,
+      timeOut: 2000,
       showProgressBar: true,
       pauseOnHover: true,
       clickToClose: true

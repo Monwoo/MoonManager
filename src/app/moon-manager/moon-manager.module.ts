@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add the imports!
 // import { MatButtonModule, MatCheckboxModule, MatTooltipModule } from '@angular/material';
@@ -78,6 +79,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   imports: [
     CommonModule,
     BrowserAnimationsModule,
+    TranslateModule,
     // NoopAnimationsModule,
     MoonManagerRoutingModule,
     PapaParseModule,

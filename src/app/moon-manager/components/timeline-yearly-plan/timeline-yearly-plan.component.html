@@ -1,8 +1,20 @@
 <!-- Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com -->
-<p><strong class="indicator-c-green">En vert </strong> les jours inférieur ou égual à 1 heure</p>
-<p><strong class="indicator-c-blue">En bleu </strong> les jours inférieur ou égual à 5 heures</p>
-<p><strong class="indicator-c-yellow">En jaune </strong> les jours entre 5 et 7 heures</p>
-<p><strong class="indicator-c-red">En rouge </strong> les jours de plus de 7 heures</p>
+<p>
+  <strong class="indicator-c-green">{{ 'En vert' | translate }} </strong>
+  {{ 'les jours inférieur ou égual à 1 heure' | translate }}
+</p>
+<p>
+  <strong class="indicator-c-blue">{{ 'En bleu' | translate }} </strong>
+  {{ 'les jours inférieur ou égual à 5 heures' | translate }}
+</p>
+<p>
+  <strong class="indicator-c-yellow">{{ 'En jaune' | translate }} </strong>
+  {{ 'les jours entre 5 et 7 heures' | translate }}
+</p>
+<p>
+  <strong class="indicator-c-red">{{ 'En rouge' | translate }} </strong>
+  {{ 'les jours de plus de 7 heures' | translate }}
+</p>
 
 <div class="bs">
   <div class="timeline-yearly-plan row">
@@ -10,7 +22,9 @@
       <div class="col-screen col-md-4 col-pr-4">
         <div class="month-plan" *ngLet="sortedMonths.get(idx) as value">
           <!-- TODO : add billableDaySum ? => depends of TJM applied => all 5hr/day for now -->
-          <strong>{{ value | titlecase }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} jours </strong>
+          <strong>
+            {{ value | titlecase }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} {{ 'jours' | translate }}
+          </strong>
           <mwl-calendar-month-view
             [viewDate]="idx"
             [events]="eventsByMonths.get(value)"

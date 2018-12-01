@@ -2,7 +2,7 @@
 <header class="bs">
   <div class="container-fluid">
     <a routerLink="/" class="logo">
-      <img class="primary-brand" src="assets/logos/MoonManager-64.png" alt="MoonManager logo" />
+      <img class="primary-brand" src="assets/logos/MoonManager-64.png" alt="{{'MoonManager logo'|translate}}" />
       <span class="m-md-2">{{ appTitle }}</span>
     </a>
     <span class="fill-space"></span>
@@ -11,7 +11,7 @@
         <!-- li><a routerLink="/moon-manager/parameters">moon-manager.nav.parameters</a></li -->
 
         <li>
-          <button mat-button color="primary" matTooltip="Paramètres" (click)="goToParameters($event)">
+          <button mat-button color="primary" matTooltip="{{'Paramètres'|translate}}" (click)="goToParameters($event)">
             <i class="fas fa-cogs"></i>
           </button>
         </li>

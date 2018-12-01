@@ -13,10 +13,13 @@ import {
 import { NgForm, FormGroup } from '@angular/forms';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 import { NotificationsService } from 'angular2-notifications';
+import { extract } from '@app/core';
+import { environment } from '@env/environment';
 import { CONFIG_FORM_LAYOUT, CONFIG_FORM_MODEL, paramSelectors } from './config-form.model';
 import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
 import { ConfigDefaults as cflDefaults } from '../client-files-loader/config-form.model';
 import { ConfigDefaults as pivotDefaults } from '../timing-pivot/config-form.model';
+import { I18nService } from '@app/core';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -31,10 +34,12 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   // Need some code pattern to avoid id's clash ?
   formLayout: DynamicFormLayout = CONFIG_FORM_LAYOUT;
   formGroup: FormGroup;
+  langPlaceholder: string = extract('Langue');
 
   constructor(
     private ngZone: NgZone,
     private storage: LocalStorage,
+    private i18nService: I18nService,
     private notif: NotificationsService,
     private formService: DynamicFormService
   ) {}
@@ -75,7 +80,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     // });
   }
   errorHandler = (error: any) => {
-    this.notif.error("Echec de l'enregistrement"); // TODO : tanslations
+    this.notif.error(extract("Echec de l'enregistrement")); // TODO : tanslations
     console.log(error);
   };
   saveAction(e: any) {
@@ -98,7 +103,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
           ...changes
         })
         .subscribe(() => {
-          this.notif.success('Changements enregistré'); // TODO : tanslations
+          this.notif.success(extract('Changements enregistré')); // TODO : tanslations
         }, this.errorHandler);
     }, this.errorHandler);
   }
@@ -114,8 +119,21 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     this.storage.clear().subscribe(() => {
       this.storage.setItem('config', freshConf).subscribe(() => {
         this.paramsForm.form.patchValue(freshConf);
-        this.notif.success('Nettoyage des paramêtres OK'); // TODO : tanslations
+        this.notif.success(extract('Nettoyage des paramêtres OK')); // TODO : tanslations
       }, this.errorHandler);
     });
+  }
+
+  setLanguage(language: string) {
+    this.i18nService.language = language;
+    this.notif.success(extract('Changing language to : ') + extract(language)); // TODO : tanslations
+  }
+
+  get currentLanguage(): string {
+    return this.i18nService.language;
+  }
+
+  get languages(): string[] {
+    return this.i18nService.supportedLanguages;
   }
 }

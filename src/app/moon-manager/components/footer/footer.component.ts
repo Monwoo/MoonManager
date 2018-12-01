@@ -1,7 +1,7 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 
 import { Component, OnInit } from '@angular/core';
-import { extract } from '../../../core/i18n.service';
+import { extract } from '@app/core';
 
 @Component({
   selector: 'moon-manager-footer',

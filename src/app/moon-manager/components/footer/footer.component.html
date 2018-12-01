@@ -3,14 +3,14 @@
   <div class="container-fluid">
     <div class="media-container-row align-center">
       <div class="row copyright">
-        <a href="{{ trans.copyright.url }}"> {{ trans.copyright.text }} </a>
+        <a href="{{ trans.copyright.url | translate }}"> {{ trans.copyright.text | translate }} </a>
         <!--
           a id="cgu_link_btn"
           href="#cgu_modal"
           data-toggle="modal"
           data-target="#cgu_modal"
           class="d-print-none">
-              {{ 'cgu.linkLabel'|trans|raw }}
+              {{ 'cgu.linkLabel'| translate|raw }}
           </a
         -->
       </div>

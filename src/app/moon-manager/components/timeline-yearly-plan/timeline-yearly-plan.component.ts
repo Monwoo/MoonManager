@@ -4,6 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CalendarEvent, CalendarMonthViewDay } from 'angular-calendar';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
+import { extract } from '@app/core';
 
 import { Timing } from '../../api/data-model/timing';
 
@@ -94,7 +95,7 @@ export class TimelineYearlyPlanComponent implements OnInit {
       }
       this.workloadByMonth.set(month, this.workloadByMonth.get(month) + dayWorkload);
       this.eventsByMonths.get(month).push({
-        title: k + ' : ' + dayWorkload.toFixed(2) + ' heures',
+        title: k + ' : ' + dayWorkload.toFixed(2) + extract(' heures'),
         // TODO : color based on TJM day time limites, ok for now
         // since all days take same amount of hours max : 5
         color:

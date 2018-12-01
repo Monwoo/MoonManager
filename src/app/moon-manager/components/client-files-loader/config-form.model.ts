@@ -6,11 +6,12 @@ import {
   DynamicInputModel,
   DynamicRadioGroupModel
 } from '@ng-dynamic-forms/core';
+import { extract } from '@app/core';
 
 export const ConfigDefaults: ((caller?: any) => any) = (caller?: any) => ({
-  paramTitle: 'Chargement des captures', // TODO translations
+  paramTitle: extract('Chargement des captures'), // TODO translations
   timingEventType: 'capture',
-  timingAuthor: 'John Doe',
+  timingAuthor: extract('John Doe'),
   timingSegmentDelta: 0.2,
   // TODO : improve Parameters up to deep properties lookup with auto-gen forms for edit
   // then transform below captureRegex to flexible array....
@@ -66,7 +67,18 @@ export const CONFIG_FORM_MODEL: DynamicFormModel = [
 
   new DynamicInputModel({
     id: 'captureRegex',
-    placeholder: "Expressions régulière pour la source : 'capture'",
+    // TODO : need to link language, extract is only TAGGING as translatable, not doing the translation...
+    // TODO :
+    // https://www.jonashendrickx.com/2017/12/06/await-observable-complete-angular/
+    // private getTranslations(keys: string[]): Promise<any> {
+    //   return new Promise((resolve, reject) => {
+    //     this.translateSvc.get(keys).subscribe(success => {
+    //       resolve(success);
+    //     });
+    //   });
+    // }
+
+    placeholder: extract("Expressions régulière pour la source : 'capture'"),
     multiple: true,
     //minLength: 150,
 
@@ -75,14 +87,14 @@ export const CONFIG_FORM_MODEL: DynamicFormModel = [
   }),
   new DynamicInputModel({
     id: 'thumbW',
-    label: 'Largeur du thumbnail', // TODO : translate
+    label: extract('Largeur du thumbnail'), // TODO : translate
     inputType: 'number',
     placeholder: 'Largeur',
     value: _conf.thumbW // well, ovewritten by param config obj loaded from storage...
   }),
   new DynamicInputModel({
     id: 'thumbH',
-    label: 'Hauteur du thumbnail', // TODO : translate
+    label: extract('Hauteur du thumbnail'), // TODO : translate
     inputType: 'number',
     placeholder: 'Hauteur',
     value: _conf.thumbH // well, ovewritten by param config obj loaded from storage...

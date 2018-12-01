@@ -76,7 +76,14 @@ yarn install
 # start dev server :
 yarn start
 # Extract strings from code and templates to src/app/translations/template.json :
-yarn run translations:extract
+yarn run translations:extract # Generate template.json
+<<WillRemoveOriginals
+yarn run translations:extract -o "src/translations/fr-FR.json" "src/translations/en-US.json"
+WillRemoveOriginals
+# For this process to work inside ts files, you need to always
+# use extract('your string') in your .ts file :
+#   import { extract } from '@app/core';
+
 # Display project documentation :
 yarn run docs
 # Running tests via Karma in watch mode for it to launch on each change you do to the code
