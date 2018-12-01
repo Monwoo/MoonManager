@@ -94,7 +94,7 @@
           <td [ngStyle]="{ 'min-width.px': 150 }">
             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
             {{ treeData.Title }}
-            <div class="visibility-sm">
+            <div class="visibility-sm no-print">
               | {{ treeData.SkillsId }} | {{ treeData.EventSource }} |
               {{ treeData.LinearWorkloadAmount | number: '1.2-2' }} heures |
               {{ treeData.WorkloadAmount | number: '1.2-2' }} heures | {{ treeData.TJM }} |

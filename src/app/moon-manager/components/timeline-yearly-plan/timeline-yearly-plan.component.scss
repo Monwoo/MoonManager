@@ -9,10 +9,11 @@
     .month-plan {
       // Below may not work, since seem to work only on 'block' displayed objects....
       // https://css-tricks.com/almanac/properties/b/break-inside/
-      -webkit-column-break-inside: avoid;
-      page-break-inside: avoid;
-      break-inside: avoid;
-      display: inline-block !important;
+      // TODO : find why and solve break avoid ignored when printing....
+      -webkit-column-break-inside: avoid !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+      display: block !important;
       // padding: 10px;
       max-width: 100%; // having issue with grid system ? why need to set max-width to print fine ?
     }

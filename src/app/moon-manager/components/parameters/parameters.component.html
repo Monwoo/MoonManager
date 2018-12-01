@@ -2,17 +2,21 @@
 <button mat-button color="primary" matTooltip="Reset parameters to factory" (click)="resetConfigAction($event)">
   <i class="fas fa-power-off"></i> Reset
 </button>
-<p-panel class="story" header="Légende des indicateurs temporels :">
-  <div fxLayout="row" fxLayoutGap="0.5%" fxLayoutAlign="center">
-    <div fxFlex="94%">
-      <img
-        class=""
-        src="assets/TimingsIndicatorStory.png"
-        alt="Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr"
-      />
+<!-- < p-panel class="story" header="Légende des indicateurs temporels :"> -->
+<mat-card class="story">
+  <mat-card-content>
+    <h1 class="param-title text-left">Légende des indicateurs temporels :</h1>
+    <div fxLayout="row" fxLayoutGap="0.5%" fxLayoutAlign="center">
+      <div fxFlex="94%" class="text-center">
+        <img
+          class=""
+          src="assets/TimingsIndicatorStory.png"
+          alt="Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr"
+        />
+      </div>
     </div>
-  </div>
-</p-panel>
+  </mat-card-content>
+</mat-card>
 
 <mat-card>
   <mat-card-content>

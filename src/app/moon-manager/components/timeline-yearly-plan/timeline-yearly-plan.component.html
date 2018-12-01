@@ -22,7 +22,8 @@
           </mwl-calendar-month-view>
         </div>
       </div>
-      <div class="allow-print-break col-12" *ngIf="i && (i + 1) % 3 === 0"><br /></div>
+      <!-- TODO : avoid calendar getting half cutted in print mode -->
+      <!-- <div class="allow-print-break col-12" *ngIf="i && (i + 1) % 3 === 0"><br /></div> -->
     </ng-container>
   </div>
 </div>
