@@ -13,6 +13,17 @@ import { CONFIG_FORM_LAYOUT as cflConfigLayout } from '../client-files-loader/co
 import { CONFIG_FORM_MODEL as pivotConfigForm } from '../timing-pivot/config-form.model';
 import { CONFIG_FORM_LAYOUT as pivotConfigLayout } from '../timing-pivot/config-form.model';
 
+// TODO :
+// export const paramGroups = [
+//   {
+//     selector:'moon-manager-client-files-loader',
+//     etc...
+//   }
+// ];
+
+// TODO : build with above done stuff...
+export const paramSelectors = ['moon-manager-client-files-loader', 'moon-manager-timing-pivot'];
+
 const groupBySelectors = {
   'moon-manager-client-files-loader': cflConfigForm,
   'moon-manager-timing-pivot': pivotConfigForm

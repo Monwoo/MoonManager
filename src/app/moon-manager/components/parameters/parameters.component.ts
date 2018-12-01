@@ -13,8 +13,10 @@ import {
 import { NgForm, FormGroup } from '@angular/forms';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 import { NotificationsService } from 'angular2-notifications';
-import { CONFIG_FORM_LAYOUT, CONFIG_FORM_MODEL } from './config-form.model';
+import { CONFIG_FORM_LAYOUT, CONFIG_FORM_MODEL, paramSelectors } from './config-form.model';
 import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
+import { ConfigDefaults as cflDefaults } from '../client-files-loader/config-form.model';
+import { ConfigDefaults as pivotDefaults } from '../timing-pivot/config-form.model';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -72,7 +74,10 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     //   console.log('Having changes : ', allConfigs);
     // });
   }
-
+  errorHandler = (error: any) => {
+    this.notif.error("Echec de l'enregistrement"); // TODO : tanslations
+    console.log(error);
+  };
   saveAction(e: any) {
     let changes = this.paramsForm.form.value;
     console.log('Saving changes : ', changes);
@@ -84,11 +89,6 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     changes['moon-manager-timing-pivot'].agregationsFields = agFields;
     // TODO : ensure array for selected jointure have lenght > 2, or summary is not yet fully right...
 
-    let errorHandler = (error: any) => {
-      this.notif.error("Echec de l'enregistrement"); // TODO : tanslations
-      console.log(error);
-    };
-
     this.storage.getItem<any>('config', {}).subscribe((globalConfig: any) => {
       // Called if data is valid or null
       if (!globalConfig) globalConfig = {};
@@ -99,14 +99,23 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         })
         .subscribe(() => {
           this.notif.success('Changements enregistré'); // TODO : tanslations
-        }, errorHandler);
-    }, errorHandler);
+        }, this.errorHandler);
+    }, this.errorHandler);
   }
 
   resetConfigAction(e: any) {
-    let changes = this.paramsForm.form.value;
+    // let changes = this.paramsForm.form.value;
+    let freshConf = {
+      // TODO : refactor => need auto-gen from config-form....
+      [paramSelectors[0]]: cflDefaults(),
+      [paramSelectors[1]]: pivotDefaults()
+    };
+    console.log('Reseting config to : ', freshConf);
     this.storage.clear().subscribe(() => {
-      this.notif.success('Nettoyage des paramêtres OK'); // TODO : tanslations
+      this.storage.setItem('config', freshConf).subscribe(() => {
+        this.paramsForm.form.patchValue(freshConf);
+        this.notif.success('Nettoyage des paramêtres OK'); // TODO : tanslations
+      }, this.errorHandler);
     });
   }
 }
