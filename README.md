@@ -10,6 +10,11 @@ Financé temporellement et fondé par Monwoo 2018.
 
 Démo : https://monwoo.com/MoonManager/Demo/
 
+Exemple de reporting généré :
+
+- [MoonManager Pdf printed report for MoonWashBeta] (docs/outputSamples/MoonManager_Private data_For_MoonWashBeta.pdf)
+- [Générated youtube vidéo](https://youtu.be/__Q21B1TTb8)
+
 #### FR
 
 Nos ancêtres ont fait au mieux en France pour nous apporter les 35 heures avec congés payés.
