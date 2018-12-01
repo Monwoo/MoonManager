@@ -678,7 +678,7 @@ export class TimingPivotComponent implements OnInit {
         // It's unknonw Frame : TODO : show to end user...
         clearScreen();
         context.font = self.config.lowRes ? '10px Comic Sans MS' : '10px Comic Sans MS';
-        context.fillStyle = 'rgb(60,0,108)';
+        context.fillStyle = self.config.videoFontColor;
         context.textAlign = 'center';
         context.fillText(self.config.videoCopyright, canvas.width / 2, 12);
         context.font = self.config.lowRes ? '9px Arial' : '18px Arial';
@@ -720,7 +720,7 @@ export class TimingPivotComponent implements OnInit {
           let fillHeight = self.config.lowRes ? 10 : 20;
           context.globalAlpha = 1;
           context.font = self.config.lowRes ? '10px Comic Sans MS' : '20px Comic Sans MS';
-          context.fillStyle = 'rgb(60,0,108)'; // Primary color
+          context.fillStyle = self.config.videoFontColor; // Primary color
           context.textAlign = 'center';
           context.fillText(self.config.videoCopyright, canvas.width / 2, fillHeight);
 
@@ -729,7 +729,7 @@ export class TimingPivotComponent implements OnInit {
           context.fillRect(0, canvas.height - deltaHeight, canvas.width, fillHeight);
           context.globalAlpha = 1;
 
-          context.fillStyle = 'rgb(60,0,108)'; // Primary color
+          context.fillStyle = self.config.videoFontColor; // Primary color
           context.textAlign = 'left';
           context.font = self.config.lowRes ? '8px Arial' : '16px Arial';
           // context.strokeStyle = 'white'; // secondary color

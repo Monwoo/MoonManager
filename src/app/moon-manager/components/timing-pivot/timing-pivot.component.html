@@ -54,15 +54,14 @@
     </div>
 
     <mat-card>
-      <p *ngFor="let skillsIdx of (skillsRef | keyvalue)">
+      <div *ngFor="let skillsIdx of (skillsRef | keyvalue)">
         <!-- [{{skillsIdx.key}}] : {{skillsIdx.value}} -->
-        <strong>
+        <strong class="skills-title">
           TJM : {{ TJMBySkillsId[skillsIdx.key] }} € [{{ skillsIdx.value.title }}] ({{ skillsIdx.value.idx }}.)
         </strong>
-        <br />
-        {{ skillsIdx.value.description }} <br />
-        Justificatifs : {{ skillsIdx.value.justificatifs }}
-      </p>
+        <div class="skills-detail">{{ skillsIdx.value.description }}</div>
+        <div class="skills-setup">Justificatifs : {{ skillsIdx.value.justificatifs }}</div>
+      </div>
     </mat-card>
 
     <div>
@@ -75,7 +74,7 @@
     <p-treeTable [value]="timingsTrees">
       <ng-template pTemplate="header">
         <tr>
-          <th [ngStyle]="{ 'width.px': 320 }">Groupe</th>
+          <th class="timing-tree-group-col">Groupe</th>
           <!-- th class="priority-2">Heures</th -->
           <th class="priority-3">Compétances</th>
           <th class="priority-3">Source</th>

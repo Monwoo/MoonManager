@@ -207,7 +207,11 @@ bon, voilà, en mode bitMap là, à placer des points sur la carte. Va falloir p
 - https://gist.github.com/jareware/4738651
 
 - https://www.sessions.edu/color-calculator/
-  </details>
+
+- https://material.io/design/components/cards.html
+- https://material.angular.io/components/card/overview
+
+</details>
 
 ---
 

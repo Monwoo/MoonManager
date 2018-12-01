@@ -16,6 +16,7 @@ export const ConfigDefaults: ((caller?: any) => any) = (caller?: any) => ({
   receivedDays: 0,
   summaryTitle: "Compte rendu d'activité de M. John Doe",
   videoCopyright: '© Monwoo (Private data)',
+  videoFontColor: 'rgb(60,0,108)',
   lowRes: false
 });
 
@@ -50,6 +51,13 @@ export const CONFIG_FORM_MODEL: DynamicFormModel = [
     label: 'Titre de la vidéo', // TODO : translate
     maxLength: 69,
     placeholder: 'Copyright de la vidéo'
+  }),
+
+  new DynamicInputModel({
+    id: 'videoFontColor',
+    label: 'Couleur du text vidéo', // TODO : translate
+    maxLength: 69,
+    placeholder: 'Couleur du text'
   }),
 
   new DynamicCheckboxModel({

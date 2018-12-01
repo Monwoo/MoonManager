@@ -243,6 +243,13 @@ cdk-virtual-scroll-viewport {
 //     width: 100%;
 // }
 
+.timing-tree-group-col {
+  width: 320px;
+  @media screen and (max-width: 39.938em) {
+    width: 100%;
+  }
+}
+
 // https://www.primefaces.org/primeng/#/treetable/responsive
 @media screen {
   :host ::ng-deep .priority-2,
@@ -269,6 +276,15 @@ cdk-virtual-scroll-viewport {
   :host ::ng-deep .priority-3 {
     display: table-cell;
   }
+}
+
+.skills-title {
+  display: block;
+  padding-top: 15px;
+}
+.skills-setup {
+  font-size: 12pt;
+  color: grey;
 }
 
 // TODO : material color css system instead of raw copy :

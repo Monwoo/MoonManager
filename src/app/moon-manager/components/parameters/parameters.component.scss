@@ -11,9 +11,17 @@
 }
 
 // TODO : should be moved to them scss file since form LAYOUT config : need js edit ?
-:host ::ng-deep .param-title {
-  font-size: 14pt;
-  // padding: 10px; // not working...
-  line-height: 30pt; // working :P
-  font-weight: bold;
+:host ::ng-deep {
+  .mat-standard-chip {
+    height: auto;
+  }
+  .mat-card {
+    margin: 15px 0px;
+  }
+  .param-title {
+    font-size: 14pt;
+    // padding: 10px; // not working...
+    line-height: 30pt; // working :P
+    font-weight: bold;
+  }
 }
