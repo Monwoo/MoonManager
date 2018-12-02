@@ -3,7 +3,7 @@
   "short_name": "MoonManager",
   "theme_color": "#119a4c",
   "background_color": "#FFFFFF",
-  "scope": "/MoonManager/Demo/?source=pwa",
+  "scope": "/MoonManager/Demo/?source=pwa&prodCache=1",
   "start_url": "/MoonManager/Demo/",
   "display": "standalone",
   "icons": [
