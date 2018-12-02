@@ -19,6 +19,13 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateLoader } from '@ngx-translate/core';
 
+import { Logger } from '@app/core/logger.service';
+// TODO : refactor and bundle in MonwooLogger module ?
+// -> quick switch between review / debug mode
+// + better stack trace (colors + humanly meanfull + machin plugable...)
+// import { Logger } from './logger.service';
+const MonwooReview = new Logger('MonwooReview');
+
 // export function createTranslateLoader(i18nService: I18nService) {
 //   return i18nService.translations;
 // }
@@ -28,7 +35,19 @@ export function createTranslateLoader(http: HttpClient) {
   // return new TranslateHttpLoader(http, './assets/i18n/', '.json');
   // TODO : ERROR TypeError: this._input.charCodeAt is not a function in tokenizer
   // => because fail to load file or other reason ?
-  return new TranslateHttpLoader(http, './assets/translations/messages.', '.json');
+  MonwooReview.warn('Fail to load file ?');
+  return new TranslateHttpLoader(http, './assets/translations/messages.', '.xlf');
+}
+
+declare const require: any; // To avoid typeScript error about require that don't exist since it's webpack level
+const i18nLanguages = {
+  // TODO : auto gen from environnement config
+  'fr-FR': require(`raw-loader!../../assets/translations/messages.fr-FR.xlf`),
+  'en-US': require(`raw-loader!../../assets/translations/messages.en-US.xlf`)
+};
+
+export function createWebpackTranslateLoader(i18nService: I18nService) {
+  return i18nLanguages[i18nService.language];
 }
 
 @NgModule({

@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '@env/environment';
-import { CoreModule, createTranslateLoader } from '@app/core';
+import { CoreModule, createTranslateLoader, createWebpackTranslateLoader, I18nService } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { MoonManagerModule } from './moon-manager/moon-manager.module';
 import { HomeModule } from './home/home.module';
@@ -29,13 +29,16 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
     HttpClientModule,
     // TODO : move translation deps loadings to shared module ?
     HttpModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [Http]
-      }
-    }),
+    TranslateModule
+      .forRoot
+      // {
+      //   loader: {
+      //     provide: TranslateLoader,
+      //     useFactory: createTranslateLoader,
+      //     deps: [Http]
+      //   }
+      // }
+      (),
     NgbModule,
     CoreModule,
     SharedModule,
@@ -48,6 +51,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
   ],
   declarations: [AppComponent],
   providers: [
+    // TODO : refactor to shared module or Core module ?
     // https://github.com/ngx-translate/i18n-polyfill/issues/4
     // format of translations that you use
     { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
@@ -59,14 +63,19 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
     // {provide: MISSING_TRANSLATION_STRATEGY, useValue: MissingTranslationStrategy.Error},
     {
       provide: TRANSLATIONS,
-      useFactory: createTranslateLoader,
-      deps: [Http]
+      useFactory: createWebpackTranslateLoader,
+      deps: [I18nService]
     },
-    {
-      provide: TranslateLoader,
-      useFactory: createTranslateLoader,
-      deps: [Http]
-    },
+    // {
+    //   provide: TRANSLATIONS,
+    //   useFactory: createTranslateLoader,
+    //   deps: [Http]
+    // },
+    // {
+    //   provide: TranslateLoader,
+    //   useFactory: createTranslateLoader,
+    //   deps: [Http]
+    // },
     I18n
   ],
   bootstrap: [AppComponent]

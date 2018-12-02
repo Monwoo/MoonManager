@@ -231,6 +231,8 @@ Dev stuffs :
 
 * https://webpack.js.org/loaders/
 
+* https://github.com/angular/angular/issues/19728
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

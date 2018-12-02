@@ -92,6 +92,13 @@ WillRemoveOriginals
 # but dev may speak multiples lang... secially for team builded code with internationnal team...
 yarn ng xi18n --output-path assets/translations --i18n-locale fr
 
+<<COMMENT
+Regular expression for quick i18n generated ready to use translated file (copie/past of source) :
+([^>]*)</source>$
+to Replace with : ($1 is placeholder of regEx)
+$1</source><target>$1</target>
+COMMENT
+
 # For this process to work inside ts files, you need to always
 # use extract('your string') in your .ts file :
 #   import { extract } from '@app/core';
