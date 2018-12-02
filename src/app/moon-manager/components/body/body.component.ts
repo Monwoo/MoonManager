@@ -6,6 +6,7 @@ import { Timing } from '../../api/data-model/timing';
 // import * as ExpScroll
 // from '@angular/cdk-experimental/scrolling//typings/auto-size-virtual-scroll';
 // import { VIRTUAL_SCROLL_STRATEGY } from '@angular/cdk/scrolling';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'moon-manager-body',
@@ -21,7 +22,8 @@ import { Timing } from '../../api/data-model/timing';
 export class BodyComponent implements OnInit {
   public filteredDatas: Timing[] = [];
   public filteredDatasAsync: BehaviorSubject<Timing[]> = new BehaviorSubject<Timing[]>([]);
-  constructor() {}
+  public bodyTitle: string = this.i18n('This is a test {{myVar}} !', { myVar: '^_^' });
+  constructor(private i18n: I18n) {}
 
   ngOnInit() {}
 

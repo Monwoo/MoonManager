@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '@env/environment';
-import { CoreModule } from '@app/core';
+import { CoreModule, createTranslateLoader } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { MoonManagerModule } from './moon-manager/moon-manager.module';
 import { HomeModule } from './home/home.module';
@@ -16,6 +16,9 @@ import { AboutModule } from './about/about.module';
 import { LoginModule } from './login/login.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+// import { I18n, MISSING_TRANSLATION_STRATEGY } from '@ngx-translate/i18n-polyfill';
+import { HttpModule, Http } from '@angular/http';
+import { TranslateLoader } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -23,7 +26,15 @@ import { AppRoutingModule } from './app-routing.module';
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
     HttpClientModule,
-    TranslateModule.forRoot(),
+    // TODO : move translation deps loadings to shared module ?
+    HttpModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [Http]
+      }
+    }),
     NgbModule,
     CoreModule,
     SharedModule,
@@ -35,7 +46,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],
-  providers: [],
+  // providers: [I18n],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

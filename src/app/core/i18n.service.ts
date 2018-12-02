@@ -3,6 +3,9 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { includes } from 'lodash';
 
 import { Logger } from './logger.service';
+// declare const require:any; // Use the require method provided by webpack
+// const enUS = require(`raw-loader!../../translations/en-US.json`);
+// const frFR = require(`raw-loader!../../translations/fr-FR.json`);
 import * as enUS from '../../translations/en-US.json';
 import * as frFR from '../../translations/fr-FR.json';
 
@@ -78,5 +81,9 @@ export class I18nService {
    */
   get language(): string {
     return this.translateService.currentLang;
+  }
+
+  get translations(): string {
+    return this.translateService.translations();
   }
 }

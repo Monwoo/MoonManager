@@ -199,6 +199,25 @@ Dev stuffs :
 - https://github.com/ngx-rocket/generator-ngx-rocket/commit/71d1c0233097536859b8478e84e2ded091f920db
 - https://stackoverflow.com/questions/37304160/typescript-wait-for-an-observable-promise-to-finish-and-return-observable
 
+- https://github.com/amcdnl/ngx-webgl/blob/master/notes.md
+- https://aframe.io/
+- https://aframe.io/docs/0.8.0/introduction/
+- https://github.com/aframevr/aframe/
+
+- https://medium.com/@pitipon/a-frame-with-angular-setup-project-5797b2f2a03b
+- https://github.com/urish/angular-aframe-pipe
+- https://github.com/urish/vr-hero-aframe
+
+- https://angular.io/guide/i18n
+- https://github.com/ngx-translate/i18n-polyfill
+- https://github.com/ngx-translate/core
+- https://github.com/ngx-translate/example/blob/master/src/app/app.component.ts
+
+- https://github.com/ngx-translate/i18n-polyfill#extraction
+
+- https://auth0.com/blog/real-world-angular-series-part-6/
+- https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.service.ts
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
@@ -210,6 +229,7 @@ Dev stuffs :
 
 ```bash
 # Basic tools for time sheets web reportings :
+yarn add @ngx-translate/i18n-polyfill @ngx-translate/http-loader
 yarn add @angular-mdc/web angular/material hammerjs @angular/animations
 yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
@@ -218,6 +238,7 @@ yarn add angular2-notifications lodash-es @types/lodash-es
 yarn add ngx-quill primeflex @angular/flex-layout ngx-papaparse@3
 yarn add angular-formio @angular/cdk-experimental
 yarn add @ng-dynamic-forms/core @ng-dynamic-forms/ui-material angular2-text-mask
+yarn add aframe angular-aframe-pipe
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 

@@ -49,6 +49,8 @@
     "@ng-dynamic-forms/ui-material": "^7.0.1",
     "@ngx-pwa/local-storage": "7",
     "@ngx-translate/core": "^10.0.1",
+    "@ngx-translate/http-loader": "^4.0.0",
+    "@ngx-translate/i18n-polyfill": "^1.0.0",
     "@types/lodash-es": "^4.17.1",
     "angular-calendar": "^0.26.4",
     "angular-formio": "^3.9.0",

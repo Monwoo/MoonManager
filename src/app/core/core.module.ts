@@ -1,4 +1,4 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule, Optional, SkipSelf, TRANSLATIONS } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
@@ -14,13 +14,62 @@ import { HttpCacheService } from './http/http-cache.service';
 import { ApiPrefixInterceptor } from './http/api-prefix.interceptor';
 import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
 import { CacheInterceptor } from './http/cache.interceptor';
+import { I18n, MISSING_TRANSLATION_STRATEGY } from '@ngx-translate/i18n-polyfill';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// export function createTranslateLoader(i18nService: I18nService) {
+//   return i18nService.translations;
+// }
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
-  imports: [CommonModule, HttpClientModule, TranslateModule, RouterModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    // TODO refactor : move to Shard module ?
+    // https://angular.io/docs/ts/latest/guide/ngmodule.html#!#shared-modules
+    // TranslateModule.forRoot({
+    //   loader: {
+    //     // provide: TranslateLoader,
+    //     // useFactory: (i18nService:I18nService) => {
+    //     //   return i18nService.translations;
+    //     // },
+    //     // deps: [I18nService],
+
+    //     // provide: TranslateLoader,
+    //     // useFactory: (createTranslateLoader),
+    //     // deps: [I18nService],
+
+    //     provide: TranslateLoader,
+    //     useFactory: (createTranslateLoader),
+    //     deps: [Http],
+    //   }
+    // }),
+    TranslateModule,
+    RouterModule
+  ],
+  exports: [TranslateModule],
   providers: [
     AuthenticationService,
     RoutingSentinelService, // AuthenticationGuard,
     I18nService,
+    // https://github.com/ngx-translate/i18n-polyfill#extraction
+    // {provide: TRANSLATIONS, useValue: translations},
+    // https://github.com/ngx-translate/i18n-polyfill/issues/4
+    // {provide: MISSING_TRANSLATION_STRATEGY, useValue: MissingTranslationStrategy.Ignore},
+    // https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.service.ts
+    // {
+    //   provide: TRANSLATIONS,
+    //   useFactory: (translateService:TranslateService) => {
+    //     return translateService.translations();
+    //   },
+    //   deps: [TranslateService]
+    // },
+    I18n,
+
     HttpCacheService,
     ApiPrefixInterceptor,
     ErrorHandlerInterceptor,
