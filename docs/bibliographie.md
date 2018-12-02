@@ -218,7 +218,20 @@ Dev stuffs :
 - https://auth0.com/blog/real-world-angular-series-part-6/
 - https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.service.ts
 
-* https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
+* https://github.com/ngx-translate/i18n-polyfill/issues/4
+* https://angular.io/guide/i18n#merge-with-the-jit-compiler
+* https://github.com/ocombe/i18n-demo-cli/blob/master/src/i18n-providers.ts
+
+* https://angular.io/guide/i18n#create-a-translation-source-file-with-ng-xi18n
+
+* https://github.com/pugjs/pug-loader
+* https://pugjs.org/api/getting-started.html : html templates
+* https://github.com/pugjs/pug
+* https://tidelift.com/subscription/pkg/npm-pug?utm_source=npm-pug&utm_medium=referral&utm_campaign=readme
+
+* https://webpack.js.org/loaders/
+
+- https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
   You can easily run just this single block, by prefixing the describe function name with f:

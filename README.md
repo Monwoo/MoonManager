@@ -85,6 +85,13 @@ yarn run translations:extract # Generate template.json
 <<WillRemoveOriginals
 yarn run translations:extract -o "src/translations/fr-FR.json" "src/translations/en-US.json"
 WillRemoveOriginals
+
+## REFACTORING in progress, will add i18n features, so need to generate i18n translation files :
+# output-path is relative to ./src/
+# i18n-locale it the local of source code translation => devloppeur language... hints for translators
+# but dev may speak multiples lang... secially for team builded code with internationnal team...
+yarn ng xi18n --output-path assets/translations --i18n-locale fr
+
 # For this process to work inside ts files, you need to always
 # use extract('your string') in your .ts file :
 #   import { extract } from '@app/core';

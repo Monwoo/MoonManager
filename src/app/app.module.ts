@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, TRANSLATIONS_FORMAT, TRANSLATIONS } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -19,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 // import { I18n, MISSING_TRANSLATION_STRATEGY } from '@ngx-translate/i18n-polyfill';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateLoader } from '@ngx-translate/core';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @NgModule({
   imports: [
@@ -46,7 +47,28 @@ import { TranslateLoader } from '@ngx-translate/core';
     AppRoutingModule // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],
-  // providers: [I18n],
+  providers: [
+    // https://github.com/ngx-translate/i18n-polyfill/issues/4
+    // format of translations that you use
+    { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
+    // // the translations that you need to load on your own
+    // {provide: TRANSLATIONS, useValue: XLIFF},
+    // // locale id that you're using (default en-US)
+    // {provide: LOCALE_ID, useValue: "fr"},
+    // // optional, defines how error will be handled
+    // {provide: MISSING_TRANSLATION_STRATEGY, useValue: MissingTranslationStrategy.Error},
+    {
+      provide: TRANSLATIONS,
+      useFactory: createTranslateLoader,
+      deps: [Http]
+    },
+    {
+      provide: TranslateLoader,
+      useFactory: createTranslateLoader,
+      deps: [Http]
+    },
+    I18n
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

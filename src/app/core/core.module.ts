@@ -16,13 +16,19 @@ import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
 import { CacheInterceptor } from './http/cache.interceptor';
 import { I18n, MISSING_TRANSLATION_STRATEGY } from '@ngx-translate/i18n-polyfill';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpModule, Http } from '@angular/http';
+import { TranslateLoader } from '@ngx-translate/core';
 
 // export function createTranslateLoader(i18nService: I18nService) {
 //   return i18nService.translations;
 // }
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  // src/assets/translations/messages.en.xlf
+  // return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  // TODO : ERROR TypeError: this._input.charCodeAt is not a function in tokenizer
+  // => because fail to load file or other reason ?
+  return new TranslateHttpLoader(http, './assets/translations/messages.', '.json');
 }
 
 @NgModule({
@@ -68,7 +74,12 @@ export function createTranslateLoader(http: HttpClient) {
     //   },
     //   deps: [TranslateService]
     // },
-    I18n,
+    // {
+    //   provide: TranslateLoader,
+    //   useFactory: createTranslateLoader,
+    //   deps: [Http]
+    // },
+    // I18n,
 
     HttpCacheService,
     ApiPrefixInterceptor,
