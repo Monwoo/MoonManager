@@ -8757,6 +8757,10 @@ webm-writer@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/webm-writer/-/webm-writer-0.2.1.tgz#19c75b9408af9dab38c51c7bb884ea5d7faf2b20"
 
+webp-hero@^0.0.0-dev.12:
+  version "0.0.0-dev.12"
+  resolved "https://registry.yarnpkg.com/webp-hero/-/webp-hero-0.0.0-dev.12.tgz#390d8830f8346a370804fc7f2c4e36d61417d750"
+
 webpack-core@^0.6.8:
   version "0.6.9"
   resolved "https://registry.yarnpkg.com/webpack-core/-/webpack-core-0.6.9.tgz#fc571588c8558da77be9efb6debdc5a3b172bdc2"

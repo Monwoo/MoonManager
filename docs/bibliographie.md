@@ -293,7 +293,17 @@ Dev stuffs :
 * https://github.com/nfenclova/ray-tracer
 * https://github.com/rrmelcer/woodaudio
 
-- https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
+- https://github.com/chase-moskal/webp-hero
+- https://www.typescriptlang.org/docs/handbook/declaration-merging.html
+- https://www.codeproject.com/Articles/369858/Writing-polyfills-in-Javascript
+- https://github.com/philipwalton/polyfill
+- http://philipwalton.github.io/polyfill/demos/position-sticky/
+- https://antimatter15.com/project/weppy/
+- https://github.com/gi0baro/weppy
+- https://modernizr.com/download?canvas-canvastext-setclasses
+- https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Function/call
+
+* https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
   You can easily run just this single block, by prefixing the describe function name with f:
@@ -307,7 +317,7 @@ Dev stuffs :
 yarn add @ngx-translate/i18n-polyfill @ngx-translate/http-loader
 yarn add @angular-mdc/web angular/material hammerjs @angular/animations
 yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
-yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
+yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer webp-hero
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications lodash-es @types/lodash-es
 yarn add ngx-quill primeflex @angular/flex-layout ngx-papaparse@3

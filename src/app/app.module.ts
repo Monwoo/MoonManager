@@ -20,7 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateLoader } from '@ngx-translate/core';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-
+// import { webp } from 'webp-hero/dist/webp-hero';
 @NgModule({
   imports: [
     BrowserModule,

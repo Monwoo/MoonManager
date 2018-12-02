@@ -74,6 +74,29 @@ import 'core-js/es7/reflect';
 // https://github.com/brakmic/Angular-VR-Starter/blob/master/src/init/polyfills.browser.ts#L4
 // import 'aframe'; // MUST import A-Frame before zone.js!
 
+// TODO : importe all over here ? ccapture is inculded with angular.json , so need polyfill before it...
+// done via angular.json for now... : good effect : no more error about missing fs module...
+// import 'webp-hero/dist/webp-hero.polyfill.bundle.js';
+
+// Webp-hero is not doing polyfill, just providing equivalent way.
+// below is polyfill for ccapture.js to work :
+// https://github.com/chase-moskal/webp-hero/blob/master/source/webp-hero.ts
+// https://github.com/spite/ccapture.js/blob/master/src/CCapture.js
+// if(typeof HTMLCanvasElement.prototype.filter !== "function") {
+var _testCanvas = document.createElement('canvas');
+// // src/platform/polyfills/weppy-master/weppy.js => done via angular js, webp-hero is not injecting any ref...
+import 'platform/polyfills/canvas/modernizr-custom.js';
+if (_testCanvas.toDataURL('image/webp').substr(5, 10) !== 'image/webp') {
+  const parentToDataUrl = HTMLCanvasElement.prototype.toDataURL;
+  console.log('TODO : webpPolyfill...');
+  HTMLCanvasElement.prototype.toDataURL = function(type?: string, quality?: any) {
+    if ('image/webp' === type) {
+      return 'TODO-image/webp';
+    }
+    return parentToDataUrl.call(this, type, quality);
+  };
+}
+
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
@@ -82,7 +105,7 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-import 'hammerjs';
+// import 'hammerjs'; // already included via angular.json
 
 // import 'web-animations-js';
 
