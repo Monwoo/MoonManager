@@ -71,6 +71,9 @@
 import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 
+// https://github.com/brakmic/Angular-VR-Starter/blob/master/src/init/polyfills.browser.ts#L4
+// import 'aframe'; // MUST import A-Frame before zone.js!
+
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
@@ -80,4 +83,22 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 import 'hammerjs';
+
 // import 'web-animations-js';
+
+// Apple Safari `requestAnimationFrame` polyfills
+// import requestFrame from '../platform/polyfills/request-frame-alt';
+// requestFrame('native');
+
+import { environment } from '@env/environment';
+declare const require: any; // To avoid typeScript error about require that don't exist since it's webpack level
+
+if (environment.production) {
+  // Production
+} else {
+  // Development
+  /* tslint:disable no-var-requires */
+  // require('zone.js/dist/long-stack-trace-zone');
+  require('zone.js/dist/long-stack-trace-zone');
+  // Error.stackTraceLimit = Infinity;
+}

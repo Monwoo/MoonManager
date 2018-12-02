@@ -233,6 +233,66 @@ Dev stuffs :
 
 * https://github.com/angular/angular/issues/19728
 
+* https://github.com/urish/angular-aframe-pipe/blob/master/src/aframe.pipe.ts
+* https://stackoverflow.com/questions/44425128/how-to-integrate-aframe-to-my-project-angular-cli
+* https://github.com/devpaul/aframe-typings/blob/master/src/AFRAME.d.ts
+* https://github.com/devpaul/aframe-experiments
+* https://devpaul.github.io/aframe-experiments/magicavoxel/
+* https://stackoverflow.com/questions/16054424/angularjs-binding-to-webgl-canvas
+* https://github.com/christianliebel/angular-3d-demo (angularJS)
+
+* https://threejs.org/
+* https://dddance.party/ (Working in Firefox only for now, Chrome lib for 3D ?)
+* http://oatthegoat.co.nz/
+
+* OpenGL ES ?
+* https://github.com/jeromeetienne/ar.js
+* https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf
+* https://github.com/plotly/angular-plotly.js/issues/1
+* https://github.com/plotly/jupyterlab-chart-editor/commit/53d3f270f1bcfe76ae7efce9e80f9b12e2e1cf0a
+* https://github.com/plotly/plotly.js
+* https://plot.ly/javascript/
+* https://d3js.org/
+* http://stack.gl/ (Firefox only)
+* http://hughsk.io/voxel-fall/
+* https://github.com/plotly/angular-plotly.js/issues/1 (import issue for chrome ? or need manifest with plugin ?)
+
+* https://playground.babylonjs.com/
+* https://github.com/BabylonJS/Babylon.js
+* https://developers.google.com/web/updates/2018/06/ar-for-the-web => need to install plugins above chrome, pb for easy client demo... need dev cpter...
+* https://github.com/immersive-web/hit-test/blob/master/explainer.md
+* https://immersive-web.github.io/webxr-samples/proposals/phone-ar-hit-test.html
+* https://1stwebdesigner.com/3d-javascript-libraries/
+* https://www.sitepoint.com/building-3d-engine-javascript/
+* https://get.webgl.org/
+
+* https://blog.red-badger.com/2013/02/13/simple-3d-without-canvas-or-webgl
+* https://codepen.io/towc/post/hacky-3d-without-webgl-or-libraries
+* https://stackoverflow.com/questions/20666276/possible-to-run-create-3d-animation-without-need-for-webgl-in-html5 (used three.js succesfully with the CanvasRenderer(see Canvas examples => pb in my chrome...).)
+
+* http://www.kevs3d.co.uk/dev/phoria/ (working in my Chrome, based on http://glmatrix.net/)
+* http://www.kevs3d.co.uk/dev/phoria/test0q.html
+* https://github.com/toji/gl-matrix
+* https://github.com/kevinroast/phoria.js => ok With chrome for some basic renderings
+* http://www.kevs3d.co.uk/dev/shaders/distancefield8.html => webGl Too, pb with chrome
+* https://pixijs.io/examples/#/textures/dds.js
+* https://pixijs.io/examples/#/demos/cacheAsBitmap.js (2D animations are working under Chrome)
+* http://typescript.away3d.com/
+* https://github.com/topics/3d?l=typescript
+* https://github.com/eromano/ng2-3d-editor
+* https://github.com/edsilv/virtex
+* https://legacy.gitbook.com/book/sophiedixon/photogrammetry-guide/details
+
+* Working under my chrome for 3D model rendering :
+* https://demos.alanmacleod.eu/wasm-render/pub/
+* https://github.com/alanmacleod/wasm-render
+* https://github.com/ballercat/wasm-loader
+* https://dzone.com/articles/threejs-tutorial-example-webgl
+
+* https://github.com/r3c/arcadejs
+* https://github.com/nfenclova/ray-tracer
+* https://github.com/rrmelcer/woodaudio
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
@@ -251,9 +311,10 @@ yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications lodash-es @types/lodash-es
 yarn add ngx-quill primeflex @angular/flex-layout ngx-papaparse@3
-yarn add angular-formio @angular/cdk-experimental
+# yarn add angular-formio @angular/cdk-experimental
 yarn add @ng-dynamic-forms/core @ng-dynamic-forms/ui-material angular2-text-mask
-yarn add aframe angular-aframe-pipe
+yarn add aframe
+# yarn add angular-aframe-pipe
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```
 

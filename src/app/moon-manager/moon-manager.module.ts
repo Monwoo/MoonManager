@@ -57,6 +57,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PapaParseModule } from 'ngx-papaparse';
 import { HasTypePipe } from './pipes/has-type.pipe';
 // import { FormioModule } from 'angular-formio';
+// import { AframePipeModule } from 'angular-aframe-pipe/aframe-pipe.module';
+import { AFrameTutorialComponent } from './components/aframe-tutorial/aframe-tutorial.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // maxFilesize: 50000,
@@ -74,7 +76,9 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     UrlTransformerPipe,
     TimelineYearlyPlanComponent,
     NgLetDirective,
-    HasTypePipe
+    HasTypePipe,
+    // AframePipeModule,
+    AFrameTutorialComponent
   ],
   imports: [
     CommonModule,

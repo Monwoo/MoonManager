@@ -10,6 +10,7 @@ import { Shell } from '@app/shell/shell.service';
 import { RoutingSentinelService } from './services/routing-sentinel.service';
 import { BodyComponent } from './components/body/body.component';
 import { ParametersComponent } from './components/parameters/parameters.component';
+// import { AFrameTutorialComponent } from './components/aframe-tutorial/aframe-tutorial.component';
 
 const routes: Routes = [
   Shell.childRoutes([
@@ -20,6 +21,12 @@ const routes: Routes = [
       pathMatch: 'full',
       canActivate: [RoutingSentinelService]
     },
+    // {
+    //   path: 'tutorial',
+    //   component: AFrameTutorialComponent,
+    //   pathMatch: 'full',
+    //   canActivate: [RoutingSentinelService],
+    // },
     // Catching all routes for V1. TODO : Arrange as you like...
     {
       path: '**',

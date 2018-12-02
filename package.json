@@ -52,6 +52,7 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "@ngx-translate/i18n-polyfill": "^1.0.0",
     "@types/lodash-es": "^4.17.1",
+    "angular-aframe-pipe": "^1.0.0",
     "angular-calendar": "^0.26.4",
     "angular-formio": "^3.9.0",
     "angular-material-source": "angular/material",
