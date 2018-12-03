@@ -7,6 +7,15 @@
 >
   <i class="fas fa-power-off"></i> {{ 'Reset' | translate }}
 </button>
+
+<mat-form-field class="float-right">
+  <mat-select placeholder="{{langPlaceholder|translate}}" [value]="currentLanguage">
+    <mat-option *ngFor="let language of languages" (click)="setLanguage(language)" [value]="language">
+      {{ language | translate }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
 <!-- < p-panel class="story" header="Légende des indicateurs temporels :"> -->
 <mat-card class="story">
   <mat-card-content>
@@ -25,14 +34,20 @@
 
 <mat-card>
   <mat-card-content>
-    <form [formGroup]="formGroup | async" #paramsForm="ngForm">
-      <dynamic-material-form [group]="formGroup | async" [model]="formModel | async" [layout]="formLayout">
+    <form [formGroup]="formGroup.toPromise() | async" #paramsForm="ngForm">
+      <dynamic-material-form [group]="formGroup.toPromise() | async" [model]="formModel | async" [layout]="formLayout">
       </dynamic-material-form>
     </form>
   </mat-card-content>
 </mat-card>
 
-<button mat-button color="primary" matTooltip="{{'Save params'|translate}}" (click)="saveAction($event)">
+<button
+  class="float-right"
+  mat-button
+  color="primary"
+  matTooltip="{{'Save params'|translate}}"
+  (click)="saveAction($event)"
+>
   <i class="fas fa-save"></i> {{ 'Save' | translate }}
 </button>
 
@@ -52,11 +67,3 @@
     {{ 'Project under M.I.T. Licence. Build by Monwoo.' | translate }}
   </a>
 </mat-card>
-
-<mat-form-field>
-  <mat-select placeholder="{{langPlaceholder|translate}}" [value]="currentLanguage">
-    <mat-option *ngFor="let language of languages" (click)="setLanguage(language)" [value]="language">
-      {{ language | translate }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>

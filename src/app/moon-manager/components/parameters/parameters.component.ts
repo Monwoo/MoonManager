@@ -35,7 +35,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   // TODO : how to custom layout for embed form with NO html code ?
   // Need some code pattern to avoid id's clash ?
   formLayout: DynamicFormLayout = CONFIG_FORM_LAYOUT;
-  formGroup: BehaviorSubject<FormGroup>;
+  formGroup: BehaviorSubject<FormGroup> = new BehaviorSubject<FormGroup>(new FormGroup({}));
   langPlaceholder: string = extract('Langue');
 
   constructor(
