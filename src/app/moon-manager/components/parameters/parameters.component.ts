@@ -15,11 +15,12 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 import { NotificationsService } from 'angular2-notifications';
 import { extract } from '@app/core';
 import { environment } from '@env/environment';
-import { CONFIG_FORM_LAYOUT, CONFIG_FORM_MODEL, paramSelectors } from './config-form.model';
+import { CONFIG_FORM_LAYOUT, configFormModel, paramSelectors } from './config-form.model';
 import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
-import { ConfigDefaults as cflDefaults } from '../client-files-loader/config-form.model';
-import { ConfigDefaults as pivotDefaults } from '../timing-pivot/config-form.model';
+import { configDefaults as cflDefaults } from '../client-files-loader/config-form.model';
+import { configDefaults as pivotDefaults } from '../timing-pivot/config-form.model';
 import { I18nService } from '@app/core';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -29,7 +30,7 @@ import { I18nService } from '@app/core';
 export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paramsForm') paramsForm: NgForm; // TODO : fail to use for now
 
-  formModel: DynamicFormModel = CONFIG_FORM_MODEL;
+  formModel: DynamicFormModel = configFormModel(this);
   // TODO : how to custom layout for embed form with NO html code ?
   // Need some code pattern to avoid id's clash ?
   formLayout: DynamicFormLayout = CONFIG_FORM_LAYOUT;
@@ -41,7 +42,8 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     private storage: LocalStorage,
     private i18nService: I18nService,
     private notif: NotificationsService,
-    private formService: DynamicFormService
+    private formService: DynamicFormService,
+    public i18n: I18n
   ) {}
 
   public config: any;
@@ -112,8 +114,8 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     // let changes = this.paramsForm.form.value;
     let freshConf = {
       // TODO : refactor => need auto-gen from config-form....
-      [paramSelectors[0]]: cflDefaults(),
-      [paramSelectors[1]]: pivotDefaults()
+      [paramSelectors[0]]: cflDefaults(this),
+      [paramSelectors[1]]: pivotDefaults(this)
     };
     console.log('Reseting config to : ', freshConf);
     this.storage.clear().subscribe(() => {

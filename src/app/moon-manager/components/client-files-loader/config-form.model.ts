@@ -50,6 +50,8 @@ export const CONFIG_FORM_LAYOUT = {
 };
 
 export const configFormModel = (caller: any) => {
+  const config = configDefaults(caller);
+
   return [
     // TODO : tool to auto gen ? or always time lost since design of form will bring back to specific.. ?
     // new DynamicInputModel({
@@ -86,21 +88,21 @@ export const configFormModel = (caller: any) => {
       //minLength: 150,
 
       // value: ["hotel", "booking"]
-      value: caller.config.captureRegex
+      value: config.captureRegex
     }),
     new DynamicInputModel({
       id: 'thumbW',
       label: caller.i18n('Thumbnail width|Largeur du thumbnaile@@mm.cfl.thumbW.label'),
       inputType: 'number',
       placeholder: caller.i18n('Width|Largeur@@mm.cfl.thumbW.placeholder'),
-      value: caller.config.thumbW // well, ovewritten by param config obj loaded from storage...
+      value: config.thumbW // well, ovewritten by param config obj loaded from storage...
     }),
     new DynamicInputModel({
       id: 'thumbH',
       label: caller.i18n('Thumbnail height|Hauteur du thumbnaile@@mm.cfl.thumbW.label'),
       inputType: 'number',
       placeholder: caller.i18n('Height|Hauteur@@mm.cfl.thumbW.placeholder'),
-      value: caller.config.thumbH // well, ovewritten by param config obj loaded from storage...
+      value: config.thumbH // well, ovewritten by param config obj loaded from storage...
     })
   ];
 };

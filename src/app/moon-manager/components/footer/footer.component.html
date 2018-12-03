@@ -1,8 +1,8 @@
 <!-- Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com -->
-<footer>
+<footer class="bs">
   <div class="container-fluid">
-    <div class="media-container-row align-center">
-      <div class="row copyright">
+    <div class="row text-center">
+      <div class="col-12 col-md-8 offset-md-2 copyright">
         <a href="{{ trans.copyright.url | translate }}"> {{ trans.copyright.text | translate }} </a>
         <!--
           a id="cgu_link_btn"
@@ -13,6 +13,9 @@
               {{ 'cgu.linkLabel'| translate|raw }}
           </a
         -->
+      </div>
+      <div class="col-12 col-md-2">
+        <span class="notice" matTooltip="{{'Version du MoonManager'|translate}}">v{{ version }}</span>
       </div>
     </div>
   </div>

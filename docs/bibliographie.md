@@ -303,6 +303,9 @@ Dev stuffs :
 - https://modernizr.com/download?canvas-canvastext-setclasses
 - https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Function/call
 
+- https://getbootstrap.com/docs/4.0/layout/grid/
+- https://getbootstrap.com/docs/4.0/utilities/text/
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

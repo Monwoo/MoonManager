@@ -68,7 +68,7 @@ export const configFormModel = (caller: any) => {
     return new DynamicFormGroupModel({
       ...{
         id: s,
-        group: groupBySelectors[s]
+        group: groupBySelectors[s](caller)
       },
       ...configBySelectors[s]
     });
