@@ -21,6 +21,7 @@ import { configDefaults as cflDefaults } from '../client-files-loader/config-for
 import { configDefaults as pivotDefaults } from '../timing-pivot/config-form.model';
 import { I18nService } from '@app/core';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -30,11 +31,11 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paramsForm') paramsForm: NgForm; // TODO : fail to use for now
 
-  formModel: DynamicFormModel = configFormModel(this);
+  formModel: Promise<DynamicFormModel> = configFormModel(this);
   // TODO : how to custom layout for embed form with NO html code ?
   // Need some code pattern to avoid id's clash ?
   formLayout: DynamicFormLayout = CONFIG_FORM_LAYOUT;
-  formGroup: FormGroup;
+  formGroup: BehaviorSubject<FormGroup>;
   langPlaceholder: string = extract('Langue');
 
   constructor(
@@ -49,7 +50,9 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   public config: any;
 
   ngOnInit() {
-    this.formGroup = this.formService.createFormGroup(this.formModel);
+    this.formModel.then(fm => {
+      this.formGroup = new BehaviorSubject(this.formService.createFormGroup(fm));
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

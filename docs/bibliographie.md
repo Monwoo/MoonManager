@@ -318,6 +318,13 @@ Dev stuffs :
 
 - https://github.com/angular/angular/issues/11405
 
+- https://github.com/ngx-translate/core
+- https://angular.io/api/common/AsyncPipe
+- https://www.datchley.name/es6-promises/
+- https://codeburst.io/a-simple-guide-to-es6-promises-d71bacd2e13a
+- https://stackoverflow.com/questions/41292316/how-do-i-await-multiple-promises-in-parallel-without-fail-fast-behavior
+- https://medium.com/@tkssharma/writing-neat-asynchronous-node-js-code-with-promises-async-await-fa8d8b0bcd7c
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

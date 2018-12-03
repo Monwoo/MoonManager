@@ -27,17 +27,17 @@ import { CONFIG_FORM_LAYOUT as pivotConfigLayout } from '../timing-pivot/config-
 export const paramSelectors = ['moon-manager-client-files-loader', 'moon-manager-timing-pivot'];
 
 const groupBySelectors = {
-  'moon-manager-client-files-loader': cflConfigForm,
-  'moon-manager-timing-pivot': pivotConfigForm
+  'moon-manager-client-files-loader': cflConfigForm
+  //'moon-manager-timing-pivot': pivotConfigForm
 };
 const configBySelectors = (caller: any) => {
   return {
     'moon-manager-client-files-loader': {
       label: cflConfig(caller).paramTitle
-    },
-    'moon-manager-timing-pivot': {
-      label: pivotConfig(caller).paramTitle
     }
+    // 'moon-manager-timing-pivot': {
+    //   label: pivotConfig(caller).paramTitle
+    // }
   };
 };
 
@@ -68,13 +68,34 @@ export const CONFIG_FORM_LAYOUT = {
 
 // export const CONFIG_FORM_MODEL: DynamicFormModel = Object.keys(groupBySelectors).map(s => {
 export const configFormModel = (caller: any) => {
-  return Object.keys(groupBySelectors).map(s => {
-    return new DynamicFormGroupModel({
-      ...{
-        id: s,
-        group: groupBySelectors[s](caller)
-      },
-      ...configBySelectors[s]
-    });
+  return new Promise<DynamicFormGroupModel[]>(function(resolve, reject) {
+    // async () => { => await error : do no take this Async context...
+    //   resolve(Object.keys(groupBySelectors).map(s => {
+    //     return new DynamicFormGroupModel({
+    //       ...{
+    //         id: s,
+    //         group: await groupBySelectors[s](caller),
+    //       },
+    //       ...configBySelectors[s]
+    //     });
+    //   }));
+    // }
+    const selectorsKeys = Object.keys(groupBySelectors);
+    let groups: DynamicFormGroupModel[] = [];
+    async () => {
+      for (let i = 0; i < selectorsKeys.length; i++) {
+        const s = selectorsKeys[i];
+        groups.push(
+          new DynamicFormGroupModel({
+            ...{
+              id: s,
+              group: await groupBySelectors[s](caller)
+            },
+            ...configBySelectors[s]
+          })
+        );
+      }
+      resolve(groups);
+    };
   });
 };

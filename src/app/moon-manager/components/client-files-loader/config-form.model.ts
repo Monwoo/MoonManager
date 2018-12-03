@@ -8,9 +8,14 @@ import {
 } from '@ng-dynamic-forms/core';
 import { extract } from '@app/core';
 
+import { Logger } from '@app/core/logger.service';
+const MonwooReview = new Logger('MonwooReview');
+
 // import { I18n } from '@ngx-translate/i18n-polyfill';
 
 export const configDefaults: ((caller: any) => any) = (caller?: any) => ({
+  // TODO : i18n EXTRACT FROM TS....
+  // using json way for now, but would be even nicer to have mixins or annotation system for translations...
   paramTitle: caller.i18n({
     value: 'Chargement des captures',
     id: 'mm.cfl.paramTitle',
@@ -56,61 +61,76 @@ export const CONFIG_FORM_LAYOUT = {
 
 export const configFormModel = (caller: any) => {
   const config = configDefaults(caller);
+  const translate = caller.i18nService;
+  return new Promise<DynamicInputModel[]>(function(resolve, reject) {
+    async () => {
+      resolve([
+        // TODO : tool to auto gen ? or always time lost since design of form will bring back to specific.. ?
+        // new DynamicInputModel({
+        //   id: 'paramTitle',
+        //   label: 'Titre de la config', // TODO : translate
+        //   maxLength: 42,
+        //   placeholder: 'Votre titre'
+        // }),
 
-  return [
-    // TODO : tool to auto gen ? or always time lost since design of form will bring back to specific.. ?
-    // new DynamicInputModel({
-    //   id: 'paramTitle',
-    //   label: 'Titre de la config', // TODO : translate
-    //   maxLength: 42,
-    //   placeholder: 'Votre titre'
-    // }),
+        // new DynamicInputModel({
+        //   id: 'timingAuthor',
+        //   label: 'Autheur à inspecter', // TODO : translate
+        //   maxLength: 42,
+        //   placeholder: "Nom d'autheur à regrouper"
+        // }),
 
-    // new DynamicInputModel({
-    //   id: 'timingAuthor',
-    //   label: 'Autheur à inspecter', // TODO : translate
-    //   maxLength: 42,
-    //   placeholder: "Nom d'autheur à regrouper"
-    // }),
+        new DynamicInputModel({
+          id: 'captureRegex',
+          placeholder: await new Promise<string>(r =>
+            translate.get(extract("Expressions régulière pour la source : 'capture'")).subscribe((t: string) => {
+              r(t);
+            })
+          ).catch(() => {
+            MonwooReview.debug('Fail to translate');
+            // throw 'Translation issue';
+            return ''; // will be taken as await result on errors
+          }),
+          // TODO : need to link language, extract is only TAGGING as translatable, not doing the translation...
+          // TODO :
+          // https://www.jonashendrickx.com/2017/12/06/await-observable-complete-angular/
+          // private getTranslations(keys: string[]): Promise<any> {
+          //   return new Promise((resolve, reject) => {
+          //     this.translateSvc.get(keys).subscribe(success => {
+          //       resolve(success);
+          //     });
+          //   });
+          // }
 
-    new DynamicInputModel({
-      id: 'captureRegex',
-      // TODO : need to link language, extract is only TAGGING as translatable, not doing the translation...
-      // TODO :
-      // https://www.jonashendrickx.com/2017/12/06/await-observable-complete-angular/
-      // private getTranslations(keys: string[]): Promise<any> {
-      //   return new Promise((resolve, reject) => {
-      //     this.translateSvc.get(keys).subscribe(success => {
-      //       resolve(success);
-      //     });
-      //   });
-      // }
+          // TODO : issue to extract from TS file for now...
+          // placeholder: caller.i18n({
+          //   value: "Expressions régulière pour la source : 'capture'",
+          //   id: 'mm.cfl.captureRegex.placeholder',
+          //   meaning: 'RegEx for Captures',
+          //   description: "Expressions régulière pour la source : 'capture'"
+          // }),
 
-      placeholder: caller.i18n({
-        value: "Expressions régulière pour la source : 'capture'",
-        id: 'mm.cfl.captureRegex.placeholder',
-        meaning: 'RegEx for Captures',
-        description: "Expressions régulière pour la source : 'capture'"
-      }),
-      multiple: true,
-      //minLength: 150,
+          multiple: true,
+          //minLength: 150,
 
-      // value: ["hotel", "booking"]
-      value: config.captureRegex
-    }),
-    new DynamicInputModel({
-      id: 'thumbW',
-      label: caller.i18n('Thumbnail width|Largeur du thumbnaile@@mm.cfl.thumbW.label'),
-      inputType: 'number',
-      placeholder: caller.i18n('Width|Largeur@@mm.cfl.thumbW.placeholder'),
-      value: config.thumbW // well, ovewritten by param config obj loaded from storage...
-    }),
-    new DynamicInputModel({
-      id: 'thumbH',
-      label: caller.i18n('Thumbnail height|Hauteur du thumbnaile@@mm.cfl.thumbW.label'),
-      inputType: 'number',
-      placeholder: caller.i18n('Height|Hauteur@@mm.cfl.thumbW.placeholder'),
-      value: config.thumbH // well, ovewritten by param config obj loaded from storage...
-    })
-  ];
+          // value: ["hotel", "booking"]
+          value: config.captureRegex
+        }),
+        new DynamicInputModel({
+          id: 'thumbW',
+          label: caller.i18n('Thumbnail width|Largeur du thumbnaile@@mm.cfl.thumbW.label'),
+          inputType: 'number',
+          placeholder: caller.i18n('Width|Largeur@@mm.cfl.thumbW.placeholder'),
+          value: config.thumbW // well, ovewritten by param config obj loaded from storage...
+        }),
+        new DynamicInputModel({
+          id: 'thumbH',
+          label: caller.i18n('Thumbnail height|Hauteur du thumbnaile@@mm.cfl.thumbW.label'),
+          inputType: 'number',
+          placeholder: caller.i18n('Height|Hauteur@@mm.cfl.thumbW.placeholder'),
+          value: config.thumbH // well, ovewritten by param config obj loaded from storage...
+        })
+      ]);
+    };
+  });
 };
