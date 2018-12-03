@@ -237,6 +237,8 @@ bon, voilà, en mode bitMap là, à placer des points sur la carte. Va falloir p
 - https://material.io/design/components/cards.html
 - https://material.angular.io/components/card/overview
 
+- https://angular.io/guide/i18n
+
 </details>
 
 ---

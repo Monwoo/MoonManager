@@ -7,9 +7,11 @@ import {
   DynamicRadioGroupModel
 } from '@ng-dynamic-forms/core';
 
+import { configDefaults as cflConfig } from '../client-files-loader/config-form.model';
 import { configFormModel as cflConfigForm } from '../client-files-loader/config-form.model';
 import { CONFIG_FORM_LAYOUT as cflConfigLayout } from '../client-files-loader/config-form.model';
 
+import { configDefaults as pivotConfig } from '../timing-pivot/config-form.model';
 import { configFormModel as pivotConfigForm } from '../timing-pivot/config-form.model';
 import { CONFIG_FORM_LAYOUT as pivotConfigLayout } from '../timing-pivot/config-form.model';
 
@@ -28,13 +30,15 @@ const groupBySelectors = {
   'moon-manager-client-files-loader': cflConfigForm,
   'moon-manager-timing-pivot': pivotConfigForm
 };
-const configBySelectors = {
-  'moon-manager-client-files-loader': {
-    label: 'Paramètres du chargement des dossiers/fichiers :' // TODO : translation
-  },
-  'moon-manager-timing-pivot': {
-    label: 'Paramètres du pivot temporel :' // TODO : translation
-  }
+const configBySelectors = (caller: any) => {
+  return {
+    'moon-manager-client-files-loader': {
+      label: cflConfig(caller).paramTitle
+    },
+    'moon-manager-timing-pivot': {
+      label: pivotConfig(caller).paramTitle
+    }
+  };
 };
 
 // TODO : how to custom layout for embed form with NO html code ?

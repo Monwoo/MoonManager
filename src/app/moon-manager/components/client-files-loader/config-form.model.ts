@@ -11,7 +11,12 @@ import { extract } from '@app/core';
 // import { I18n } from '@ngx-translate/i18n-polyfill';
 
 export const configDefaults: ((caller: any) => any) = (caller?: any) => ({
-  paramTitle: caller.i18n('Client file loader param title|Chargement des captures@@mm.cfl.paramTitle'),
+  paramTitle: caller.i18n({
+    value: 'Chargement des captures',
+    id: 'mm.cfl.paramTitle',
+    meaning: 'Client file loader param title',
+    description: 'Chargement des captures'
+  }),
   timingEventType: 'capture',
   timingAuthor: caller.i18n('John Doe|John Doe@@mm.cfl.timingAuthor'),
   timingSegmentDelta: 0.2,
@@ -81,9 +86,12 @@ export const configFormModel = (caller: any) => {
       //   });
       // }
 
-      placeholder: caller.i18n(
-        "RegEx for Captures|Expressions régulière pour la source : 'capture'@@mm.cfl.captureRegex.placeholder"
-      ),
+      placeholder: caller.i18n({
+        value: "Expressions régulière pour la source : 'capture'",
+        id: 'mm.cfl.captureRegex.placeholder',
+        meaning: 'RegEx for Captures',
+        description: "Expressions régulière pour la source : 'capture'"
+      }),
       multiple: true,
       //minLength: 150,
 

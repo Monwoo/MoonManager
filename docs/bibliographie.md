@@ -306,6 +306,18 @@ Dev stuffs :
 - https://getbootstrap.com/docs/4.0/layout/grid/
 - https://getbootstrap.com/docs/4.0/utilities/text/
 
+- https://github.com/amily4555/ngx-i18n#readme
+- http://www.ngx-translate.com/
+- https://github.com/ngx-translate/i18n-polyfill
+- https://angular.io/guide/i18n#merge-the-completed-translation-file-into-the-app
+- https://medium.com/@feloy/deploying-an-i18n-angular-app-with-angular-cli-fc788f17e358
+- https://www.i18next.com/
+- **https://angular.io/guide/i18n**
+- https://v2.angular.io/docs/ts/latest/cookbook/i18n.html
+- https://docs.angularjs.org/guide/i18n
+
+- https://github.com/angular/angular/issues/11405
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
