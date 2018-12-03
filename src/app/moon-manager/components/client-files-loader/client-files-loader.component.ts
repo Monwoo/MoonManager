@@ -11,7 +11,8 @@ import { extract } from '@app/core';
 
 import { Timing } from '../../api/data-model/timing';
 import { MediasBufferService } from '../../services/medias-buffer.service';
-import { ConfigDefaults } from './config-form.model';
+import { I18n } from '@ngx-translate/i18n-polyfill';
+import { configDefaults } from './config-form.model';
 
 @Component({
   selector: 'moon-manager-client-files-loader',
@@ -25,7 +26,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     )
   };
 
-  @Input() config?: any = ConfigDefaults();
+  @Input() config?: any = configDefaults(this);
 
   @Output() onTimingFetch: EventEmitter<Timing> = new EventEmitter<Timing>();
 
@@ -53,7 +54,8 @@ export class ClientFilesLoaderComponent implements OnInit {
     private storage: LocalStorage,
     private selfRef: ElementRef,
     private medias: MediasBufferService,
-    private papaParse: Papa
+    private papaParse: Papa,
+    public i18n: I18n // TODO : singleton or other default injection ? hard to put it in every components...
   ) {
     // Parameters may change from other views, will need to reload on each on show to keep config ok
 

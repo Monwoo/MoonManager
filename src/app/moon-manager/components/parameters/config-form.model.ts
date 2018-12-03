@@ -7,10 +7,10 @@ import {
   DynamicRadioGroupModel
 } from '@ng-dynamic-forms/core';
 
-import { CONFIG_FORM_MODEL as cflConfigForm } from '../client-files-loader/config-form.model';
+import { configFormModel as cflConfigForm } from '../client-files-loader/config-form.model';
 import { CONFIG_FORM_LAYOUT as cflConfigLayout } from '../client-files-loader/config-form.model';
 
-import { CONFIG_FORM_MODEL as pivotConfigForm } from '../timing-pivot/config-form.model';
+import { configFormModel as pivotConfigForm } from '../timing-pivot/config-form.model';
 import { CONFIG_FORM_LAYOUT as pivotConfigLayout } from '../timing-pivot/config-form.model';
 
 // TODO :
@@ -62,12 +62,15 @@ export const CONFIG_FORM_LAYOUT = {
   ...pivotConfigLayout
 };
 
-export const CONFIG_FORM_MODEL: DynamicFormModel = Object.keys(groupBySelectors).map(s => {
-  return new DynamicFormGroupModel({
-    ...{
-      id: s,
-      group: groupBySelectors[s]
-    },
-    ...configBySelectors[s]
+// export const CONFIG_FORM_MODEL: DynamicFormModel = Object.keys(groupBySelectors).map(s => {
+export const configFormModel = (caller: any) => {
+  return Object.keys(groupBySelectors).map(s => {
+    return new DynamicFormGroupModel({
+      ...{
+        id: s,
+        group: groupBySelectors[s]
+      },
+      ...configBySelectors[s]
+    });
   });
-});
+};

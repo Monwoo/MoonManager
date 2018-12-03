@@ -15,7 +15,8 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 
 import { Timing } from '../../api/data-model/timing';
 import { MediasBufferService } from '../../services/medias-buffer.service';
-import { ConfigDefaults } from './config-form.model';
+import { I18n } from '@ngx-translate/i18n-polyfill';
+import { configDefaults } from './config-form.model';
 
 declare var CCapture: any;
 
@@ -25,7 +26,7 @@ declare var CCapture: any;
   styleUrls: ['./timing-pivot.component.scss']
 })
 export class TimingPivotComponent implements OnInit {
-  @Input() config?: any = ConfigDefaults();
+  @Input() config?: any = configDefaults(this);
   @Input() dataSrc: BehaviorSubject<Timing[]>;
 
   @Output() isFocused: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -180,7 +181,8 @@ export class TimingPivotComponent implements OnInit {
     private medias: MediasBufferService,
     private storage: LocalStorage,
     private selfRef: ElementRef,
-    private http: HttpClient
+    private http: HttpClient,
+    public i18n: I18n // TODO : singleton or other default injection ? hard to put it in every components...
   ) {
     this._originalTimeout = window.setTimeout;
 
