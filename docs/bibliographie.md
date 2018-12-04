@@ -332,6 +332,9 @@ Dev stuffs :
 - https://mattlewis92.github.io/angular-calendar/docs/components/CalendarMonthViewComponent.html
 - **https://compodoc.app/** Doc generator specialized for Angular App (Module/components etc.. in account)
 
+- https://help.github.com/articles/creating-releases/
+- https://git-scm.com/book/en/v2/Git-Basics-Tagging
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
