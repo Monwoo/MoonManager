@@ -91,4 +91,8 @@ export class I18nService {
   get translations(): string {
     return this.translateService.translations();
   }
+
+  get onLangChange() {
+    return this.translateService.onLangChange;
+  }
 }

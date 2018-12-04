@@ -22,6 +22,7 @@ import { configDefaults as pivotDefaults } from '../timing-pivot/config-form.mod
 import { I18nService } from '@app/core';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { BehaviorSubject } from 'rxjs';
+import { LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -52,7 +53,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
 
   public config: any = null;
 
-  ngOnInit() {
+  updateConfigForm() {
     // this.formModel.then(fm => {
     configFormModel(this).then((fm: DynamicFormModel) => {
       // this.formGroup = new BehaviorSubject(this.formService.createFormGroup(fm));
@@ -61,6 +62,13 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       if (this.config) {
         this.formGroup.patchValue(this.config);
       }
+    });
+  }
+
+  ngOnInit() {
+    this.updateConfigForm();
+    this.i18nService.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.updateConfigForm();
     });
   }
 
