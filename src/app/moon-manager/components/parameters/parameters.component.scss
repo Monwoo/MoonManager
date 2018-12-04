@@ -18,6 +18,18 @@
   .mat-card {
     margin: 15px 0px;
   }
+
+  .mat-form-field,
+  .checkbox-form-field,
+  dynamic-material-form-control {
+    //min-height: 94px;
+    padding-bottom: 21px;
+  }
+  // .mat-form-field-subscript-wrapper {
+  //   padding-bottom: 20px;
+  //   position: relative;
+  // }
+
   .param-title {
     font-size: 14pt;
     // padding: 10px; // not working...

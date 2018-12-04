@@ -1,12 +1,14 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 
 import {
-  DynamicFormModel,
+  DynamicFormControlModel,
   DynamicCheckboxModel,
   DynamicInputModel,
   DynamicRadioGroupModel
 } from '@ng-dynamic-forms/core';
 import { extract } from '@app/core';
+import { Logger } from '@app/core/logger.service';
+const MonwooReview = new Logger('MonwooReview');
 
 export const configDefaults: ((caller: any) => any) = (caller?: any) => ({
   paramTitle: extract('Pivot temporel'),
@@ -34,81 +36,102 @@ export const CONFIG_FORM_LAYOUT = {
     //     control: "col-sm-9",
     //     label: "col-sm-3"
     // }
+  },
+  lowRes: {
+    element: {
+      container: 'checkbox-form-field'
+    }
   }
 };
 
 // export const CONFIG_FORM_MODEL: DynamicFormModel = [
 export const configFormModel = (caller: any) => {
-  return [
-    // TODO : tool to auto gen ? or always time lost since design of form will bring back to specific.. ?
-    // new DynamicInputModel({
-    //   id: 'paramTitle',
-    //   label: 'Titre de la config', // TODO : translate
-    //   maxLength: 42,
-    //   placeholder: 'Votre titre'
-    // }),
-    new DynamicInputModel({
-      id: 'videoCopyright',
-      label: extract('Titre de la vidéo'), // TODO : translate
-      maxLength: 69,
-      placeholder: extract('Copyright de la vidéo')
-    }),
+  const config = configDefaults(caller);
+  const translate = caller.i18nService;
+  const fetchTrans = (t: string) =>
+    new Promise<string>(r =>
+      translate.get(extract(t)).subscribe((t: string) => {
+        r(t);
+      })
+    ).catch(e => {
+      MonwooReview.debug('Fail to translate', e);
+      // throw 'Translation issue';
+      return ''; // will be taken as await result on errors
+    });
+  return new Promise<DynamicFormControlModel[]>(function(resolve, reject) {
+    (async () => {
+      resolve([
+        // TODO : tool to auto gen ? or always time lost since design of form will bring back to specific.. ?
+        // new DynamicInputModel({
+        //   id: 'paramTitle',
+        //   label: 'Titre de la config', // TODO : translate
+        //   maxLength: 42,
+        //   placeholder: 'Votre titre'
+        // }),
+        new DynamicInputModel({
+          id: 'videoCopyright',
+          label: await fetchTrans('Titre de la vidéo'), // TODO : translate
+          maxLength: 69,
+          placeholder: await fetchTrans('Copyright de la vidéo')
+        }),
 
-    new DynamicInputModel({
-      id: 'videoFontColor',
-      label: extract('Couleur du text vidéo'), // TODO : translate
-      maxLength: 69,
-      placeholder: extract('Couleur du text')
-    }),
+        new DynamicInputModel({
+          id: 'videoFontColor',
+          label: await fetchTrans('Couleur du text vidéo'), // TODO : translate
+          maxLength: 69,
+          placeholder: await fetchTrans('Couleur du text')
+        }),
 
-    new DynamicCheckboxModel({
-      id: 'lowRes',
-      label: extract('Activer le mode vidéo basse résolution')
-    }),
+        new DynamicCheckboxModel({
+          id: 'lowRes',
+          label: await fetchTrans('Activer le mode vidéo basse résolution')
+        }),
 
-    new DynamicInputModel({
-      id: 'summaryTitle',
-      label: extract("Titre pour le comptre rendue d'activité"),
-      placeholder: extract('Votre titre')
-    }),
+        new DynamicInputModel({
+          id: 'summaryTitle',
+          label: await fetchTrans("Titre pour le comptre rendue d'activité"),
+          placeholder: await fetchTrans('Votre titre')
+        }),
 
-    new DynamicInputModel({
-      id: 'billedDays',
-      inputType: 'number',
-      placeholder: extract('Nombre de jours facturé'),
-      // hint: "La somme de vos factures en jours",
-      hint: extract('Total jours facturés')
-      // max: 5,
-      // min: 0
-    }),
-    new DynamicInputModel({
-      id: 'paidDays',
-      inputType: 'number',
-      placeholder: extract('Nombre de jours payé'),
-      // hint: "La somme de vos encaissements à jours",
-      hint: extract('Total jours encaissés')
-      // max: 5,
-      // min: 0
-    }),
-    new DynamicInputModel({
-      id: 'compensatedDays',
-      inputType: 'number',
-      // placeholder: "Nombre de jours via compensation diverse négocié",
-      // hint: "La somme des compensations non facturés admise",
-      placeholder: extract('Compensations négociées aquises en jours'),
-      hint: extract('Total jours compensés')
-      // max: 5,
-      // min: 0
-    }),
-    new DynamicInputModel({
-      id: 'receivedDays',
-      inputType: 'number',
-      // placeholder: "Nombre de jours compensé",
-      // hint: "Compensations diverses reçues en jours",
-      placeholder: extract('Compensations reçuses en jours'),
-      hint: extract('Total jours reçus')
-      // max: 5,
-      // min: 0
-    })
-  ];
+        new DynamicInputModel({
+          id: 'billedDays',
+          inputType: 'number',
+          placeholder: await fetchTrans('Nombre de jours facturé'),
+          // hint: "La somme de vos factures en jours",
+          hint: await fetchTrans('Total jours facturés')
+          // max: 5,
+          // min: 0
+        }),
+        new DynamicInputModel({
+          id: 'paidDays',
+          inputType: 'number',
+          placeholder: await fetchTrans('Nombre de jours payé'),
+          // hint: "La somme de vos encaissements à jours",
+          hint: await fetchTrans('Total jours encaissés')
+          // max: 5,
+          // min: 0
+        }),
+        new DynamicInputModel({
+          id: 'compensatedDays',
+          inputType: 'number',
+          // placeholder: "Nombre de jours via compensation diverse négocié",
+          // hint: "La somme des compensations non facturés admise",
+          placeholder: await fetchTrans('Compensations négociées aquises en jours'),
+          hint: await fetchTrans('Total jours compensés')
+          // max: 5,
+          // min: 0
+        }),
+        new DynamicInputModel({
+          id: 'receivedDays',
+          inputType: 'number',
+          // placeholder: "Nombre de jours compensé",
+          // hint: "Compensations diverses reçues en jours",
+          placeholder: await fetchTrans('Compensations reçuses en jours'),
+          hint: await fetchTrans('Total jours reçus')
+          // max: 5,
+          // min: 0
+        })
+      ]);
+    })();
+  });
 };

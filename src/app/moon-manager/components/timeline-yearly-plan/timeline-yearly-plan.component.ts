@@ -4,7 +4,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CalendarEvent, CalendarMonthViewDay } from 'angular-calendar';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
-import { extract } from '@app/core';
+import { extract, I18nService } from '@app/core';
+// https://mattlewis92.github.io/angular-calendar/#/i18n
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr'; // TODO : automatic from .environment file
+registerLocaleData(localeFr);
 
 import { Timing } from '../../api/data-model/timing';
 
@@ -48,10 +52,16 @@ export class TimelineYearlyPlanComponent implements OnInit {
 
   public eventsByMonths: Map<string, Array<CalendarEvent<{ incrementsBadgeTotal: boolean }>>> = new Map();
 
-  constructor() {}
+  private locale: string = null;
+  constructor(private i18nService: I18nService) {}
 
   ngOnInit(): void {
-    // TODO
+    // calendar do not know fr-FR locale...
+    const missingLocalsHack = {
+      'fr-FR': 'fr',
+      'en-US': 'en'
+    };
+    this.locale = missingLocalsHack[this.i18nService.language];
   }
   ngAfterViewInit() {
     this.timingsByDayAsync.subscribe(timingsByDay => {
@@ -81,7 +91,7 @@ export class TimelineYearlyPlanComponent implements OnInit {
       // TODO : moment.locale('fr'); // TODO : tranlation and locales system...
 
       let date = moment(k, 'YYYY-MM-DD');
-      date.locale('fr'); // TODO : fail to import month name in own local for now...
+      date.locale(this.i18nService.language); // TODO : fail to import month name in own local for now...
       let month = date.format('MMMM YYYY'); // TODO : local translations...
       let dayWorkload = timings.reduce((acc: number, t: Timing) => {
         return acc + t.WorkloadAmount;

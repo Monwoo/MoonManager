@@ -26,6 +26,7 @@
             {{ value | titlecase }} => {{ workloadByMonth.get(value) / 5 | number: '1.2-2' }} {{ 'jours' | translate }}
           </strong>
           <mwl-calendar-month-view
+            [locale]="locale"
             [viewDate]="idx"
             [events]="eventsByMonths.get(value)"
             [activeDayIsOpen]="false"

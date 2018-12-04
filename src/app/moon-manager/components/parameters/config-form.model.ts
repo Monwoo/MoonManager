@@ -27,17 +27,17 @@ import { CONFIG_FORM_LAYOUT as pivotConfigLayout } from '../timing-pivot/config-
 export const paramSelectors = ['moon-manager-client-files-loader', 'moon-manager-timing-pivot'];
 
 const groupBySelectors = {
-  'moon-manager-client-files-loader': cflConfigForm
-  //'moon-manager-timing-pivot': pivotConfigForm
+  'moon-manager-client-files-loader': cflConfigForm,
+  'moon-manager-timing-pivot': pivotConfigForm
 };
 const configBySelectors = (caller: any) => {
   return {
     'moon-manager-client-files-loader': {
       label: cflConfig(caller).paramTitle
+    },
+    'moon-manager-timing-pivot': {
+      label: pivotConfig(caller).paramTitle
     }
-    // 'moon-manager-timing-pivot': {
-    //   label: pivotConfig(caller).paramTitle
-    // }
   };
 };
 
