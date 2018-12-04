@@ -302,6 +302,11 @@ Now you're on your new branch. You can confirm this by simply typing :
 git branch
 # check local branches AND remotes branches :
 git branch -a
+
+# Add a version tag :
+git tag -a v1.0.0-HumanlyTested -m "v1.0.0 Humanly tested by Miguel Monwoo"
+# Push all local tags to remote :
+git push origin --tags
 ```
 
 </details>
