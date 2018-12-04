@@ -62,6 +62,16 @@ export const CONFIG_FORM_LAYOUT = {
 export const configFormModel = (caller: any) => {
   const config = configDefaults(caller);
   const translate = caller.i18nService;
+  const fetchTrans = (t: string) =>
+    new Promise<string>(r =>
+      translate.get(extract(t)).subscribe((t: string) => {
+        r(t);
+      })
+    ).catch(e => {
+      MonwooReview.debug('Fail to translate', e);
+      // throw 'Translation issue';
+      return ''; // will be taken as await result on errors
+    });
   return new Promise<DynamicInputModel[]>(function(resolve, reject) {
     (async () => {
       resolve([
@@ -82,15 +92,7 @@ export const configFormModel = (caller: any) => {
 
         new DynamicInputModel({
           id: 'captureRegex',
-          placeholder: await new Promise<string>(r =>
-            translate.get(extract("Expressions régulière pour la source : 'capture'")).subscribe((t: string) => {
-              r(t);
-            })
-          ).catch(e => {
-            MonwooReview.debug('Fail to translate', e);
-            // throw 'Translation issue';
-            return ''; // will be taken as await result on errors
-          }),
+          placeholder: await fetchTrans("Expressions régulière pour la source : 'capture'"),
           // TODO : need to link language, extract is only TAGGING as translatable, not doing the translation...
           // TODO :
           // https://www.jonashendrickx.com/2017/12/06/await-observable-complete-angular/
@@ -118,16 +120,16 @@ export const configFormModel = (caller: any) => {
         }),
         new DynamicInputModel({
           id: 'thumbW',
-          label: caller.i18n('Thumbnail width|Largeur du thumbnaile@@mm.cfl.thumbW.label'),
+          label: await fetchTrans('Largeur du thumbnail'), // 'Thumbnail width|Largeur du thumbnail@@mm.cfl.thumbW.label'),
           inputType: 'number',
-          placeholder: caller.i18n('Width|Largeur@@mm.cfl.thumbW.placeholder'),
+          placeholder: await fetchTrans('Largeur'), // 'Width|Largeur@@mm.cfl.thumbW.placeholder'),
           value: config.thumbW // well, ovewritten by param config obj loaded from storage...
         }),
         new DynamicInputModel({
           id: 'thumbH',
-          label: caller.i18n('Thumbnail height|Hauteur du thumbnaile@@mm.cfl.thumbW.label'),
+          label: await fetchTrans('Hauteur du thumbnail'), // 'Thumbnail height|Hauteur du thumbnaile@@mm.cfl.thumbW.label'),
           inputType: 'number',
-          placeholder: caller.i18n('Height|Hauteur@@mm.cfl.thumbW.placeholder'),
+          placeholder: await fetchTrans('Hauteur'), // 'Height|Hauteur@@mm.cfl.thumbW.placeholder'),
           value: config.thumbH // well, ovewritten by param config obj loaded from storage...
         })
       ]);

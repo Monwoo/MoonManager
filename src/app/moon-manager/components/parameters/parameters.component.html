@@ -40,16 +40,12 @@
   </mat-card-content>
 </mat-card>
 
-<div>
-  <button
-    class="float-right"
-    mat-button
-    color="primary"
-    matTooltip="{{'Save params'|translate}}"
-    (click)="saveAction($event)"
-  >
-    <i class="fas fa-save"></i> {{ 'Save' | translate }}
-  </button>
+<div class="bs">
+  <div class="text-right">
+    <button mat-button color="primary" matTooltip="{{'Save params'|translate}}" (click)="saveAction($event)">
+      <i class="fas fa-save"></i> {{ 'Save' | translate }}
+    </button>
+  </div>
 </div>
 
 <!--

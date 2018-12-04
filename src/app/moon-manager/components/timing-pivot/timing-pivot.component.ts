@@ -89,9 +89,7 @@ export class TimingPivotComponent implements OnInit {
     RemoteEasyDev: {
       title: extract('Remote easy dev'),
       idx: extract('RED'),
-      description: extract(`Service de développement sur demande pour des objectifs
-      faciles et executable en 1 journée au maximum
-      sans nécessité de suivi ni gestion de projet.`),
+      description: extract('mm.pivot.RED.details'),
       maxBusyHrByDay: 5,
       // justificatifs: extract(`5hr max via capture d'écran valant ${0.2}hr et
       // git log valant ${1}hr`) // TODO : times from form fields
@@ -125,8 +123,7 @@ export class TimingPivotComponent implements OnInit {
     RemoteFullTutorialAndKnowledgeTransfert: {
       title: extract('Remote full tutorial and knowledge transfert'),
       idx: extract('RFTKT'),
-      description: extract(`Service de formation, de transfert
-      et d'analyse de connaissances`),
+      description: extract('mm.pivot.RFTKT.details'),
       maxBusyHrByDay: 5,
       justificatifs: extract(`5hr max via capture d'écran valant 0.2hr et
       git log valant 1hr`) // TODO : times from form fields
