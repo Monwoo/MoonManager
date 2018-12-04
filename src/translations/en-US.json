@@ -90,6 +90,7 @@
   "Version": "Version",
   "Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr": "Green : j <= 1hr, Blue : 1hr < j <= 5hr, Yellow : 5hr < j < 7hr, Red : j >= 7hr",
   "Votre titre": "Your Title",
+  "assets/TimingsIndicatorStory.png": "assets/TimingsIndicatorStory-en.png",
   "cgu.linkLabel": "C.G.U.",
   "heures": "hours",
   "http://www.monwoo.com": "http://www.monwoo.com",

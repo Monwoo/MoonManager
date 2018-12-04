@@ -42,6 +42,10 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
 
   langPlaceholder: string = extract('Langue');
 
+  // TODO i18n annotation needed OnDemande... realy nice to have simple system,
+  // but with below case, translator will not have easy ways to gess right translation...
+  indicatorStoryUrl: string = extract('assets/TimingsIndicatorStory.png');
+
   constructor(
     private ngZone: NgZone,
     private storage: LocalStorage,
