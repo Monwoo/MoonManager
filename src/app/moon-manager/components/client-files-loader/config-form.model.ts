@@ -63,7 +63,7 @@ export const configFormModel = (caller: any) => {
   const config = configDefaults(caller);
   const translate = caller.i18nService;
   return new Promise<DynamicInputModel[]>(function(resolve, reject) {
-    async () => {
+    (async () => {
       resolve([
         // TODO : tool to auto gen ? or always time lost since design of form will bring back to specific.. ?
         // new DynamicInputModel({
@@ -86,8 +86,8 @@ export const configFormModel = (caller: any) => {
             translate.get(extract("Expressions régulière pour la source : 'capture'")).subscribe((t: string) => {
               r(t);
             })
-          ).catch(() => {
-            MonwooReview.debug('Fail to translate');
+          ).catch(e => {
+            MonwooReview.debug('Fail to translate', e);
             // throw 'Translation issue';
             return ''; // will be taken as await result on errors
           }),
@@ -131,6 +131,6 @@ export const configFormModel = (caller: any) => {
           value: config.thumbH // well, ovewritten by param config obj loaded from storage...
         })
       ]);
-    };
+    })();
   });
 };

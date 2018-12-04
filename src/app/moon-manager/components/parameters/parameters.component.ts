@@ -29,13 +29,16 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./parameters.component.scss']
 })
 export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
-  @ViewChild('paramsForm') paramsForm: NgForm; // TODO : fail to use for now
+  @ViewChild('paramsForm') paramsForm: NgForm = null; // TODO : fail to use for now
 
-  formModel: Promise<DynamicFormModel> = configFormModel(this);
+  // formModel: Promise<DynamicFormModel> = configFormModel(this);
+  formModel: DynamicFormModel = null;
   // TODO : how to custom layout for embed form with NO html code ?
   // Need some code pattern to avoid id's clash ?
   formLayout: DynamicFormLayout = CONFIG_FORM_LAYOUT;
-  formGroup: BehaviorSubject<FormGroup> = new BehaviorSubject<FormGroup>(new FormGroup({}));
+  // formGroup: BehaviorSubject<FormGroup> = new BehaviorSubject<FormGroup>(new FormGroup({}));
+  formGroup: FormGroup = null;
+
   langPlaceholder: string = extract('Langue');
 
   constructor(
@@ -47,11 +50,17 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     public i18n: I18n
   ) {}
 
-  public config: any;
+  public config: any = null;
 
   ngOnInit() {
-    this.formModel.then(fm => {
-      this.formGroup = new BehaviorSubject(this.formService.createFormGroup(fm));
+    // this.formModel.then(fm => {
+    configFormModel(this).then((fm: DynamicFormModel) => {
+      // this.formGroup = new BehaviorSubject(this.formService.createFormGroup(fm));
+      this.formModel = fm;
+      this.formGroup = this.formService.createFormGroup(this.formModel);
+      if (this.config) {
+        this.formGroup.patchValue(this.config);
+      }
     });
   }
 
@@ -70,7 +79,9 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
           // TODO : solve error :
           // ERROR Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'null:
           // Non bloquant : ca fonctionne qd meme....
-          this.paramsForm.form.patchValue(this.config);
+          if (this.paramsForm) {
+            this.paramsForm.form.patchValue(this.config);
+          }
         });
       },
       error => {

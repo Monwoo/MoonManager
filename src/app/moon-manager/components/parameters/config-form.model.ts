@@ -82,7 +82,7 @@ export const configFormModel = (caller: any) => {
     // }
     const selectorsKeys = Object.keys(groupBySelectors);
     let groups: DynamicFormGroupModel[] = [];
-    async () => {
+    (async () => {
       for (let i = 0; i < selectorsKeys.length; i++) {
         const s = selectorsKeys[i];
         groups.push(
@@ -96,6 +96,6 @@ export const configFormModel = (caller: any) => {
         );
       }
       resolve(groups);
-    };
+    })();
   });
 };

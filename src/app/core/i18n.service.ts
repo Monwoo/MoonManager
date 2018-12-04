@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { includes } from 'lodash';
+import { Observable } from 'rxjs';
 
 import { Logger } from './logger.service';
 // declare const require:any; // Use the require method provided by webpack
@@ -31,6 +32,10 @@ export class I18nService {
     // Embed languages to avoid extra HTTP requests
     translateService.setTranslation('en-US', enUS);
     translateService.setTranslation('fr-FR', frFR);
+  }
+
+  get(key: string | Array<string>, interpolateParams?: Object): Observable<string | any> {
+    return this.translateService.get(key, interpolateParams);
   }
 
   /**
