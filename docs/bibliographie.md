@@ -343,6 +343,8 @@ Dev stuffs :
 - https://blog.mariusschulz.com/2017/06/30/typescript-2-3-downlevel-iteration-for-es3-es5
 - https://code.visualstudio.com/docs/getstarted/settings
 
+- https://stackoverflow.com/questions/31401446/new-date-gettime-is-not-equal-to-moment-valueof-in-momentjs
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

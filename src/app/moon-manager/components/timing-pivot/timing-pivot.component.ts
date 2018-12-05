@@ -322,8 +322,10 @@ export class TimingPivotComponent implements OnInit {
 
     this.dataSrc.subscribe((timings: Timing[]) => {
       timings.sort((t1, t2) => {
+        const d1 = moment(t1.DateTime);
+        const d2 = moment(t2.DateTime);
         // TODO : inject and sort global timings table => auto load past data when going done...
-        return -(t1.DateTime.getTime() - t2.DateTime.getTime());
+        return -(d1.valueOf() - d2.valueOf());
       });
       // timings.sort((t1, t2) => { // TODO : inject and sort global timings table => auto load past data when going done...
       //   return this.config.agregationsFields.reduce((acc, field) => {

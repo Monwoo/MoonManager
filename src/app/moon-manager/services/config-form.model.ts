@@ -14,7 +14,8 @@ const MonwooReview = new Logger('MonwooReview');
 // import { I18n } from '@ngx-translate/i18n-polyfill';
 export interface ConfigType {
   paramTitle: string;
-  saveMediasToLocalStorage: true;
+  saveMediasToLocalStorage: boolean;
+  saveTimingsToLocalStorage: boolean;
 }
 
 // export const configDefaults: ((caller: any) => any) = (caller?: any) => {
@@ -42,7 +43,8 @@ export const configDefaults = (caller: any) => {
         //   description: 'Chargement des captures'
         // }),
         paramTitle: await fetchTrans('Configuration des services :'),
-        saveMediasToLocalStorage: true
+        saveMediasToLocalStorage: true,
+        saveTimingsToLocalStorage: true
       });
     })();
   }).catch(e => {
@@ -100,7 +102,11 @@ export const configFormModel = (caller: any) => {
 
         new DynamicCheckboxModel({
           id: 'saveMediasToLocalStorage',
-          label: await fetchTrans('Sauvegarder dans le cache du navigateur')
+          label: await fetchTrans('service.saveMediasToLocalStorage.label')
+        }),
+        new DynamicCheckboxModel({
+          id: 'saveTimingsToLocalStorage',
+          label: await fetchTrans('service.saveTimingsToLocalStorage.label')
         })
       ]);
     })();
