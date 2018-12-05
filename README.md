@@ -180,8 +180,8 @@ basic theme available skills could be described as :
   - Service de formation
 
 Pour faire simple facilement :
-- apprenez à vous connaitre pour faciliter vos objectifs
-- appréhendez et accompagnez le context pour atteindre au mieux un résultat simple
+- apprenez à vous connaitre pour faciliter vos objectifs. La facilité dépend du fournisseur. Fluency depends on the provider.
+- appréhendez et accompagnez le context pour atteindre au mieux un résultat simple. La simplicité dépend de l'utilisateur. Simplicity depends on the user.
 
 COMMENT
 
