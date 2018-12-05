@@ -362,9 +362,16 @@ Dev stuffs :
 - https://www.grapecity.com/en/spread
 - https://www.grapecity.com/en/spreadjs (Trial)
 
+- http://www.oscarana-art.com/
+- https://github.com/udos86/ng-dynamic-forms
+- https://github.com/udos86/ng-dynamic-forms/tree/master/packages/ui-material/src
+- http://ng2-dynamic-forms.udos86.de/sample/index.aot.html
+- http://ng2-dynamic-forms.udos86.de/sample/index.aot.html#/bootstrap-sample-form
+- http://ng2-dynamic-forms.udos86.de/sample/index.aot.html#/material-sample-form
+
 -
 
-* https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
+- https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
   You can easily run just this single block, by prefixing the describe function name with f:

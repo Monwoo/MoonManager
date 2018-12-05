@@ -22,6 +22,9 @@ import { BehaviorSubject } from 'rxjs';
 import { LangChangeEvent } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Papa } from 'ngx-papaparse';
+import { shallowMerge } from '../../tools';
+import { Logger } from '@app/core/logger.service';
+const MonwooReview = new Logger('MonwooReview');
 
 import { CONFIG_FORM_LAYOUT, configFormModel, getFreshConf } from './config-form.model';
 
@@ -106,13 +109,29 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
           (async () => {
             // Called if data is valid or null
             let freshConf = await getFreshConf(this);
-            this.config = { ...freshConf, ...config };
-            console.log('Fetching config : ', this.config);
+            this.config = shallowMerge(1, freshConf, config);
             this.ngZone.run(() => {
               // TODO : solve error :
               // ERROR Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'null:
               // Non bloquant : ca fonctionne qd meme....
-              this.formGroup.patchValue(this.config);
+              // this.formGroup.setValue(this.config);
+
+              // TODO : better data transformer design associated to Forms Models...
+              let transforms: any = {};
+              try {
+                transforms['moon-manager-timing-pivot'] = {
+                  authorReferencial: Object.keys(this.config['moon-manager-timing-pivot'].authorReferencial).map(k => {
+                    const v = this.config['moon-manager-timing-pivot'].authorReferencial[k];
+                    return `${k}===${v}`;
+                  })
+                };
+              } catch (e) {
+                MonwooReview.debug(e);
+              }
+
+              const patch = shallowMerge(1, this.config, transforms);
+              console.log('Patching form : ', patch);
+              this.formGroup.patchValue(patch);
             });
           })();
         },
@@ -147,26 +166,34 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   };
   saveAction(e: any) {
     let changes = this.paramsForm.form.value;
-    console.log('Saving changes : ', changes);
 
     // TODO : better deep objects mappings : reactive forms ?
     // Quick hack for V1 pré-prod below :
-    let agFields = changes['moon-manager-timing-pivot'].agregationsFields;
-    agFields = typeof agFields === 'string' ? agFields.split(',') : agFields;
-    changes['moon-manager-timing-pivot'].agregationsFields = agFields;
-    // TODO : ensure array for selected jointure have lenght > 2, or summary is not yet fully right...
+    // let agFields = changes['moon-manager-timing-pivot'].agregationsFields;
+    // agFields = typeof agFields === 'string' ? agFields.split(',') : agFields;
+    // changes['moon-manager-timing-pivot'].agregationsFields = agFields;
+    const authorArr = changes['moon-manager-timing-pivot'].authorReferencial;
+    let authorAssoc = {};
+    if (authorArr) {
+      authorArr.forEach((aToA: string) => {
+        const [from, to] = aToA.split('===');
+        authorAssoc[from] = to;
+      });
+    }
 
     this.storage.getItem<any>('config', {}).subscribe((globalConfig: any) => {
-      // Called if data is valid or null
+      // Avoid to change changes, may change inside form values to...
+      // changes['moon-manager-timing-pivot'].authorReferencial = authorAssoc;
+      const transformed = shallowMerge(1, globalConfig, changes, {
+        'moon-manager-timing-pivot': { authorReferencial: authorAssoc }
+      });
+      console.log('Saving changes : ', transformed);
+
       if (!globalConfig) globalConfig = {};
-      this.storage
-        .setItem('config', {
-          ...globalConfig,
-          ...changes
-        })
-        .subscribe(() => {
-          this.notif.success(extract('Changements enregistré')); // TODO : tanslations
-        }, this.errorHandler);
+      // avoid deep merging restoring def config, or keep empty val in config ? or default only if null ?
+      this.storage.setItem('config', transformed).subscribe(() => {
+        this.notif.success(extract('Changements enregistré')); // TODO : tanslations
+      }, this.errorHandler);
     }, this.errorHandler);
   }
 

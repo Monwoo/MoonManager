@@ -26,6 +26,7 @@ export const configDefaults = (caller: any) => {
   return new Promise<{
     paramTitle: string;
     agregationsFields: string[];
+    authorReferencial: {};
     billedDays: number;
     paidDays: number;
     compensatedDays: number;
@@ -39,6 +40,11 @@ export const configDefaults = (caller: any) => {
       resolve({
         paramTitle: await fetchTrans(extract('Pivot temporel :')),
         agregationsFields: ['Author', 'Project', 'SubProject', 'Objectif', 'Date', 'Time'],
+        authorReferencial: {
+          JohnDoe: await fetchTrans(extract('John Doe')),
+          'John Doe': await fetchTrans(extract('John Doe')),
+          'J. D.': await fetchTrans(extract('John Doe'))
+        },
         billedDays: 0,
         paidDays: 0,
         compensatedDays: 0,
@@ -61,6 +67,16 @@ export const CONFIG_FORM_LAYOUT = {
   //
 
   summaryTitle: {
+    // TODO : better id Unique system for whole app...
+    element: {
+      container: 'w-100'
+    }
+    // grid: {
+    //     control: "col-sm-9",
+    //     label: "col-sm-3"
+    // }
+  },
+  authorReferencial: {
     // TODO : better id Unique system for whole app...
     element: {
       container: 'w-100'
@@ -101,6 +117,16 @@ export const configFormModel = (caller: any) => {
         //   maxLength: 42,
         //   placeholder: 'Votre titre'
         // }),
+        new DynamicInputModel({
+          id: 'authorReferencial',
+          placeholder: await fetchTrans(extract("Association des noms d'autheurs")),
+          multiple: true,
+          value: Object.keys(config.authorReferencial).map(k => {
+            const v = config.authorReferencial[k];
+            return `${k}===${v}`;
+          })
+        }),
+
         new DynamicInputModel({
           id: 'videoCopyright',
           label: await fetchTrans(extract('Titre de la vidéo')), // TODO : translate

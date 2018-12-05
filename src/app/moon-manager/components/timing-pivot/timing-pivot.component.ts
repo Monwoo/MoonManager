@@ -143,11 +143,6 @@ export class TimingPivotComponent implements OnInit {
     capture: 0.2,
     'git-log': 1
   };
-  public authorReferencial = {
-    JohnDoe: extract('John Doe'),
-    'John Doe': extract('John Doe'),
-    'J. D.': extract('John Doe')
-  };
   // public authorFilterList = ['John Doe'];
   public authorFilterList: string[] = [];
 
@@ -343,8 +338,9 @@ export class TimingPivotComponent implements OnInit {
         this.filteredDatas = this.filteredDatas.concat(
           timings.reduce((acc, t) => {
             // TODO : DATA Transformers designs ...
-            if (t.Author in this.authorReferencial) {
-              t.Author = this.authorReferencial[t.Author];
+            if (t.Author in this.config.authorReferencial) {
+              // TODO : what if config is null ? better Async design needed...
+              t.Author = this.config.authorReferencial[t.Author];
             }
             if (this.authorFilterList.length && !this.authorFilterList.includes(t.Author)) {
               return acc; // avoid filtered datas
