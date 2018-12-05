@@ -43,7 +43,9 @@ export const configDefaults = (caller: any) => {
         //   description: 'Chargement des captures'
         // }),
         paramTitle: await fetchTrans(extract('Configuration des services :')),
-        saveMediasToLocalStorage: true,
+        // TODO : 5Mb local storage for b64 encoded medias is not enough...
+        // will need to use : https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/cache-api
+        saveMediasToLocalStorage: false,
         saveTimingsToLocalStorage: true
       });
     })();

@@ -97,7 +97,17 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     private formService: DynamicFormService,
     private papaParse: Papa,
     public i18n: I18n
-  ) {}
+  ) {
+    // https://developer.chrome.com/apps/offline_storage#unlimited
+    (<any>navigator).webkitTemporaryStorage.queryUsageAndQuota(
+      function(usedBytes: number, grantedBytes: number) {
+        console.log('we are using ', usedBytes, ' of ', grantedBytes, 'bytes');
+      },
+      function(e: any) {
+        console.log('Error', e);
+      }
+    );
+  }
 
   setExportFmt(fmt: string) {
     this.exportFmt = fmt;

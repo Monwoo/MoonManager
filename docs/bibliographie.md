@@ -369,9 +369,35 @@ Dev stuffs :
 - http://ng2-dynamic-forms.udos86.de/sample/index.aot.html#/bootstrap-sample-form
 - http://ng2-dynamic-forms.udos86.de/sample/index.aot.html#/material-sample-form
 
--
+- https://stackoverflow.com/questions/5663166/is-there-a-way-to-increase-the-size-of-localstorage-in-google-chrome-to-avoid-qu
+- https://developer.chrome.com/extensions/manifest#permissions
+- https://developer.chrome.com/apps/offline_storage
+- https://developer.chrome.com/apps/offline_storage#unlimited
+- https://developer.chrome.com/apps/offline_storage#asking_more
+- https://github.com/k-yak/JJLC (compressing data for local storage)
+- https://developer.chrome.com/extensions/declare_permissions
 
-- https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
+- https://stackoverflow.com/questions/45860993/is-chrome-app-permission-unlimitedstorage-deprecated
+- https://blog.angular-university.io/angular-service-worker/
+- https://github.com/angular/angular/issues/24008
+- https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete
+- https://developers.google.com/web/ilt/pwa/lab-caching-files-with-service-worker
+- https://coryrylan.com/blog/fast-offline-angular-apps-with-service-workers
+- https://www.webpagetest.org/ (online testing of webpage speed)
+
+- https://stackoverflow.com/questions/48419769/angular-service-worker-caching-api-calls-for-offline-app
+- https://github.com/Alorel/ngforage#types-and-polyfills
+- https://localforage.github.io/localForage/#driver-api-definedriver
+- https://alorel.github.io/ngforage/docs/
+
+- https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/offline-for-pwa
+- **https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/cache-api**
+
+- https://www.npmjs.com/package/angular-cache
+- https://www.npmjs.com/package/angular-webstorage-service
+- https://fullstack-developer.academy/caching-http-requests-with-angular/
+
+* https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
   You can easily run just this single block, by prefixing the describe function name with f:
