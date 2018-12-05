@@ -15,6 +15,10 @@ import { configDefaults as pivotConfig } from '../timing-pivot/config-form.model
 import { configFormModel as pivotConfigForm } from '../timing-pivot/config-form.model';
 import { CONFIG_FORM_LAYOUT as pivotConfigLayout } from '../timing-pivot/config-form.model';
 
+import { configDefaults as servicesConfig } from '../../services/config-form.model';
+import { configFormModel as servicesConfigForm } from '../../services/config-form.model';
+import { CONFIG_FORM_LAYOUT as servicesConfigLayout } from '../../services/config-form.model';
+
 // TODO :
 // export const paramGroups = [
 //   {
@@ -24,11 +28,12 @@ import { CONFIG_FORM_LAYOUT as pivotConfigLayout } from '../timing-pivot/config-
 // ];
 
 // TODO : build with above done stuff...
-export const paramSelectors = ['moon-manager-client-files-loader', 'moon-manager-timing-pivot'];
+export const paramSelectors = ['moon-manager-client-files-loader', 'moon-manager-timing-pivot', 'services'];
 
 const groupBySelectors = {
-  'moon-manager-client-files-loader': cflConfigForm,
-  'moon-manager-timing-pivot': pivotConfigForm
+  [paramSelectors[0]]: cflConfigForm,
+  [paramSelectors[1]]: pivotConfigForm,
+  [paramSelectors[2]]: servicesConfigForm
 };
 const configBySelectors = (caller: any) => {
   return new Promise(function(resolve, reject) {
@@ -36,11 +41,14 @@ const configBySelectors = (caller: any) => {
       const _debugConfig = await cflConfig(caller);
       const _debugParamTitle = _debugConfig.paramTitle;
       resolve({
-        'moon-manager-client-files-loader': {
+        [paramSelectors[0]]: {
           label: _debugParamTitle
         },
-        'moon-manager-timing-pivot': {
+        [paramSelectors[1]]: {
           label: (await pivotConfig(caller)).paramTitle
+        },
+        [paramSelectors[2]]: {
+          label: (await servicesConfig(caller)).paramTitle
         }
       });
     })();
@@ -51,7 +59,7 @@ const configBySelectors = (caller: any) => {
 // Need some code pattern to avoid id's clash ?
 export const CONFIG_FORM_LAYOUT = {
   ...{
-    'moon-manager-client-files-loader': {
+    [paramSelectors[0]]: {
       // TODO : better id Unique system for whole app...
       element: {
         // container: 'w-100'
@@ -62,14 +70,20 @@ export const CONFIG_FORM_LAYOUT = {
       //   label: "param-title",
       // }
     },
-    'moon-manager-timing-pivot': {
+    [paramSelectors[1]]: {
+      element: {
+        label: 'param-title'
+      }
+    },
+    [paramSelectors[2]]: {
       element: {
         label: 'param-title'
       }
     }
   },
   ...cflConfigLayout,
-  ...pivotConfigLayout
+  ...pivotConfigLayout,
+  ...servicesConfigLayout
 };
 
 // export const CONFIG_FORM_MODEL: DynamicFormModel = Object.keys(groupBySelectors).map(s => {
@@ -107,3 +121,12 @@ export const configFormModel = (caller: any) => {
     })();
   });
 };
+
+export async function getFreshConf(caller: any) {
+  return {
+    // TODO : refactor => need auto-gen from config-form....
+    [paramSelectors[0]]: await cflConfig(caller),
+    [paramSelectors[1]]: await pivotConfig(caller),
+    [paramSelectors[2]]: await servicesConfig(caller)
+  };
+}

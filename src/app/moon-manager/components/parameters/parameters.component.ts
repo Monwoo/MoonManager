@@ -15,10 +15,8 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 import { NotificationsService } from 'angular2-notifications';
 import { extract } from '@app/core';
 import { environment } from '@env/environment';
-import { CONFIG_FORM_LAYOUT, configFormModel, paramSelectors } from './config-form.model';
+import { CONFIG_FORM_LAYOUT, configFormModel, getFreshConf } from './config-form.model';
 import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
-import { configDefaults as cflDefaults } from '../client-files-loader/config-form.model';
-import { configDefaults as pivotDefaults } from '../timing-pivot/config-form.model';
 import { I18nService } from '@app/core';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { BehaviorSubject } from 'rxjs';
@@ -69,7 +67,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         config => {
           (async () => {
             // Called if data is valid or null
-            let freshConf = await this.getFreshConf();
+            let freshConf = await getFreshConf(this);
             this.config = { ...freshConf, ...config };
             console.log('Fetching config : ', this.config);
             this.ngZone.run(() => {
@@ -134,18 +132,10 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     }, this.errorHandler);
   }
 
-  async getFreshConf() {
-    return {
-      // TODO : refactor => need auto-gen from config-form....
-      [paramSelectors[0]]: await cflDefaults(this),
-      [paramSelectors[1]]: await pivotDefaults(this)
-    };
-  }
-
   resetConfigAction(e: any) {
     // let changes = this.paramsForm.form.value;
     (async () => {
-      let freshConf = await this.getFreshConf();
+      let freshConf = await getFreshConf(this);
       console.log('Reseting config to : ', freshConf);
       this.storage.clear().subscribe(() => {
         this.updateConfigForm();
