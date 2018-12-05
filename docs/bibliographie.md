@@ -335,6 +335,14 @@ Dev stuffs :
 - https://help.github.com/articles/creating-releases/
 - https://git-scm.com/book/en/v2/Git-Basics-Tagging
 
+- https://www.typescriptlang.org/docs/handbook/advanced-types.html
+- https://www.typescriptlang.org/docs/handbook/namespaces-and-modules.html
+
+- https://stackoverflow.com/questions/32000865/simplest-way-to-merge-es6-maps-sets
+
+- https://blog.mariusschulz.com/2017/06/30/typescript-2-3-downlevel-iteration-for-es3-es5
+- https://code.visualstudio.com/docs/getstarted/settings
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

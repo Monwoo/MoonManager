@@ -12,6 +12,10 @@ import { Logger } from '@app/core/logger.service';
 const MonwooReview = new Logger('MonwooReview');
 
 // import { I18n } from '@ngx-translate/i18n-polyfill';
+export interface ConfigType {
+  paramTitle: string;
+  saveMediasToLocalStorage: true;
+}
 
 // export const configDefaults: ((caller: any) => any) = (caller?: any) => {
 export const configDefaults = (caller: any) => {
@@ -26,10 +30,7 @@ export const configDefaults = (caller: any) => {
       // throw 'Translation issue';
       return ''; // will be taken as await result on errors
     });
-  return new Promise<{
-    paramTitle: string;
-    saveMediasToLocalStorage: true;
-  }>(function(resolve, reject) {
+  return new Promise<ConfigType>(function(resolve, reject) {
     (async () => {
       resolve({
         // // TODO : i18n EXTRACT FROM TS....
