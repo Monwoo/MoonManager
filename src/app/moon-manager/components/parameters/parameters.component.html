@@ -65,7 +65,7 @@
           mat-button
           color="primary"
           matTooltip="{{'mm.param.exportMedias.tooltip'|translate}}"
-          (click)="saveAction($event)"
+          (click)="processingExport($event, 'medias')"
         >
           <i class="fas fa-file"></i> {{ 'mm.param.exportMedias.btn' | translate }}
         </button>
@@ -89,7 +89,7 @@
           mat-button
           color="primary"
           matTooltip="{{'mm.param.exportTimings.tooltip'|translate}}"
-          (click)="saveAction($event)"
+          (click)="processingExport($event, 'timings')"
         >
           <i class="fas fa-file"></i> {{ 'mm.param.exportTimings.btn' | translate }}
         </button>

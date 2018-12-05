@@ -62,7 +62,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     clickable: true,
     acceptedFiles: '.json,.yaml,.csv',
     accept: (f: any, isValidTrigger: any) => {
-      this.processImport(f, 'medias');
+      this.processingImport(f, 'medias');
     }
   };
 
@@ -73,9 +73,11 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     clickable: true,
     acceptedFiles: '.json,.yaml,.csv',
     accept: (f: any, isValidTrigger: any) => {
-      this.processImport(f, 'timings');
+      this.processingImport(f, 'timings');
     }
   };
+
+  public config: any = null;
 
   constructor(
     private ngZone: NgZone,
@@ -87,7 +89,9 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     public i18n: I18n
   ) {}
 
-  public config: any = null;
+  setExportFmt(fmt: string) {
+    this.exportFmt = fmt;
+  }
 
   updateConfigForm() {
     // this.formModel.then(fm => {
@@ -191,11 +195,72 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     return this.i18nService.supportedLanguages;
   }
 
-  processExport(dest: string) {
+  processingExport(e: any, dest: string) {
     // TODO : auto download right format
+    const exportData = (data: any) => {
+      if ('csv' === this.exportFmt) {
+        // https://www.papaparse.com/docs
+        var csvData = data
+          ? this.papaParse.unparse(data, {
+              quotes: true,
+              // quoteChar: '"',
+              // escapeChar: '"',
+              delimiter: ',',
+              header: false,
+              newline: '\r\n'
+            })
+          : '';
+        var blob = new Blob([csvData], { type: 'text/csv' });
+        var url = window.URL.createObjectURL(blob);
+      } else {
+        this.i18nService
+          .get(extract('mm.param.notif.exportFail'), {
+            dest: dest,
+            exportFmt: this.exportFmt
+          })
+          .subscribe(t => {
+            this.notif.error(t);
+          });
+        return;
+      }
+
+      // window.open(url);
+      const element = document.createElement('a');
+      element.href = url;
+      element.download = dest + moment().format('-YYYYMMDDHHmmss.') + this.exportFmt;
+      document.body.appendChild(element);
+      element.click();
+      this.i18nService
+        .get(extract('mm.param.notif.exportSucced'), {
+          dest: dest,
+          exportFmt: this.exportFmt
+        })
+        .subscribe(t => {
+          this.notif.success(t);
+        });
+    };
+    const data: any = null;
+    if (dest === 'medias') {
+      this.storage.getItem<any>('medias-buffer', {}).subscribe((msArr: any) => {
+        exportData(msArr);
+      });
+    } else if ((dest = 'timings')) {
+      this.storage.getItem<any>('timings', {}).subscribe((msArr: any) => {
+        exportData(msArr);
+      });
+    } else {
+      this.i18nService
+        .get(extract('mm.param.notif.destUnavailable'), {
+          dest: dest,
+          exportFmt: this.exportFmt
+        })
+        .subscribe(t => {
+          this.notif.error(t);
+        });
+    }
   }
 
-  processImport(f: File, dest: string) {
+  processingImport(f: File, dest: string) {
     const fileName = f.name;
     const reader: FileReader = new FileReader();
     reader.onload = e => {

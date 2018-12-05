@@ -351,6 +351,19 @@ Dev stuffs :
 - earshinov.sort-lines-by-selection
 - tyriar.sort-lines
 
+- https://github.com/ramsatt/Angular-4---Data-Table---File-Export
+- https://www.youtube.com/watch?v=J4u_bYYHUpo
+
+- https://vteams.com/blog/using-angular2-to-convert-json-to-csv/
+- https://github.com/alberthaff/ngx-papaparse
+- https://alberthaff.dk/projects/ngx-papaparse/docs/v3/generating-csv
+
+- https://www.grapecity.com/en/blogs/how-to-import-and-export-excel-spreadsheets-in-angular
+- https://www.grapecity.com/en/spread
+- https://www.grapecity.com/en/spreadjs (Trial)
+
+-
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
