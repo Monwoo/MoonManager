@@ -885,7 +885,9 @@ export class TimingPivotComponent implements OnInit {
         finalizeFrame(frameIndex + 1, frames.length);
         stackDelayFrame = 12;
       };
-      img.src = self.medias.getDataUrlMedia(frame.MediaUrl);
+      self.medias.getDataUrlMedia(frame.MediaUrl).then(url => {
+        img.src = url;
+      });
 
       // TODO : from Api service ? :
       // var reader = new FileReader();

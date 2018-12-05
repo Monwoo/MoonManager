@@ -7,10 +7,10 @@ import { MediasBufferService } from '../services/medias-buffer.service';
 export class UrlTransformerPipe implements PipeTransform {
   constructor(private medias: MediasBufferService) {}
 
-  transform(value: any, args?: any): any {
+  async transform(value: any, args?: any) {
     let matches = value.match(/moon-manager:\/\//);
     if (matches) {
-      return this.medias.getDataUrlMedia(value);
+      return await this.medias.getDataUrlMedia(value);
     }
     return value;
   }

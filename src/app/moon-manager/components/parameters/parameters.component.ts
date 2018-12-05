@@ -34,6 +34,7 @@ import { Logger } from '@app/core/logger.service';
 const MonwooReview = new Logger('MonwooReview');
 
 import { CONFIG_FORM_LAYOUT, configFormModel, getFreshConf } from './config-form.model';
+import { MediasBufferService } from '../../services/medias-buffer.service';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -92,21 +93,30 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(
     private ngZone: NgZone,
     private storage: LocalStorage,
+    private medias: MediasBufferService,
     private i18nService: I18nService,
     private notif: NotificationsService,
     private formService: DynamicFormService,
     private papaParse: Papa,
     public i18n: I18n
   ) {
-    // https://developer.chrome.com/apps/offline_storage#unlimited
-    (<any>navigator).webkitTemporaryStorage.queryUsageAndQuota(
-      function(usedBytes: number, grantedBytes: number) {
-        console.log('we are using ', usedBytes, ' of ', grantedBytes, 'bytes');
-      },
-      function(e: any) {
-        console.log('Error', e);
-      }
-    );
+    // // Request Quota (only for File System API)
+    // var requestedBytes = 1024*1024*1000; // 10MB
+    // // https://developer.chrome.com/apps/offline_storage#asking_more
+    // (<any>navigator).webkitPersistentStorage.requestQuota (
+    //   requestedBytes, function(grantedBytes:number) {
+    //     // window.requestFileSystem(PERSISTENT, grantedBytes, onInitFs, errorHandler);
+    //     (<any>window).requestFileSystem(1, grantedBytes);
+    //     console.log('we get ', grantedBytes, 'bytes');
+    //   }, function(e:any) { console.log('Error', e); }
+    // );
+    // // https://developer.chrome.com/apps/offline_storage#unlimited
+    // (<any>navigator).webkitTemporaryStorage.queryUsageAndQuota (
+    //     function(usedBytes:number, grantedBytes:number) {
+    //         console.log('we are using ', usedBytes, ' of ', grantedBytes, 'bytes');
+    //     },
+    //     function(e:any) { console.log('Error', e);  }
+    // );
   }
 
   setExportFmt(fmt: string) {
@@ -254,6 +264,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     (async () => {
       let freshConf = await getFreshConf(this);
       console.log('Reseting config to : ', freshConf);
+      await this.medias.clear();
       this.storage.clear().subscribe(() => {
         this.updateConfigForm();
         this.notif.success(extract('Nettoyage des paramêtres OK'));
