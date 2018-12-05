@@ -15,7 +15,14 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 import { NotificationsService } from 'angular2-notifications';
 import { extract } from '@app/core';
 import { environment } from '@env/environment';
-import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormModel,
+  DynamicFormLayout,
+  DynamicFormService,
+  DynamicFormControlModel,
+  DynamicInputModel,
+  DynamicFormGroupModel
+} from '@ng-dynamic-forms/core';
 import { I18nService } from '@app/core';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { BehaviorSubject } from 'rxjs';
@@ -119,12 +126,47 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
               // TODO : better data transformer design associated to Forms Models...
               let transforms: any = {};
               try {
+                const authRef = Object.keys(this.config['moon-manager-timing-pivot'].authorReferencial).map(k => {
+                  const v = this.config['moon-manager-timing-pivot'].authorReferencial[k];
+                  return `${k}===${v}`;
+                });
                 transforms['moon-manager-timing-pivot'] = {
-                  authorReferencial: Object.keys(this.config['moon-manager-timing-pivot'].authorReferencial).map(k => {
-                    const v = this.config['moon-manager-timing-pivot'].authorReferencial[k];
-                    return `${k}===${v}`;
-                  })
+                  authorReferencial: authRef
                 };
+                // TODO : input multiple do not seem to reflect Name => case Issue or something buggy ?
+                // + below is more like a hack since array value is ignored from PATCH. TODO : debug or patch lib ?
+                const pivotFm = <DynamicFormGroupModel>fm.find(
+                  (childFm: DynamicFormControlModel, index: number, src: DynamicFormControlModel[]) => {
+                    return 'moon-manager-timing-pivot' === childFm.id;
+                  }
+                );
+                const authRefFm = <DynamicInputModel>pivotFm.group.find(
+                  (childFm: DynamicFormControlModel, index: number, src: DynamicFormControlModel[]) => {
+                    return 'authorReferencial' === childFm.id;
+                  }
+                );
+                authRefFm.value = authRef;
+              } catch (e) {
+                MonwooReview.debug(e);
+              }
+              try {
+                const regexsRef = this.config['moon-manager-client-files-loader'].captureRegex;
+                transforms['moon-manager-client-files-loader'] = {
+                  authorReferencial: regexsRef
+                };
+                // TODO : input multiple do not seem to reflect Name => case Issue or something buggy ?
+                // + below is more like a hack since array value is ignored from PATCH. TODO : debug or patch lib ?
+                const cflFm = <DynamicFormGroupModel>fm.find(
+                  (childFm: DynamicFormControlModel, index: number, src: DynamicFormControlModel[]) => {
+                    return 'moon-manager-client-files-loader' === childFm.id;
+                  }
+                );
+                const captureRegex = <DynamicInputModel>cflFm.group.find(
+                  (childFm: DynamicFormControlModel, index: number, src: DynamicFormControlModel[]) => {
+                    return 'captureRegex' === childFm.id;
+                  }
+                );
+                captureRegex.value = regexsRef;
               } catch (e) {
                 MonwooReview.debug(e);
               }
