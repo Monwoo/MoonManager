@@ -18,7 +18,7 @@ export const configDefaults = (caller: any) => {
   const translate = caller.i18nService;
   const fetchTrans = (t: string) =>
     new Promise<string>(r =>
-      translate.get(extract(t)).subscribe((t: string) => {
+      translate.get(t).subscribe((t: string) => {
         r(t);
       })
     ).catch(e => {
@@ -51,9 +51,9 @@ export const configDefaults = (caller: any) => {
         //   meaning: 'Client file loader param title',
         //   description: 'Chargement des captures'
         // }),
-        paramTitle: await fetchTrans('Chargement des captures :'),
+        paramTitle: await fetchTrans(extract('Chargement des captures :')),
         timingEventType: 'capture',
-        timingAuthor: await fetchTrans('John Doe'),
+        timingAuthor: await fetchTrans(extract('John Doe')),
         timingSegmentDelta: 0.2,
         // TODO : improve Parameters up to deep properties lookup with auto-gen forms for edit
         // then transform below captureRegex to flexible array....
@@ -100,7 +100,7 @@ export const configFormModel = (caller: any) => {
   const translate = caller.i18nService;
   const fetchTrans = (t: string) =>
     new Promise<string>(r =>
-      translate.get(extract(t)).subscribe((t: string) => {
+      translate.get(t).subscribe((t: string) => {
         r(t);
       })
     ).catch(e => {
@@ -129,7 +129,7 @@ export const configFormModel = (caller: any) => {
 
         new DynamicInputModel({
           id: 'captureRegex',
-          placeholder: await fetchTrans("Expressions régulière pour la source : 'capture'"),
+          placeholder: await fetchTrans(extract("Expressions régulière pour la source : 'capture'")),
           // TODO : need to link language, extract is only TAGGING as translatable, not doing the translation...
           // TODO :
           // https://www.jonashendrickx.com/2017/12/06/await-observable-complete-angular/
@@ -157,21 +157,21 @@ export const configFormModel = (caller: any) => {
         }),
         new DynamicInputModel({
           id: 'thumbW',
-          label: await fetchTrans('Largeur du thumbnail'), // 'Thumbnail width|Largeur du thumbnail@@mm.cfl.thumbW.label'),
+          label: await fetchTrans(extract('Largeur du thumbnail')), // 'Thumbnail width|Largeur du thumbnail@@mm.cfl.thumbW.label')),
           inputType: 'number',
-          placeholder: await fetchTrans('Largeur'), // 'Width|Largeur@@mm.cfl.thumbW.placeholder'),
+          placeholder: await fetchTrans(extract('Largeur')), // 'Width|Largeur@@mm.cfl.thumbW.placeholder')),
           value: config.thumbW // well, ovewritten by param config obj loaded from storage...
         }),
         new DynamicInputModel({
           id: 'thumbH',
-          label: await fetchTrans('Hauteur du thumbnail'), // 'Thumbnail height|Hauteur du thumbnaile@@mm.cfl.thumbW.label'),
+          label: await fetchTrans(extract('Hauteur du thumbnail')), // 'Thumbnail height|Hauteur du thumbnaile@@mm.cfl.thumbW.label')),
           inputType: 'number',
-          placeholder: await fetchTrans('Hauteur'), // 'Height|Hauteur@@mm.cfl.thumbW.placeholder'),
+          placeholder: await fetchTrans(extract('Hauteur')), // 'Height|Hauteur@@mm.cfl.thumbW.placeholder')),
           value: config.thumbH // well, ovewritten by param config obj loaded from storage...
         }),
         new DynamicInputModel({
           id: 'timingAuthor',
-          label: await fetchTrans('Autheur par défaut'), // TODO : translate
+          label: await fetchTrans(extract('Autheur par défaut')), // TODO : translate
           maxLength: 69,
           placeholder: await fetchTrans('Autheur')
         })

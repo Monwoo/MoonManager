@@ -23,7 +23,7 @@ export const configDefaults = (caller: any) => {
   const translate = caller.i18nService;
   const fetchTrans = (t: string) =>
     new Promise<string>(r =>
-      translate.get(extract(t)).subscribe((t: string) => {
+      translate.get(t).subscribe((t: string) => {
         r(t);
       })
     ).catch(e => {
@@ -42,7 +42,7 @@ export const configDefaults = (caller: any) => {
         //   meaning: 'Client file loader param title',
         //   description: 'Chargement des captures'
         // }),
-        paramTitle: await fetchTrans('Configuration des services :'),
+        paramTitle: await fetchTrans(extract('Configuration des services :')),
         saveMediasToLocalStorage: true,
         saveTimingsToLocalStorage: true
       });
@@ -73,7 +73,7 @@ export const configFormModel = (caller: any) => {
   const translate = caller.i18nService;
   const fetchTrans = (t: string) =>
     new Promise<string>(r =>
-      translate.get(extract(t)).subscribe((t: string) => {
+      translate.get(t).subscribe((t: string) => {
         r(t);
       })
     ).catch(e => {
@@ -102,11 +102,11 @@ export const configFormModel = (caller: any) => {
 
         new DynamicCheckboxModel({
           id: 'saveMediasToLocalStorage',
-          label: await fetchTrans('service.saveMediasToLocalStorage.label')
+          label: await fetchTrans(extract('service.saveMediasToLocalStorage.label'))
         }),
         new DynamicCheckboxModel({
           id: 'saveTimingsToLocalStorage',
-          label: await fetchTrans('service.saveTimingsToLocalStorage.label')
+          label: await fetchTrans(extract('service.saveTimingsToLocalStorage.label'))
         })
       ]);
     })();

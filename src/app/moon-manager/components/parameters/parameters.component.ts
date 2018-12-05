@@ -49,6 +49,11 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
 
   exportFmt: string = 'csv';
   exportFmts: string[] = ['csv', 'json', 'yaml'];
+  exportTitles = {
+    csv: extract('mm.param.export.fmt.csv'),
+    json: extract('mm.param.export.fmt.json'),
+    yaml: extract('mm.param.export.fmt.yaml')
+  };
 
   dropzoneMediasConfig = {
     url: '#', // Url set to avoid console Error, but will not be used in V1.0.0

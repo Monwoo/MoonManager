@@ -345,6 +345,12 @@ Dev stuffs :
 
 - https://stackoverflow.com/questions/31401446/new-date-gettime-is-not-equal-to-moment-valueof-in-momentjs
 
+- https://marketplace.visualstudio.com/items?itemName=Tyriar.sort-lines
+- miclo.sort-typescript-imports
+- richie5um2.vscode-sort-json
+- earshinov.sort-lines-by-selection
+- tyriar.sort-lines
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

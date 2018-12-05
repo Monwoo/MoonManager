@@ -15,7 +15,7 @@ export const configDefaults = (caller: any) => {
   const translate = caller.i18nService;
   const fetchTrans = (t: string) =>
     new Promise<string>(r =>
-      translate.get(extract(t)).subscribe((t: string) => {
+      translate.get(t).subscribe((t: string) => {
         r(t);
       })
     ).catch(e => {
@@ -37,15 +37,15 @@ export const configDefaults = (caller: any) => {
   }>(function(resolve, reject) {
     (async () => {
       resolve({
-        paramTitle: await fetchTrans('Pivot temporel :'),
+        paramTitle: await fetchTrans(extract('Pivot temporel :')),
         agregationsFields: ['Author', 'Project', 'SubProject', 'Objectif', 'Date', 'Time'],
         billedDays: 0,
         paidDays: 0,
         compensatedDays: 0,
         receivedDays: 0,
-        summaryTitle: await fetchTrans("Compte rendu d'activité de M. John Doe"),
-        videoCopyright: await fetchTrans('© Monwoo (Private data)'),
-        videoFontColor: await fetchTrans('rgb(60,0,108)'),
+        summaryTitle: await fetchTrans(extract("Compte rendu d'activité de M. John Doe")),
+        videoCopyright: await fetchTrans(extract('© Monwoo (Private data)')),
+        videoFontColor: await fetchTrans(extract('rgb(60,0,108)')),
         lowRes: false
       });
     })();
@@ -82,7 +82,7 @@ export const configFormModel = (caller: any) => {
   const translate = caller.i18nService;
   const fetchTrans = (t: string) =>
     new Promise<string>(r =>
-      translate.get(extract(t)).subscribe((t: string) => {
+      translate.get(t).subscribe((t: string) => {
         r(t);
       })
     ).catch(e => {
@@ -103,44 +103,44 @@ export const configFormModel = (caller: any) => {
         // }),
         new DynamicInputModel({
           id: 'videoCopyright',
-          label: await fetchTrans('Titre de la vidéo'), // TODO : translate
+          label: await fetchTrans(extract('Titre de la vidéo')), // TODO : translate
           maxLength: 69,
-          placeholder: await fetchTrans('Copyright de la vidéo')
+          placeholder: await fetchTrans(extract('Copyright de la vidéo'))
         }),
 
         new DynamicInputModel({
           id: 'videoFontColor',
-          label: await fetchTrans('Couleur du text vidéo'), // TODO : translate
+          label: await fetchTrans(extract('Couleur du text vidéo')), // TODO : translate
           maxLength: 69,
-          placeholder: await fetchTrans('Couleur du text')
+          placeholder: await fetchTrans(extract('Couleur du text'))
         }),
 
         new DynamicCheckboxModel({
           id: 'lowRes',
-          label: await fetchTrans('Activer le mode vidéo basse résolution')
+          label: await fetchTrans(extract('Activer le mode vidéo basse résolution'))
         }),
 
         new DynamicInputModel({
           id: 'summaryTitle',
-          label: await fetchTrans("Titre pour le comptre rendue d'activité"),
-          placeholder: await fetchTrans('Votre titre')
+          label: await fetchTrans(extract("Titre pour le comptre rendue d'activité")),
+          placeholder: await fetchTrans(extract('Votre titre'))
         }),
 
         new DynamicInputModel({
           id: 'billedDays',
           inputType: 'number',
-          placeholder: await fetchTrans('Nombre de jours facturé'),
+          placeholder: await fetchTrans(extract('Nombre de jours facturé')),
           // hint: "La somme de vos factures en jours",
-          hint: await fetchTrans('Total jours facturés')
+          hint: await fetchTrans(extract('Total jours facturés'))
           // max: 5,
           // min: 0
         }),
         new DynamicInputModel({
           id: 'paidDays',
           inputType: 'number',
-          placeholder: await fetchTrans('Nombre de jours payé'),
+          placeholder: await fetchTrans(extract('Nombre de jours payé')),
           // hint: "La somme de vos encaissements à jours",
-          hint: await fetchTrans('Total jours encaissés')
+          hint: await fetchTrans(extract('Total jours encaissés'))
           // max: 5,
           // min: 0
         }),
@@ -149,8 +149,8 @@ export const configFormModel = (caller: any) => {
           inputType: 'number',
           // placeholder: "Nombre de jours via compensation diverse négocié",
           // hint: "La somme des compensations non facturés admise",
-          placeholder: await fetchTrans('Compensations négociées aquises en jours'),
-          hint: await fetchTrans('Total jours compensés')
+          placeholder: await fetchTrans(extract('Compensations négociées aquises en jours')),
+          hint: await fetchTrans(extract('Total jours compensés'))
           // max: 5,
           // min: 0
         }),
@@ -159,8 +159,8 @@ export const configFormModel = (caller: any) => {
           inputType: 'number',
           // placeholder: "Nombre de jours compensé",
           // hint: "Compensations diverses reçues en jours",
-          placeholder: await fetchTrans('Compensations reçuses en jours'),
-          hint: await fetchTrans('Total jours reçus')
+          placeholder: await fetchTrans(extract('Compensations reçuses en jours')),
+          hint: await fetchTrans(extract('Total jours reçus'))
           // max: 5,
           // min: 0
         })
