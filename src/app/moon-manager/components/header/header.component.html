@@ -2,7 +2,12 @@
 <header class="bs">
   <div class="container-fluid">
     <a routerLink="/" class="logo">
-      <img class="primary-brand" src="assets/logos/MoonManager-64.png" alt="{{'MoonManager logo'|translate}}" />
+      <!--
+        TODO : use a preprocessing script for assets version ? need to globaly
+        force app refresh over assets when thoses changes on server, not letting en user with obsolet version
+        until client side brower chose to update => will avoid strang bug that are no bug, but cache refresh issues
+      -->
+      <img class="primary-brand" src="assets/logos/MoonManager-64.png?v=2" alt="{{'MoonManager logo'|translate}}" />
       <span class="m-md-2">{{ appTitle }}</span>
     </a>
     <span class="fill-space"></span>
