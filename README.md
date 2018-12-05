@@ -239,6 +239,8 @@ bon, voilà, en mode bitMap là, à placer des points sur la carte. Va falloir p
 
 - https://angular.io/guide/i18n
 
+- https://www.linternaute.fr/dictionnaire/fr/definition/untel/
+
 </details>
 
 ---

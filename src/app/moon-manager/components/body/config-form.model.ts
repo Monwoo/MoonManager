@@ -13,72 +13,35 @@ const MonwooReview = new Logger('MonwooReview');
 
 // import { I18n } from '@ngx-translate/i18n-polyfill';
 
-// export const configDefaults: ((caller: any) => any) = (caller?: any) => {
-export const configDefaults = (caller: any) => {
-  const translate = caller.i18nService;
-  const fetchTrans = (t: string) =>
-    new Promise<string>(r =>
-      translate.get(extract(t)).subscribe((t: string) => {
-        r(t);
-      })
-    ).catch(e => {
-      MonwooReview.debug('Fail to translate', e);
-      // throw 'Translation issue';
-      return ''; // will be taken as await result on errors
-    });
-  return new Promise<{
-    paramTitle: string;
-    timingEventType: string;
-    timingAuthor: string;
-    timingSegmentDelta: number;
-    captureRegex: string[];
-    thumbW: number;
-    thumbH: number;
-    regExGitLogFile: string;
-    regExAuthor: string;
-    regExProject: string;
-    regExSubProject: string;
-    regExObjectif: string;
-    regExSkillsId: string;
-  }>(function(resolve, reject) {
-    (async () => {
-      resolve({
-        // // TODO : i18n EXTRACT FROM TS....
-        // // using json way for now, but would be even nicer to have mixins or annotation system for translations...
-        // paramTitle: caller.i18n({
-        //   value: 'Chargement des captures',
-        //   id: 'mm.cfl.paramTitle',
-        //   meaning: 'Client file loader param title',
-        //   description: 'Chargement des captures'
-        // }),
-        paramTitle: await fetchTrans('Chargement des captures :'),
-        timingEventType: 'capture',
-        timingAuthor: await fetchTrans('John Doe'),
-        timingSegmentDelta: 0.2,
-        // TODO : improve Parameters up to deep properties lookup with auto-gen forms for edit
-        // then transform below captureRegex to flexible array....
-        captureRegex: [
-          '.*Capture d’écran ([0-9]{4})-([0-9]{2})-([0-9]{2}) à ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.(png|jpg|jpeg)',
-          '.*Screenshot ([0-9]{4})-([0-9]{2})-([0-9]{2}) at ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.(png|jpg|jpeg)',
-          // 20181129_165121.jpg ou 2018_11_28_23_55_04.png
-          '.*([0-9]{4})_?([0-9]{2})_?([0-9]{2})_([0-9]{2})_?([0-9]{2})_?([0-9]{2}).*.(png|jpg|jpeg)'
-        ],
-        thumbW: 700,
-        thumbH: 400,
-        regExGitLogFile: '.*.csv',
-        regExAuthor: '^[^/]+/([^/]+)/',
-        regExProject: '^[^/]+/[^/]+/([^/]+)/',
-        regExSubProject: '^[^/]+/[^/]+/[^/]+/([^/]+)/',
-        regExObjectif: '^[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/',
-        regExSkillsId: '^[^/]+/[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/'
-      });
-    })();
-  }).catch(e => {
-    MonwooReview.debug('Fail to config defaults', e);
-    throw e;
-    // return {}; // will be taken as await result on errors
-  });
-};
+export const configDefaults: ((caller: any) => any) = (caller?: any) => ({
+  // TODO : i18n EXTRACT FROM TS....
+  // using json way for now, but would be even nicer to have mixins or annotation system for translations...
+  paramTitle: caller.i18n({
+    value: 'Gestion des timmings',
+    id: 'mm.cfl.paramTitle',
+    meaning: 'Client file loader param title',
+    description: 'Chargement des captures'
+  }),
+  timingEventType: 'capture',
+  timingAuthor: caller.i18n('John Doe|John Doe@@mm.cfl.timingAuthor'),
+  timingSegmentDelta: 0.2,
+  // TODO : improve Parameters up to deep properties lookup with auto-gen forms for edit
+  // then transform below captureRegex to flexible array....
+  captureRegex: [
+    '.*Capture d’écran ([0-9]{4})-([0-9]{2})-([0-9]{2}) à ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.(png|jpg|jpeg)',
+    '.*Screenshot ([0-9]{4})-([0-9]{2})-([0-9]{2}) at ([0-9]{2}).([0-9]{2}).([0-9]{2}).*.(png|jpg|jpeg)',
+    // 20181129_165121.jpg ou 2018_11_28_23_55_04.png
+    '.*([0-9]{4})_?([0-9]{2})_?([0-9]{2})_([0-9]{2})_?([0-9]{2})_?([0-9]{2}).*.(png|jpg|jpeg)'
+  ],
+  thumbW: 700,
+  thumbH: 400,
+  regExGitLogFile: '.*.csv',
+  regExAuthor: '^[^/]+/([^/]+)/',
+  regExProject: '^[^/]+/[^/]+/([^/]+)/',
+  regExSubProject: '^[^/]+/[^/]+/[^/]+/([^/]+)/',
+  regExObjectif: '^[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/',
+  regExSkillsId: '^[^/]+/[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/'
+});
 
 export const CONFIG_FORM_LAYOUT = {
   // https://github.com/udos86/ng-dynamic-forms/blob/bfea1d8b/packages/core/src/model/misc/dynamic-form-control-layout.model.ts#L8
@@ -97,6 +60,7 @@ export const CONFIG_FORM_LAYOUT = {
 };
 
 export const configFormModel = (caller: any) => {
+  const config = configDefaults(caller);
   const translate = caller.i18nService;
   const fetchTrans = (t: string) =>
     new Promise<string>(r =>
@@ -110,7 +74,6 @@ export const configFormModel = (caller: any) => {
     });
   return new Promise<DynamicInputModel[]>(function(resolve, reject) {
     (async () => {
-      const config = await configDefaults(caller);
       resolve([
         // TODO : tool to auto gen ? or always time lost since design of form will bring back to specific.. ?
         // new DynamicInputModel({
@@ -168,12 +131,6 @@ export const configFormModel = (caller: any) => {
           inputType: 'number',
           placeholder: await fetchTrans('Hauteur'), // 'Height|Hauteur@@mm.cfl.thumbW.placeholder'),
           value: config.thumbH // well, ovewritten by param config obj loaded from storage...
-        }),
-        new DynamicInputModel({
-          id: 'timingAuthor',
-          label: await fetchTrans('Autheur par défaut'), // TODO : translate
-          maxLength: 69,
-          placeholder: await fetchTrans('Autheur')
         })
       ]);
     })();

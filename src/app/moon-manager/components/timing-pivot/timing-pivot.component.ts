@@ -17,6 +17,7 @@ import { Timing } from '../../api/data-model/timing';
 import { MediasBufferService } from '../../services/medias-buffer.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { configDefaults } from './config-form.model';
+import { I18nService } from '@app/core';
 
 declare var CCapture: any;
 
@@ -26,7 +27,7 @@ declare var CCapture: any;
   styleUrls: ['./timing-pivot.component.scss']
 })
 export class TimingPivotComponent implements OnInit {
-  @Input() config?: any = configDefaults(this);
+  @Input() config?: any = null;
   @Input() dataSrc: BehaviorSubject<Timing[]>;
 
   @Output() isFocused: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -179,28 +180,32 @@ export class TimingPivotComponent implements OnInit {
     private storage: LocalStorage,
     private selfRef: ElementRef,
     private http: HttpClient,
+    public i18nService: I18nService,
     public i18n: I18n // TODO : singleton or other default injection ? hard to put it in every components...
   ) {
     this._originalTimeout = window.setTimeout;
 
     let selector = this.selfRef.nativeElement.tagName.toLowerCase();
-    this.storage.getItem<any>('config', {}).subscribe(
-      (globalConfig: any) => {
-        // Called if data is valid or null
-        if (!globalConfig) globalConfig = {};
-        if (typeof globalConfig[selector] === 'undefined') {
-          globalConfig[selector] = this.config;
-        } else {
-          globalConfig[selector] = { ...this.config, ...globalConfig[selector] };
-          this.config = globalConfig[selector];
+
+    configDefaults(this).then(cDef => {
+      this.config = cDef;
+      this.storage.getItem<any>('config', {}).subscribe(
+        (globalConfig: any) => {
+          // Called if data is valid or null
+          if (!globalConfig) globalConfig = {};
+          if (typeof globalConfig[selector] === 'undefined') {
+            // globalConfig[selector] = this.config;
+          } else {
+            this.config = { ...this.config, ...globalConfig[selector] };
+          }
+          console.log(selector + ' Fetching config : ', this.config);
+          // this.storage.setItem('config', globalConfig).subscribe(() => {});
+        },
+        error => {
+          console.error('Fail to fetch config');
         }
-        console.log('Fetching config : ', this.config);
-        this.storage.setItem('config', globalConfig).subscribe(() => {});
-      },
-      error => {
-        console.error('Fail to fetch config');
-      }
-    );
+      );
+    });
   }
   ngOnInit() {
     this.loadIndicatorAssets();

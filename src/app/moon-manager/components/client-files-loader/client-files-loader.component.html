@@ -1,5 +1,6 @@
 <!-- Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com -->
 <dropzone
+  *ngIf="dropzoneConfig"
   [config]="dropzoneConfig"
   [message]="trans.dropZonePlaceholder | translate"
   (error)="onImageUploadError($event)"

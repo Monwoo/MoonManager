@@ -31,14 +31,20 @@ const groupBySelectors = {
   'moon-manager-timing-pivot': pivotConfigForm
 };
 const configBySelectors = (caller: any) => {
-  return {
-    'moon-manager-client-files-loader': {
-      label: cflConfig(caller).paramTitle
-    },
-    'moon-manager-timing-pivot': {
-      label: pivotConfig(caller).paramTitle
-    }
-  };
+  return new Promise(function(resolve, reject) {
+    (async () => {
+      const _debugConfig = await cflConfig(caller);
+      const _debugParamTitle = _debugConfig.paramTitle;
+      resolve({
+        'moon-manager-client-files-loader': {
+          label: _debugParamTitle
+        },
+        'moon-manager-timing-pivot': {
+          label: (await pivotConfig(caller)).paramTitle
+        }
+      });
+    })();
+  });
 };
 
 // TODO : how to custom layout for embed form with NO html code ?
@@ -85,13 +91,15 @@ export const configFormModel = (caller: any) => {
     (async () => {
       for (let i = 0; i < selectorsKeys.length; i++) {
         const s = selectorsKeys[i];
+        const configBySelectorsDict = await configBySelectors(caller);
+
         groups.push(
           new DynamicFormGroupModel({
             ...{
               id: s,
               group: await groupBySelectors[s](caller)
             },
-            ...configBySelectors[s]
+            ...configBySelectorsDict[s]
           })
         );
       }

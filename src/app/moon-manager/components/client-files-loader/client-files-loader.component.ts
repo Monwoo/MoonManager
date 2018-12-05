@@ -13,6 +13,7 @@ import { Timing } from '../../api/data-model/timing';
 import { MediasBufferService } from '../../services/medias-buffer.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { configDefaults } from './config-form.model';
+import { I18nService } from '@app/core';
 
 @Component({
   selector: 'moon-manager-client-files-loader',
@@ -26,7 +27,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     )
   };
 
-  @Input() config?: any = configDefaults(this);
+  @Input() config?: any = null;
 
   @Output() onTimingFetch: EventEmitter<Timing> = new EventEmitter<Timing>();
 
@@ -55,6 +56,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     private selfRef: ElementRef,
     private medias: MediasBufferService,
     private papaParse: Papa,
+    public i18nService: I18nService,
     public i18n: I18n // TODO : singleton or other default injection ? hard to put it in every components...
   ) {
     // Parameters may change from other views, will need to reload on each on show to keep config ok
@@ -64,71 +66,77 @@ export class ClientFilesLoaderComponent implements OnInit {
     // not setup ? global default config injection at some point in the app ?
     // => need some solution letting defaut config param exists in targeted component...
     let selector = this.selfRef.nativeElement.tagName.toLowerCase();
-    this.storage.getItem<any>('config', {}).subscribe(
-      (globalConfig: any) => {
-        // Called if data is valid or null
-        if (!globalConfig) globalConfig = {};
-        if (typeof globalConfig[selector] === 'undefined') {
-          globalConfig[selector] = this.config;
-        } else {
-          globalConfig[selector] = { ...this.config, ...globalConfig[selector] };
-          this.config = globalConfig[selector];
+
+    configDefaults(this).then(cDef => {
+      this.config = cDef;
+      this.storage.getItem<any>('config', {}).subscribe(
+        (globalConfig: any) => {
+          // Called if data is valid or null
+          if (!globalConfig) globalConfig = {};
+          if (typeof globalConfig[selector] === 'undefined') {
+            // globalConfig[selector] = this.config;
+          } else {
+            // globalConfig[selector] = { ...this.config, ...globalConfig[selector] };
+            this.config = { ...this.config, ...globalConfig[selector] };
+          }
+          console.log(selector + ' Fetching config : ', this.config);
+          // this.storage.setItem('config', globalConfig).subscribe(() => {});
+
+          this.dropzoneConfig = {
+            url: '#', // Url set to avoid console Error, but will not be used in V1.0.0
+            autoProcessQueue: false, // We will no upload to server, only local processings for V1.0.0
+            autoQueue: false,
+            addRemoveLinks: true,
+            thumbnailWidth: this.config.thumbW,
+            thumbnailHeight: this.config.thumbH,
+            clickable: true,
+            thumbnailMethod: 'contain',
+            acceptedFiles: 'image/*,.csv',
+            // transformFile: (f:any, done:any) => {
+            //   console.log("On transform", this.getFilePath(f));
+            //   done(f); // https://www.dropzonejs.com/#config-transformFile
+            // },
+            // TODO : can't set a preview container this way :
+            // => only available after ngAfterViewInit, not at constructor time...
+            // Hacked via CSS for now....
+            // previewsContainer: (<HTMLDivElement>this.dropDetails.nativeElement),
+
+            // previewTemplate: '', // Do not show template previews, only need loaded thumbnails
+            // accept: (f:FileItem, isValidTrigger:any) => {
+            // accept: (f:any, isValidTrigger:any) => {
+            //   // regex filter ? how to invalidate ? ok with current filtering for now
+            //   // TODO : filter already imported pictures ? let user config this behavior....
+            //   console.log(this.getFilePath(f)); // f.dataUrl may not be available yet
+            //   isValidTrigger();
+            // },
+
+            accept: (f: any, isValidTrigger: any) => {
+              // console.log("On accept", f);
+              this.processInc(this.getFilePath(f));
+              if (new RegExp(this.config.regExGitLogFile, 'i').exec(this.getFilePath(f))) {
+                this.processGitLogFile(f);
+              } else if (f.type.match(/image\/.*/i)) {
+                // Pictures file pre-processing before thumbnail loading...
+              } else {
+                // console.log("Ignoring file : ", this.getFilePath(f));
+                this.processDec(this.getFilePath(f));
+                return;
+              }
+              isValidTrigger();
+            }
+          };
+        },
+        error => {
+          console.error('Fail to fetch config');
         }
-        console.log('Fetching config : ', this.config);
-        this.storage.setItem('config', globalConfig).subscribe(() => {});
-      },
-      error => {
-        console.error('Fail to fetch config');
-      }
-    );
+      );
+    });
   }
 
   ngOnInit() {}
 
   ngAfterViewChecked() {}
-  dropzoneConfig = {
-    url: '#', // Url set to avoid console Error, but will not be used in V1.0.0
-    autoProcessQueue: false, // We will no upload to server, only local processings for V1.0.0
-    autoQueue: false,
-    addRemoveLinks: true,
-    thumbnailWidth: this.config.thumbW,
-    thumbnailHeight: this.config.thumbH,
-    clickable: true,
-    thumbnailMethod: 'contain',
-    acceptedFiles: 'image/*,.csv',
-    // transformFile: (f:any, done:any) => {
-    //   console.log("On transform", this.getFilePath(f));
-    //   done(f); // https://www.dropzonejs.com/#config-transformFile
-    // },
-    // TODO : can't set a preview container this way :
-    // => only available after ngAfterViewInit, not at constructor time...
-    // Hacked via CSS for now....
-    // previewsContainer: (<HTMLDivElement>this.dropDetails.nativeElement),
-
-    // previewTemplate: '', // Do not show template previews, only need loaded thumbnails
-    // accept: (f:FileItem, isValidTrigger:any) => {
-    // accept: (f:any, isValidTrigger:any) => {
-    //   // regex filter ? how to invalidate ? ok with current filtering for now
-    //   // TODO : filter already imported pictures ? let user config this behavior....
-    //   console.log(this.getFilePath(f)); // f.dataUrl may not be available yet
-    //   isValidTrigger();
-    // },
-
-    accept: (f: any, isValidTrigger: any) => {
-      // console.log("On accept", f);
-      this.processInc(this.getFilePath(f));
-      if (new RegExp(this.config.regExGitLogFile, 'i').exec(this.getFilePath(f))) {
-        this.processGitLogFile(f);
-      } else if (f.type.match(/image\/.*/i)) {
-        // Pictures file pre-processing before thumbnail loading...
-      } else {
-        // console.log("Ignoring file : ", this.getFilePath(f));
-        this.processDec(this.getFilePath(f));
-        return;
-      }
-      isValidTrigger();
-    }
-  };
+  dropzoneConfig: any = null;
 
   getFilePath(f: any) {
     return f.fullPath ? f.fullPath : f.name;
@@ -159,7 +167,7 @@ export class ClientFilesLoaderComponent implements OnInit {
         t.Comment = row[3];
         t.Title = t.Comment.substring(0, 100);
         t.MediaUrl = row[0];
-        t.Author = row.length > 4 ? row[4] : '';
+        t.Author = row.length > 4 ? row[4] : this.config.timingAuthor;
         t.ReviewedComment = '';
         t.OverrideSequence = '';
         t.OverrideReduction = '';

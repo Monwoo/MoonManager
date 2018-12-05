@@ -63,9 +63,27 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       // this.formGroup = new BehaviorSubject(this.formService.createFormGroup(fm));
       this.formModel = fm;
       this.formGroup = this.formService.createFormGroup(this.formModel);
-      if (this.config) {
-        this.formGroup.patchValue(this.config);
-      }
+
+      // Load from params from local storage :
+      this.storage.getItem<any>('config', {}).subscribe(
+        config => {
+          (async () => {
+            // Called if data is valid or null
+            let freshConf = await this.getFreshConf();
+            this.config = { ...freshConf, ...config };
+            console.log('Fetching config : ', this.config);
+            this.ngZone.run(() => {
+              // TODO : solve error :
+              // ERROR Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'null:
+              // Non bloquant : ca fonctionne qd meme....
+              this.formGroup.patchValue(this.config);
+            });
+          })();
+        },
+        error => {
+          console.error('Fail to fetch config');
+        }
+      );
     });
   }
 
@@ -81,26 +99,6 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Load from params from local storage :
-    this.storage.getItem<any>('config', {}).subscribe(
-      config => {
-        // Called if data is valid or null
-        console.log('Fetching config : ', config);
-        this.config = config;
-        this.ngZone.run(() => {
-          // TODO : solve error :
-          // ERROR Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'null:
-          // Non bloquant : ca fonctionne qd meme....
-          if (this.paramsForm) {
-            this.paramsForm.form.patchValue(this.config);
-          }
-        });
-      },
-      error => {
-        console.error('Fail to fetch config');
-      }
-    );
-
     // TODO : will not change if live edit in form, pb about form building ?
     // may need to build form structure JS Side ? solved by simple 'save btn' for now...
     // this.paramsForm.form.valueChanges.subscribe(allConfigs => {
@@ -136,25 +134,29 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     }, this.errorHandler);
   }
 
+  async getFreshConf() {
+    return {
+      // TODO : refactor => need auto-gen from config-form....
+      [paramSelectors[0]]: await cflDefaults(this),
+      [paramSelectors[1]]: await pivotDefaults(this)
+    };
+  }
+
   resetConfigAction(e: any) {
     // let changes = this.paramsForm.form.value;
-    let freshConf = {
-      // TODO : refactor => need auto-gen from config-form....
-      [paramSelectors[0]]: cflDefaults(this),
-      [paramSelectors[1]]: pivotDefaults(this)
-    };
-    console.log('Reseting config to : ', freshConf);
-    this.storage.clear().subscribe(() => {
-      this.storage.setItem('config', freshConf).subscribe(() => {
-        this.paramsForm.form.patchValue(freshConf);
-        this.notif.success(extract('Nettoyage des paramêtres OK')); // TODO : tanslations
-      }, this.errorHandler);
-    });
+    (async () => {
+      let freshConf = await this.getFreshConf();
+      console.log('Reseting config to : ', freshConf);
+      this.storage.clear().subscribe(() => {
+        this.updateConfigForm();
+        this.notif.success(extract('Nettoyage des paramêtres OK'));
+      });
+    })();
   }
 
   setLanguage(language: string) {
     this.i18nService.language = language;
-    this.notif.success(extract('Changing language to : ') + extract(language)); // TODO : tanslations
+    this.notif.success(extract('Changing language to : ') + extract(language));
   }
 
   get currentLanguage(): string {

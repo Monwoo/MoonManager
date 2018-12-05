@@ -10,18 +10,51 @@ import { extract } from '@app/core';
 import { Logger } from '@app/core/logger.service';
 const MonwooReview = new Logger('MonwooReview');
 
-export const configDefaults: ((caller: any) => any) = (caller?: any) => ({
-  paramTitle: extract('Pivot temporel'),
-  agregationsFields: ['Author', 'Project', 'SubProject', 'Objectif', 'Date', 'Time'],
-  billedDays: 0,
-  paidDays: 0,
-  compensatedDays: 0,
-  receivedDays: 0,
-  summaryTitle: extract("Compte rendu d'activité de M. John Doe"),
-  videoCopyright: extract('© Monwoo (Private data)'),
-  videoFontColor: extract('rgb(60,0,108)'),
-  lowRes: false
-});
+// export const configDefaults: ((caller: any) => any) = (caller?: any) => {
+export const configDefaults = (caller: any) => {
+  const translate = caller.i18nService;
+  const fetchTrans = (t: string) =>
+    new Promise<string>(r =>
+      translate.get(extract(t)).subscribe((t: string) => {
+        r(t);
+      })
+    ).catch(e => {
+      MonwooReview.debug('Fail to translate', e);
+      // throw 'Translation issue';
+      return ''; // will be taken as await result on errors
+    });
+  return new Promise<{
+    paramTitle: string;
+    agregationsFields: string[];
+    billedDays: number;
+    paidDays: number;
+    compensatedDays: number;
+    receivedDays: number;
+    summaryTitle: string;
+    videoCopyright: string;
+    videoFontColor: string;
+    lowRes: boolean;
+  }>(function(resolve, reject) {
+    (async () => {
+      resolve({
+        paramTitle: await fetchTrans('Pivot temporel :'),
+        agregationsFields: ['Author', 'Project', 'SubProject', 'Objectif', 'Date', 'Time'],
+        billedDays: 0,
+        paidDays: 0,
+        compensatedDays: 0,
+        receivedDays: 0,
+        summaryTitle: await fetchTrans("Compte rendu d'activité de M. John Doe"),
+        videoCopyright: await fetchTrans('© Monwoo (Private data)'),
+        videoFontColor: await fetchTrans('rgb(60,0,108)'),
+        lowRes: false
+      });
+    })();
+  }).catch(e => {
+    MonwooReview.debug('Fail to config defaults', e);
+    throw e;
+    // return {}; // will be taken as await result on errors
+  });
+};
 
 export const CONFIG_FORM_LAYOUT = {
   // https://github.com/udos86/ng-dynamic-forms/blob/bfea1d8b/packages/core/src/model/misc/dynamic-form-control-layout.model.ts#L8
@@ -39,14 +72,13 @@ export const CONFIG_FORM_LAYOUT = {
   },
   lowRes: {
     element: {
-      container: 'checkbox-form-field'
+      container: 'checkbox-form-field' // TODO : class do not seem to be injected....
     }
   }
 };
 
 // export const CONFIG_FORM_MODEL: DynamicFormModel = [
 export const configFormModel = (caller: any) => {
-  const config = configDefaults(caller);
   const translate = caller.i18nService;
   const fetchTrans = (t: string) =>
     new Promise<string>(r =>
@@ -60,6 +92,7 @@ export const configFormModel = (caller: any) => {
     });
   return new Promise<DynamicFormControlModel[]>(function(resolve, reject) {
     (async () => {
+      const config = await configDefaults(caller);
       resolve([
         // TODO : tool to auto gen ? or always time lost since design of form will bring back to specific.. ?
         // new DynamicInputModel({
@@ -133,5 +166,9 @@ export const configFormModel = (caller: any) => {
         })
       ]);
     })();
+  }).catch(e => {
+    MonwooReview.debug('Fail to config form model', e);
+    // throw 'Translation issue';
+    return []; // will be taken as await result on errors
   });
 };
