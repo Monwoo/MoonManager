@@ -1,14 +1,14 @@
 {
-  "name": "MoonManager",
-  "short_name": "MoonManager",
+  "name": "Moon Manager",
+  "short_name": "M. Manager",
   "theme_color": "#119a4c",
   "background_color": "#FFFFFF",
-  "scope": "/MoonManager/Demo/?source=pwa&prodCache=2",
+  "scope": "/MoonManager/Demo/?source=pwa&prodCache=3",
   "start_url": "/MoonManager/Demo/",
   "display": "standalone",
   "icons": [
     {
-      "src": "assets/logos/MoonManager-512.png?v=2",
+      "src": "assets/logos/MoonManager-512.png?v=3",
       "sizes": "512x512",
       "type": "image/png"
     }
