@@ -30,6 +30,10 @@ export const configDefaults = (caller: any) => {
     paramTitle: string;
     timingEventType: string;
     timingAuthor: string;
+    timingSkills: string;
+    timingProject: string;
+    timingSubProject: string;
+    timingObjectif: string;
     timingSegmentDelta: number;
     captureRegex: string[];
     thumbW: number;
@@ -54,6 +58,10 @@ export const configDefaults = (caller: any) => {
         paramTitle: await fetchTrans(extract('Chargement des captures :')),
         timingEventType: 'capture',
         timingAuthor: await fetchTrans(extract('John Doe')),
+        timingSkills: 'RemoteEasyDev',
+        timingProject: await fetchTrans(extract('Non classé')),
+        timingSubProject: await fetchTrans(extract('Non classé')),
+        timingObjectif: await fetchTrans(extract('Non classé')),
         timingSegmentDelta: 0.2,
         // TODO : improve Parameters up to deep properties lookup with auto-gen forms for edit
         // then transform below captureRegex to flexible array....
@@ -174,6 +182,30 @@ export const configFormModel = (caller: any) => {
           label: await fetchTrans(extract('Autheur par défaut')), // TODO : translate
           maxLength: 69,
           placeholder: await fetchTrans('Autheur')
+        }),
+        new DynamicInputModel({
+          id: 'timingSkills',
+          label: await fetchTrans(extract('Id de compétances par défaut')), // TODO : translate
+          maxLength: 69,
+          placeholder: await fetchTrans('Id compétances')
+        }),
+        new DynamicInputModel({
+          id: 'timingProject',
+          label: await fetchTrans(extract('Projet par défaut')), // TODO : translate
+          maxLength: 69,
+          placeholder: await fetchTrans('Projet')
+        }),
+        new DynamicInputModel({
+          id: 'timingSubProject',
+          label: await fetchTrans(extract('Sous projet par défaut')), // TODO : translate
+          maxLength: 69,
+          placeholder: await fetchTrans('Sous projet')
+        }),
+        new DynamicInputModel({
+          id: 'timingObjectif',
+          label: await fetchTrans(extract('Objectif par défaut')), // TODO : translate
+          maxLength: 69,
+          placeholder: await fetchTrans('Objectif')
         })
       ]);
     })();

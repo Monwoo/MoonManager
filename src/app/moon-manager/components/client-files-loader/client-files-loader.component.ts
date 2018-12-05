@@ -160,10 +160,10 @@ export class ClientFilesLoaderComponent implements OnInit {
         t.id = ++this.index;
         t.DateTime = date.toDate();
         t.EventSource = 'git-log'; // TODO : configurable from parameters ?
-        t.ExpertiseLevel = row.length > 8 ? row[8] : '';
-        t.Project = row.length > 5 ? row[5] : '';
-        t.SubProject = row.length > 6 ? row[6] : '';
-        t.Objectif = row.length > 7 ? row[7] : '';
+        t.ExpertiseLevel = row.length > 8 ? row[8] : this.config.timingSkills;
+        t.Project = row.length > 5 ? row[5] : this.config.timingProject;
+        t.SubProject = row.length > 6 ? row[6] : this.config.timingSubProject;
+        t.Objectif = row.length > 7 ? row[7] : this.config.Objectif;
         t.Comment = row[3];
         t.Title = t.Comment.substring(0, 100);
         t.MediaUrl = row[0];
@@ -241,10 +241,9 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.id = ++this.index;
     t.DateTime = date.toDate();
     t.EventSource = config.timingEventType;
-    t.ExpertiseLevel = '';
-    t.Project = project ? project[1] : '';
-    t.SubProject = subProject ? subProject[1] : '';
-    t.Objectif = objectif ? objectif[1] : '';
+    t.Project = project ? project[1] : config.timingProject;
+    t.SubProject = subProject ? subProject[1] : config.timingSubProject;
+    t.Objectif = objectif ? objectif[1] : config.timingObjectif;
     t.Title = title;
     t.MediaUrl = this.medias.pushDataUrlMedia(dataUrl);
     t.Author = author ? author[1] : config.timingAuthor;
@@ -261,7 +260,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.Month = '';
     t.Year = '';
     // t.SkillsId = // TODO : refactor model to Skills
-    t.ExpertiseLevel = skillsId ? skillsId[1] : '';
+    t.ExpertiseLevel = skillsId ? skillsId[1] : config.timingSkills;
     // Client side computed fields :
     t.LinearWorkloadAmount = 0;
     t.WorkloadAmount = 0;
