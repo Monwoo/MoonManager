@@ -29,7 +29,7 @@ export class BodyComponent implements OnInit {
   // public filteredDatas: Timing[] = [];
   public filteredDatasAsync: BehaviorSubject<Timing[]> = new BehaviorSubject<Timing[]>([]);
   // public bodyTitle: string = this.i18n('This is a test {{myVar}} !', { myVar: '^_^' });
-  constructor(private storage: LocalStorage, public i18nService: I18nService, private timings: TimingsBufferService) {
+  constructor(private storage: LocalStorage, public i18nService: I18nService, public timings: TimingsBufferService) {
     configDefaults(this).then((cDef: ConfigType) => {
       this.config = cDef;
       const selector = 'services';

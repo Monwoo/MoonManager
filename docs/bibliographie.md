@@ -432,6 +432,14 @@ Dev stuffs :
 
 * https://stackoverflow.com/questions/29085197/how-do-you-json-stringify-an-es6-map
 
+* https://github.com/minj/gitflow
+* https://github.com/minj/qTox
+* https://dustinpfister.github.io/2017/08/02/nodejs-js-yaml/
+* https://github.com/jonschlinkert/read-yaml
+* https://github.com/nodeca/js-yaml
+* https://github.com/connec/yaml-js
+* **https://github.com/jeremyfa/yaml.js/**
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
@@ -446,6 +454,7 @@ Dev stuffs :
 yarn add @ngx-translate/i18n-polyfill @ngx-translate/http-loader
 yarn add @angular-mdc/web angular/material hammerjs @angular/animations
 yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
+yarn add yamljs @types/yamljs flatted
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer webp-hero
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications lodash-es @types/lodash-es

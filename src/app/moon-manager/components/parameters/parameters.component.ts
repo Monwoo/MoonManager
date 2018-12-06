@@ -31,7 +31,10 @@ import * as moment from 'moment';
 import { Papa } from 'ngx-papaparse';
 import { shallowMerge } from '../../tools';
 import { Logger } from '@app/core/logger.service';
-import { parse as parseJSON, stringify as stringifyJSON } from 'flatted';
+// import { parse as parseJSON, stringify as stringifyJSON } from 'flatted';
+// import * as YAML from 'yamljs';
+// import { stringify as stringifyYAML, parse as parseYAML } from 'yamljs';
+declare var YAML: any;
 
 const MonwooReview = new Logger('MonwooReview');
 
@@ -323,6 +326,17 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         }
         var blob = new Blob([str], { type: 'text/json' });
         var url = window.URL.createObjectURL(blob);
+      } else if ('yaml' === this.exportFmt) {
+        // const str = stringifyJSON(src); // Will add 1 object with array keys at first for array... strange json...
+        let str = null;
+        if (src instanceof Map) {
+          // specific transform for Map types
+          str = YAML.stringify(Array.from(src.entries()));
+        } else {
+          str = YAML.stringify(src);
+        }
+        var blob = new Blob([str], { type: 'text/yaml' });
+        var url = window.URL.createObjectURL(blob);
       } else {
         this.i18nService
           .get(extract('mm.param.notif.exportFail'), {
@@ -411,6 +425,40 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         jsonData.forEach((tuple: [string, string], idx: number) => {
           this.mediasProgress = (100 * (idx + 1)) / importLength;
           importCount++;
+          if (tuple.length != 2) {
+            this.i18nService
+              .get(extract('Fail to import row {{idx}} for {{file}}'), {
+                idx: idx,
+                file: fileName
+              })
+              .subscribe(t => {
+                console.warn(t);
+                this.notif.warn(t);
+              });
+            return;
+          }
+
+          this.medias.set(tuple[0], tuple[1]);
+        });
+      } else if (dest === 'medias' && fileName.match(/.*\.yaml$/i)) {
+        const yamlData = YAML.parse(dataStr);
+        importLength = yamlData.length;
+        yamlData.forEach((tuple: [string, string], idx: number) => {
+          this.mediasProgress = (100 * (idx + 1)) / importLength;
+          importCount++;
+          if (tuple.length != 2) {
+            this.i18nService
+              .get(extract('Fail to import row {{idx}} for {{file}}'), {
+                idx: idx,
+                file: fileName
+              })
+              .subscribe(t => {
+                console.warn(t);
+                this.notif.warn(t);
+              });
+            return;
+          }
+
           this.medias.set(tuple[0], tuple[1]);
         });
       } else if (dest === 'timings' && fileName.match(/.*\.csv$/i)) {
@@ -424,6 +472,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
           let t = new Timing();
           let tKeys = Object.keys(t);
           this.timingsProgress = (100 * (idx + 1)) / importLength;
+          ++importCount;
           // ensure row is Timing row :
           if (row.length != tKeys.length) {
             this.i18nService
@@ -464,18 +513,56 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
             }
           });
           this.timings.get().push(t);
-          ++importCount;
         });
       } else if (dest === 'timings' && fileName.match(/.*\.json$/i)) {
         const jsonData = JSON.parse(dataStr);
         importLength = jsonData.length;
         this.timings.set(
-          jsonData.map((tRaw: {}, idx: number) => {
-            this.mediasProgress = (100 * (idx + 1)) / importLength;
+          jsonData.reduce((acc: Timing[], tRaw: {}, idx: number) => {
+            this.timingsProgress = (100 * (idx + 1)) / importLength;
             importCount++;
             let t: Timing = new Timing();
-            return Object.assign(t, tRaw);
-          })
+            let tKeys = Object.keys(t);
+            if (Object.keys(tRaw).length !== tKeys.length) {
+              this.i18nService
+                .get(extract('Fail to import row {{idx}} for {{file}}'), {
+                  idx: idx,
+                  file: fileName
+                })
+                .subscribe(t => {
+                  console.warn(t);
+                  this.notif.warn(t);
+                });
+              return acc;
+            }
+            acc.push(Object.assign(t, tRaw));
+            return acc;
+          }, [])
+        );
+      } else if (dest === 'timings' && fileName.match(/.*\.yaml$/i)) {
+        const yamlData = YAML.parse(dataStr);
+        importLength = yamlData.length;
+        this.timings.set(
+          yamlData.reduce((acc: Timing[], tRaw: {}, idx: number) => {
+            this.timingsProgress = (100 * (idx + 1)) / importLength;
+            importCount++;
+            let t: Timing = new Timing();
+            let tKeys = Object.keys(t);
+            if (Object.keys(tRaw).length !== tKeys.length) {
+              this.i18nService
+                .get(extract('Fail to import row {{idx}} for {{file}}'), {
+                  idx: idx,
+                  file: fileName
+                })
+                .subscribe(t => {
+                  console.warn(t);
+                  this.notif.warn(t);
+                });
+              return acc;
+            }
+            acc.push(Object.assign(t, tRaw));
+            return acc;
+          }, [])
         );
       } else {
         console.log('Unknow import dest : ', dest);
