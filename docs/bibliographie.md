@@ -420,7 +420,19 @@ Dev stuffs :
 
 - https://stackoverflow.com/questions/30944763/typescript-looping-through-class-type-properties
 
-* https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
+* https://stackoverflow.com/questions/10392293/stringify-convert-to-json-a-javascript-object-with-circular-reference
+* https://www.npmjs.com/package/circular-json
+* https://github.com/WebReflection/flatted#flatted **Simple es6 json converter**
+* https://dpopescu.me/2016/10/31/using-ts-serializer-to-serialize-and-deserialize-json-objects/
+* https://github.com/dpopescu/ts-serializer
+* https://github.com/Seidel-Michael/ts-serializer **Seem to have good serializations concepts**
+* https://github.com/buehler/ts-json-serializer : same as above, less complex, easy to use but above may be stronger
+* https://github.com/ts-serializer/ngx-ts-serializer (1 seul commit, c bébé encore au moment de cette biblio... ngx génénéralement c bon nom...)
+* https://github.com/donatperler/serializer-ts : done 1 year ago, version num, may work... Legacy or still ok ?
+
+* https://stackoverflow.com/questions/29085197/how-do-you-json-stringify-an-es6-map
+
+- https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
   You can easily run just this single block, by prefixing the describe function name with f:

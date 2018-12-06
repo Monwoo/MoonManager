@@ -169,6 +169,10 @@ export class MediasBufferService {
     return this.dataUrls.size > 0;
   }
 
+  get() {
+    return this.dataUrls;
+  }
+
   set(idx: string, dataUrl: string) {
     this.dataUrls.set(idx, dataUrl);
   }

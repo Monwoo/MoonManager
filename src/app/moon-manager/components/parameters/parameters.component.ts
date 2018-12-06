@@ -31,6 +31,8 @@ import * as moment from 'moment';
 import { Papa } from 'ngx-papaparse';
 import { shallowMerge } from '../../tools';
 import { Logger } from '@app/core/logger.service';
+import { parse as parseJSON, stringify as stringifyJSON } from 'flatted';
+
 const MonwooReview = new Logger('MonwooReview');
 
 import { CONFIG_FORM_LAYOUT, configFormModel, getFreshConf } from './config-form.model';
@@ -295,7 +297,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
 
   processingExport(e: any, dest: string) {
     // TODO : auto download right format
-    const exportData = (data: any) => {
+    const exportData = (src: any, data: any) => {
       if ('csv' === this.exportFmt) {
         // https://www.papaparse.com/docs
         var csvData = data
@@ -311,7 +313,15 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
       } else if ('json' === this.exportFmt) {
-        var blob = new Blob([JSON.stringify(data)], { type: 'text/json' });
+        // const str = stringifyJSON(src); // Will add 1 object with array keys at first for array... strange json...
+        let str = null;
+        if (src instanceof Map) {
+          // specific transform for Map types
+          str = JSON.stringify(Array.from(src.entries()));
+        } else {
+          str = JSON.stringify(src);
+        }
+        var blob = new Blob([str], { type: 'text/json' });
         var url = window.URL.createObjectURL(blob);
       } else {
         this.i18nService
@@ -342,12 +352,13 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     };
     const data: any = null;
     if (dest === 'medias') {
-      exportData(this.medias.toArray());
+      exportData(this.medias.get(), this.medias.toArray());
       // this.storage.getItem<any>('medias-buffer', {}).subscribe((msArr: any) => {
       //   exportData(msArr);
       // });
     } else if ((dest = 'timings')) {
-      exportData(this.timings.get().map(t => Object.keys(t).map(k => t[k])));
+      const timingsSrc = this.timings.get();
+      exportData(timingsSrc, timingsSrc.map(t => Object.keys(t).map(k => t[k])));
       // this.storage.getItem<any>('timings', {}).subscribe((msArr: any) => {
       //   exportData(msArr);
       // });
@@ -367,17 +378,19 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     const fileName = f.name;
     const reader: FileReader = new FileReader();
     reader.onload = e => {
+      const dataStr: string = <string>reader.result;
+      let importCount = 0;
+      let importLength = 0;
       if (dest === 'medias' && fileName.match(/.*\.csv$/i)) {
-        const csv: string = <string>reader.result;
-        const parsed = this.papaParse.parse(csv, { header: false });
+        const parsed = this.papaParse.parse(dataStr, { header: false });
         // MonwooReview.debug('Processing medias : ', parsed);
-        let importCount = 0;
-        let importLength = parsed.data.length;
+        importLength = parsed.data.length;
 
         // TODO : scheme checking ? what if bad format ?
         // this.processInc(null, parsed.data.length);
         parsed.data.forEach((row: string[], idx: number) => {
           this.mediasProgress = (100 * (idx + 1)) / importLength;
+          importCount++;
           if (row.length != 2) {
             this.i18nService
               .get(extract('Fail to import row {{idx}} for {{file}}'), {
@@ -391,24 +404,19 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
             return;
           }
           this.medias.set(row[0], row[1]);
-          importCount++;
         });
-        this.i18nService
-          .get(extract('Succed to import {{importCount}}/{{length}} for {{file}}'), {
-            importCount: importCount,
-            length: importLength,
-            file: fileName
-          })
-          .subscribe(t => {
-            console.log(t);
-            this.notif.success(t);
-          });
+      } else if (dest === 'medias' && fileName.match(/.*\.json$/i)) {
+        const jsonData = JSON.parse(dataStr);
+        importLength = jsonData.length;
+        jsonData.forEach((tuple: [string, string], idx: number) => {
+          this.mediasProgress = (100 * (idx + 1)) / importLength;
+          importCount++;
+          this.medias.set(tuple[0], tuple[1]);
+        });
       } else if (dest === 'timings' && fileName.match(/.*\.csv$/i)) {
-        const csv: string = <string>reader.result;
-        const parsed = this.papaParse.parse(csv, { header: false });
+        const parsed = this.papaParse.parse(dataStr, { header: false });
         console.log('TODO : process git log datas : ', parsed);
-        let importCount = 0;
-        let importLength = parsed.data.length;
+        importLength = parsed.data.length;
 
         // TODO : scheme checking ? what if bad format ?
         // this.processInc(null, parsed.data.length);
@@ -458,20 +466,31 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
           this.timings.get().push(t);
           ++importCount;
         });
-        this.i18nService
-          .get(extract('Succed to import {{importCount}}/{{length}} for {{file}}'), {
-            importCount: importCount,
-            length: importLength,
-            file: fileName
+      } else if (dest === 'timings' && fileName.match(/.*\.json$/i)) {
+        const jsonData = JSON.parse(dataStr);
+        importLength = jsonData.length;
+        this.timings.set(
+          jsonData.map((tRaw: {}, idx: number) => {
+            this.mediasProgress = (100 * (idx + 1)) / importLength;
+            importCount++;
+            let t: Timing = new Timing();
+            return Object.assign(t, tRaw);
           })
-          .subscribe(t => {
-            console.log(t);
-            this.notif.success(t);
-          });
+        );
       } else {
         console.log('Unknow import dest : ', dest);
         return;
       }
+      this.i18nService
+        .get(extract('Succed to import {{importCount}}/{{length}} for {{file}}'), {
+          importCount: importCount,
+          length: importLength,
+          file: fileName
+        })
+        .subscribe(t => {
+          console.log(t);
+          this.notif.success(t);
+        });
       // this.processDec(this.getFilePath(f));
     };
     reader.onabort = (ev: ProgressEvent) => {
