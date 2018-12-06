@@ -46,6 +46,10 @@ export const configDefaults = (caller: any) => {
         // TODO : 5Mb local storage for b64 encoded medias is not enough...
         // will need to use : https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/cache-api
         saveMediasToLocalStorage: false,
+        // TODO : having Quota errors => may be in V2 or V1.N : use google drive or remote pict storage system ?
+        // => pb : network of 1Gb for video... better found local solution
+        // => TODO : build and bundle a Chrome Extension to let MoonManager access storage of that extension ?
+        // rolling with no caches for now, picts will diseapear if page refresh...
         saveTimingsToLocalStorage: true
       });
     })();
@@ -102,10 +106,12 @@ export const configFormModel = (caller: any) => {
         //   placeholder: "Nom d'autheur à regrouper"
         // }),
 
-        new DynamicCheckboxModel({
-          id: 'saveMediasToLocalStorage',
-          label: await fetchTrans(extract('service.saveMediasToLocalStorage.label'))
-        }),
+        // TODO : allow this option :
+        // TODO : having Quota errors => may be in V2 or V1.N : use google drive or remote pict storage system ?
+        // new DynamicCheckboxModel({
+        //   id: 'saveMediasToLocalStorage',
+        //   label: await fetchTrans(extract('service.saveMediasToLocalStorage.label'))
+        // }),
         new DynamicCheckboxModel({
           id: 'saveTimingsToLocalStorage',
           label: await fetchTrans(extract('service.saveTimingsToLocalStorage.label'))

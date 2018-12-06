@@ -400,6 +400,10 @@ Dev stuffs :
 - https://ngdev.space/angular-2-input-property-changes-detection-3ccbf7e366d2
 - https://stackoverflow.com/questions/49552258/how-to-listen-for-value-changes-from-class-property-typescript-angular-5
 
+- https://flaviocopes.com/cache-api/
+- https://developer.mozilla.org/fr/docs/Web/API/Service_Worker_API/Using_Service_Workers
+- https://www.w3schools.com/html/html5_webstorage.asp
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

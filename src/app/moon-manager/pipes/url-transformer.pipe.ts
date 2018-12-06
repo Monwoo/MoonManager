@@ -8,7 +8,8 @@ export class UrlTransformerPipe implements PipeTransform {
   constructor(private medias: MediasBufferService) {}
 
   async transform(value: any, args?: any) {
-    let matches = value.match(/moon-manager:\/\//);
+    // let matches = value.match(/moon-manager:\/\//);
+    let matches = value.match(/\/cache\/moon-manager\//);
     if (matches) {
       return await this.medias.getDataUrlMedia(value);
     }

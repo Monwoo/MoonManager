@@ -254,6 +254,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       if (!globalConfig) globalConfig = {};
       // avoid deep merging restoring def config, or keep empty val in config ? or default only if null ?
       this.storage.setItem('config', transformed).subscribe(() => {
+        this.medias.refreshSettings();
         this.notif.success(extract('Changements enregistré')); // TODO : tanslations
       }, this.errorHandler);
     }, this.errorHandler);
@@ -267,6 +268,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       await this.medias.clear();
       this.storage.clear().subscribe(() => {
         this.updateConfigForm();
+        this.medias.refreshSettings();
         this.notif.success(extract('Nettoyage des paramêtres OK'));
       });
     })();

@@ -203,7 +203,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     reader.readAsText(file);
   }
 
-  onImageThumbnail(args: any) {
+  async onImageThumbnail(args: any) {
     // https://www.dropzonejs.com/#dropzone-methods
     // https://github.com/zefoy/ngx-dropzone-wrapper/blob/v7.1.0/src/lib/dropzone.component.ts
     let f = args[0];
@@ -245,7 +245,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.SubProject = subProject ? subProject[1] : config.timingSubProject;
     t.Objectif = objectif ? objectif[1] : config.timingObjectif;
     t.Title = title;
-    t.MediaUrl = this.medias.pushDataUrlMedia(dataUrl);
+    t.MediaUrl = await this.medias.pushDataUrlMedia(dataUrl);
     t.Author = author ? author[1] : config.timingAuthor;
     t.Comment = '';
     t.ReviewedComment = '';
