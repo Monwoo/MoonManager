@@ -161,6 +161,14 @@ a {
   float: right;
 }
 
+// App succed to load, so no js error, css get injected.
+// No need to show compatibility view anymore
 .compatibility-review {
   display: none;
+}
+
+.loader {
+  &.off {
+    display: none;
+  }
 }

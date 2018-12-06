@@ -36,6 +36,28 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   </head>
   <body>
+    <style>
+      .loader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 168px;
+        padding: 20px;
+        pointer-events: none;
+        text-align: center;
+        line-height: 100%;
+        z-index: 9999;
+      }
+      .loader img {
+        border-radius: 15px;
+        opacity: 0.21;
+        margin: auto;
+      }
+    </style>
+    <div class="loader off">
+      <img src="assets/simple-pre-loader/images/loader-128x/Preloader_3.gif" alt="Loading..." />
+    </div>
     <div class="compatibility-review">
       <style>
         img {
@@ -54,12 +76,12 @@
           <a href="https://github.com/Monwoo/MoonManager">M.I.T. Licence</a>.
         </h4>
         <p>
-          Tested under <a href="https://www.google.com/chrome/">Chrome OS (vesion 71)</a> with Javascript. May have
-          issue to work under other browsers.
+          Tested under <a href="https://www.google.com/chrome/">Chrome WebBrowser (vesion 71)</a> with Javascript. May
+          have issue to work under other browsers.
         </p>
         <p>
-          Testé sous <a href="https://www.google.com/chrome/">Chrome OS (vesion 71)</a> avec Javascript. Peut présenter
-          des disfonctionnements sous d'autres navigateurs.
+          Testé sous <a href="https://www.google.com/chrome/">Chrome WebBrowser (vesion 71)</a> avec Javascript. Peut
+          présenter des disfonctionnements sous d'autres navigateurs.
         </p>
         <p>Moon Manager est un outil accessible hors connexion vous permettant de suivre et synthétiser vos temps.</p>
         <p>Moon Manager is an offline tool allowing you to follow and synthesize your times.</p>

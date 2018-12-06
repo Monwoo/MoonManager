@@ -456,6 +456,12 @@ Dev stuffs :
 * https://css-tricks.com/almanac/properties/a/animation/
 * https://la-cascade.io/css-animation-une-introduction/
 
+* http://cyrille.martraire.com
+
+* http://smallenvelop.com/demo/simple-pre-loader/
+* http://smallenvelop.com/display-loading-icon-page-loads-completely/
+* https://developer.mozilla.org/fr/docs/Web/CSS/pointer-events
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
