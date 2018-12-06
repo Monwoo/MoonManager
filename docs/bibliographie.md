@@ -440,6 +440,17 @@ Dev stuffs :
 * https://github.com/connec/yaml-js
 * **https://github.com/jeremyfa/yaml.js/**
 
+* https://www.lifewire.com/disable-javascript-in-firefox-446039
+* https://addons.mozilla.org/en-US/firefox/addon/disable-javascript/
+* https://addons.mozilla.org/en-US/firefox/addon/axe-devtools/
+* https://www.deque.com/axe/
+
+* https://addons.mozilla.org/en-US/firefox/addon/web-developer/
+* http://www.ijoomla.com/blog/web-developer-toolbar-missing/
+* https://support.mozilla.org/fr/questions/880905
+* https://addons.mozilla.org/fr/firefox/addon/disable-javascript/?src=search
+* moz-extension://9fe775c3-f6c3-b241-9db1-43abccda510a/pages/about.html
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
