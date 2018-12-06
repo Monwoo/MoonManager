@@ -76,6 +76,7 @@
           [message]="'mm.param.importMedias.dzone.msg' | translate"
           (error)="onUploadError($event, 'medias')"
         ></dropzone>
+        <mat-progress-bar mode="determinate" [value]="mediasProgress"></mat-progress-bar>
       </div>
       <div class="col-12 col-md-6 text-md-right">
         <strong>{{ 'mm.param.exportTimings.slct.lbl' | translate }}</strong>
@@ -100,6 +101,7 @@
           [message]="'mm.param.importTimings.dzone.msg' | translate"
           (error)="onUploadError($event, 'timings')"
         ></dropzone>
+        <mat-progress-bar mode="determinate" [value]="timingsProgress"></mat-progress-bar>
       </div>
     </div>
   </mat-card-content>

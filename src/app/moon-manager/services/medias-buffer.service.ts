@@ -169,6 +169,10 @@ export class MediasBufferService {
     return this.dataUrls.size > 0;
   }
 
+  set(idx: string, dataUrl: string) {
+    this.dataUrls.set(idx, dataUrl);
+  }
+
   toArray() {
     // return this.dataUrls.entries(); // return MapIterable, not array...
     return [...this.dataUrls];

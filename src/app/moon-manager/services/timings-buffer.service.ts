@@ -22,4 +22,8 @@ export class TimingsBufferService {
   set(datas: Timing[]) {
     this.dataTimings = datas;
   }
+
+  clear() {
+    this.dataTimings = [];
+  }
 }

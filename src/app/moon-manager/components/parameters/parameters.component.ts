@@ -36,6 +36,7 @@ const MonwooReview = new Logger('MonwooReview');
 import { CONFIG_FORM_LAYOUT, configFormModel, getFreshConf } from './config-form.model';
 import { MediasBufferService } from '../../services/medias-buffer.service';
 import { TimingsBufferService } from '../../services/timings-buffer.service';
+import { Timing } from '@app/moon-manager/api/data-model/timing';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -66,6 +67,8 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     json: extract('mm.param.export.fmt.json'),
     yaml: extract('mm.param.export.fmt.yaml')
   };
+  timingsProgress: number = 0;
+  mediasProgress: number = 0;
 
   dropzoneMediasConfig = {
     url: '#', // Url set to avoid console Error, but will not be used in V1.0.0
@@ -268,6 +271,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       let freshConf = await getFreshConf(this);
       console.log('Reseting config to : ', freshConf);
       await this.medias.clear();
+      this.timings.clear();
       this.storage.clear().subscribe(() => {
         this.updateConfigForm();
         this.medias.refreshSettings();
@@ -340,7 +344,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       //   exportData(msArr);
       // });
     } else if ((dest = 'timings')) {
-      exportData(this.timings.get());
+      exportData(this.timings.get().map(t => Object.keys(t).map(k => t[k])));
       // this.storage.getItem<any>('timings', {}).subscribe((msArr: any) => {
       //   exportData(msArr);
       // });
@@ -360,50 +364,107 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     const fileName = f.name;
     const reader: FileReader = new FileReader();
     reader.onload = e => {
-      if (dest === 'medias') {
+      if (dest === 'medias' && fileName.match(/.*\.csv$/i)) {
+        const csv: string = <string>reader.result;
+        const parsed = this.papaParse.parse(csv, { header: false });
+        // MonwooReview.debug('Processing medias : ', parsed);
+        let importCount = 0;
+        let importLength = parsed.data.length;
+
+        // TODO : scheme checking ? what if bad format ?
+        // this.processInc(null, parsed.data.length);
+        parsed.data.forEach((row: string[], idx: number) => {
+          this.mediasProgress = (100 * (idx + 1)) / importLength;
+          if (row.length != 2) {
+            this.i18nService
+              .get(extract('Fail to import row {{idx}} for {{file}}'), {
+                idx: idx,
+                file: fileName
+              })
+              .subscribe(t => {
+                console.warn(t);
+                this.notif.warn(t);
+              });
+            return;
+          }
+          this.medias.set(row[0], row[1]);
+          importCount++;
+        });
+        this.i18nService
+          .get(extract('Succed to import {{importCount}}/{{length}} for {{file}}'), {
+            importCount: importCount,
+            length: importLength,
+            file: fileName
+          })
+          .subscribe(t => {
+            console.log(t);
+            this.notif.success(t);
+          });
       } else if (dest === 'timings' && fileName.match(/.*\.csv$/i)) {
         const csv: string = <string>reader.result;
         const parsed = this.papaParse.parse(csv, { header: false });
         console.log('TODO : process git log datas : ', parsed);
+        let importCount = 0;
+        let importLength = parsed.data.length;
+
         // TODO : scheme checking ? what if bad format ?
         // this.processInc(null, parsed.data.length);
-        parsed.data.forEach((row: string[]) => {
-          // let t = new Timing();
-          // let date = moment(row[2], ''); // TODO : regex extract from path
-          // let segmentDelta = 1; // TODO : curently hard coded, need to be loaded with eventSource
-          // let segmentOverride = Math.floor((date.hour() + date.minute() / 60) / segmentDelta);
-          // t.id = ++this.index;
-          // t.DateTime = date.toDate();
-          // t.EventSource = 'git-log'; // TODO : configurable from parameters ?
-          // t.ExpertiseLevel = row.length > 8 ? row[8] : '';
-          // t.Project = row.length > 5 ? row[5] : '';
-          // t.SubProject = row.length > 6 ? row[6] : '';
-          // t.Objectif = row.length > 7 ? row[7] : '';
-          // t.Comment = row[3];
-          // t.Title = t.Comment.substring(0, 100);
-          // t.MediaUrl = row[0];
-          // t.Author = row.length > 4 ? row[4] : this.config.timingAuthor;
-          // t.ReviewedComment = '';
-          // t.OverrideSequence = '';
-          // t.OverrideReduction = '';
-          // t.SegmentOverride = segmentOverride;
-          // // t.SegmentMin = minDate; TODO : refactor, not really used
-          // t.SegmentDeltaHr = segmentDelta;
-          // t.SegmentMax = date.toDate();
-          // t.Date = date.format('YYYY/MM/DD');
-          // t.Time = date.format('HH:mm:ss');
-          // t.Month = '';
-          // t.Year = '';
-          // // Client side computed fields :
-          // t.LinearWorkloadAmount = 0;
-          // t.WorkloadAmount = 0;
-          // t.TJM = 0;
-          // t.TJMWorkloadByDay = 0;
-          // t.Price = 0;
-          // t.isHidden = false;
-          // this.onTimingFetch.emit(t);
-          // this.processDec(this.getFilePath(f));
+        parsed.data.forEach((row: string[], idx: number) => {
+          let t = new Timing();
+          let tKeys = Object.keys(t);
+          this.timingsProgress = (100 * (idx + 1)) / importLength;
+          // ensure row is Timing row :
+          if (row.length != tKeys.length) {
+            this.i18nService
+              .get(extract('Fail to import row {{idx}} for {{file}}'), {
+                idx: idx,
+                file: fileName
+              })
+              .subscribe(t => {
+                console.warn(t);
+                this.notif.warn(t);
+              });
+            return;
+          }
+          // Prepare dataset :
+          const transformers = {
+            id: (v: string) => parseInt(v),
+            DateTime: (v: string) => moment(v).toDate(),
+            SegmentMin: (v: string) => moment(v).toDate(),
+            SegmentDeltaHr: (v: string) => parseFloat(v),
+            SegmentMax: (v: string) => moment(v).toDate(),
+            SegmentOverride: (v: string) => parseFloat(v),
+            LinearWorkloadAmount: (v: string) => parseFloat(v),
+            WorkloadAmount: (v: string) => parseFloat(v),
+            TJM: (v: string) => parseFloat(v),
+            TJMWorkloadByDay: (v: string) => parseFloat(v),
+            Price: (v: string) => parseFloat(v),
+            // will match one and only one of the string 'true','1', or 'on' rerardless
+            // of capitalization and regardless off surrounding white-space.
+            isHidden: (v: string) => /^\s*(true|1|on)\s*$/i.test(v)
+          };
+
+          // overwrite timing :
+          tKeys.forEach((k, idx) => {
+            if (k in transformers) {
+              t[k] = transformers[k](row[idx]);
+            } else {
+              t[k] = row[idx];
+            }
+          });
+          this.timings.get().push(t);
+          ++importCount;
         });
+        this.i18nService
+          .get(extract('Succed to import {{importCount}}/{{length}} for {{file}}'), {
+            importCount: importCount,
+            length: importLength,
+            file: fileName
+          })
+          .subscribe(t => {
+            console.log(t);
+            this.notif.success(t);
+          });
       } else {
         console.log('Unknow import dest : ', dest);
         return;

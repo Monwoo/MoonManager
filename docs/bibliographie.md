@@ -415,7 +415,10 @@ Dev stuffs :
 - https://codecraft.tv/courses/angular/routing/nested-routes/#_learning_objectives
 - https://angular.io/api/router/Routes
 - https://angular-2-training-book.rangle.io/handout/routing/child_routes.html
--
+
+- https://stackoverflow.com/questions/263965/how-can-i-convert-a-string-to-boolean-in-javascript
+
+- https://stackoverflow.com/questions/30944763/typescript-looping-through-class-type-properties
 
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:

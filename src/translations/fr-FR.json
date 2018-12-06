@@ -95,6 +95,7 @@
   "cgu.linkLabel": "C.G.U.",
   "en-US": "Anglais",
   "fr-FR": "Français",
+  "Fail to import row {{idx}} for {{file}}": "Echec d'import à la ligne {{idx}} pour {{file}}",
   "heures": "heures",
   "http://www.monwoo.com": "http://www.monwoo.com",
   "jours": "jours",
@@ -128,6 +129,7 @@
   "rgb(60,0,108)": "rgb(60,0,108)",
   "service.saveMediasToLocalStorage.label": "Conserver les médias en stockage pour import/export",
   "service.saveTimingsToLocalStorage.label": "Conserver les temps en stockage pour import/export",
+  "Succed to import {{importCount}}/{{length}} for {{file}}": "Taux d'import de {{importCount}}/{{length}} pour {{file}}",
   "© Copyright Monwoo 2018, service@monwoo.com, données privées": "© Copyright Monwoo 2018, service@monwoo.com, données privées",
   "© Monwoo (Private data)": "© Monwoo (Private data)"
 }
