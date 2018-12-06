@@ -404,6 +404,19 @@ Dev stuffs :
 - https://developer.mozilla.org/fr/docs/Web/API/Service_Worker_API/Using_Service_Workers
 - https://www.w3schools.com/html/html5_webstorage.asp
 
+- https://medium.com/front-end-hacking/angular-how-keep-user-from-lost-his-data-by-accidentally-leaving-the-page-before-submit-4eeb74420f0d
+- https://github.com/angular/angular-cli/wiki/generate-guard
+- https://angular.io/cli/generate
+
+- https://stackoverflow.com/questions/47331260/how-to-prevent-page-refresh-in-angular-4
+- https://www.w3schools.com/jsref/met_win_confirm.asp
+- https://stackblitz.com/edit/angular-rgsa51?file=app%2Fcan-deactivate%2Fcomponent-can-deactivate.ts
+
+- https://codecraft.tv/courses/angular/routing/nested-routes/#_learning_objectives
+- https://angular.io/api/router/Routes
+- https://angular-2-training-book.rangle.io/handout/routing/child_routes.html
+-
+
 * https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

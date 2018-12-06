@@ -163,4 +163,9 @@ export class MediasBufferService {
       return this.dataUrls.get(index);
     }
   }
+
+  hasChanges() {
+    // TODO : async way if comes up to it with improved localSorage or remoteStorage system
+    return this.dataUrls.size > 0;
+  }
 }

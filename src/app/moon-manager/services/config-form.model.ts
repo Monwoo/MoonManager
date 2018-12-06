@@ -50,7 +50,7 @@ export const configDefaults = (caller: any) => {
         // => pb : network of 1Gb for video... better found local solution
         // => TODO : build and bundle a Chrome Extension to let MoonManager access storage of that extension ?
         // rolling with no caches for now, picts will diseapear if page refresh...
-        saveTimingsToLocalStorage: true
+        saveTimingsToLocalStorage: false
       });
     })();
   }).catch(e => {
@@ -98,24 +98,22 @@ export const configFormModel = (caller: any) => {
         //   maxLength: 42,
         //   placeholder: 'Votre titre'
         // }),
-
         // new DynamicInputModel({
         //   id: 'timingAuthor',
         //   label: 'Autheur à inspecter', // TODO : translate
         //   maxLength: 42,
         //   placeholder: "Nom d'autheur à regrouper"
         // }),
-
         // TODO : allow this option :
         // TODO : having Quota errors => may be in V2 or V1.N : use google drive or remote pict storage system ?
         // new DynamicCheckboxModel({
         //   id: 'saveMediasToLocalStorage',
         //   label: await fetchTrans(extract('service.saveMediasToLocalStorage.label'))
         // }),
-        new DynamicCheckboxModel({
-          id: 'saveTimingsToLocalStorage',
-          label: await fetchTrans(extract('service.saveTimingsToLocalStorage.label'))
-        })
+        // new DynamicCheckboxModel({
+        //   id: 'saveTimingsToLocalStorage',
+        //   label: await fetchTrans(extract('service.saveTimingsToLocalStorage.label'))
+        // })
       ]);
     })();
   }).catch(e => {

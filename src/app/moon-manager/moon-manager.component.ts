@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 // import { I18nService } from '@app/core';
 // import { LocalStorage } from '@ngx-pwa/local-storage';
+import { PreventRefreshGuard } from './guards/prevent-refresh.guard';
 
 @Component({
   selector: 'monwoo-moon-manager',
   templateUrl: './moon-manager.component.html',
   styleUrls: ['./moon-manager.component.scss']
 })
-export class MoonManagerComponent implements OnInit {
-  constructor() // private i18nService: I18nService,
-  // private storage: LocalStorage,
-  {}
+export class MoonManagerComponent extends PreventRefreshGuard implements OnInit {
+  // constructor() // private i18nService: I18nService,
+  // // private storage: LocalStorage,
+  // {}
 
   ngOnInit() {
     // Already saved in local storage,

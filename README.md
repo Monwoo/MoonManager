@@ -121,6 +121,7 @@ yarn run generate component moon-manager/components/Footer --module=moon-manager
 yarn run generate pipe moon-manager/pipes/Default --module=moon-manager
 yarn run generate directive moon-manager/directives/NgLet --module=moon-manager
 yarn run generate class moon-manager/components/client-files-loader/ConfigFormModel --module=moon-manager
+yarn run generate guard moon-manager/guards/PreventRefresh --flat --module=moon-manager
 # then rename config-form-model.ts to config-form.model.ts
 
 # running tests for continous integration (will test all only once) :

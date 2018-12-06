@@ -10,6 +10,7 @@ import { Timing } from '../../api/data-model/timing';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 import { I18nService } from '@app/core';
 import { ConfigType, configDefaults } from '../../services/config-form.model';
+import { TimingsBufferService } from '@app/moon-manager/services/timings-buffer.service';
 
 @Component({
   selector: 'moon-manager-body',
@@ -25,10 +26,10 @@ import { ConfigType, configDefaults } from '../../services/config-form.model';
 export class BodyComponent implements OnInit {
   private config: ConfigType = null;
   public pendingFilteredDatas: Timing[] = [];
-  public filteredDatas: Timing[] = [];
+  // public filteredDatas: Timing[] = [];
   public filteredDatasAsync: BehaviorSubject<Timing[]> = new BehaviorSubject<Timing[]>([]);
   // public bodyTitle: string = this.i18n('This is a test {{myVar}} !', { myVar: '^_^' });
-  constructor(private storage: LocalStorage, public i18nService: I18nService) {
+  constructor(private storage: LocalStorage, public i18nService: I18nService, private timings: TimingsBufferService) {
     configDefaults(this).then((cDef: ConfigType) => {
       this.config = cDef;
       const selector = 'services';
@@ -42,16 +43,19 @@ export class BodyComponent implements OnInit {
             this.config = { ...this.config, ...globalConfig[selector] };
           }
           console.log(selector + ' Fetching config : ', this.config);
+          this.filteredDatasAsync.next(this.timings.get().slice());
           // this.storage.setItem('config', globalConfig).subscribe(() => {});
           if (this.config.saveTimingsToLocalStorage) {
-            this.storage.getItem<any>('timings', []).subscribe((ms: Timing[]) => {
-              ms = ms ? ms : [];
-              this.filteredDatas = ms.concat(this.pendingFilteredDatas);
-              this.pendingFilteredDatas = [];
-              this.storage.setItem('timings', this.filteredDatas);
-              this.filteredDatasAsync.next(this.filteredDatas.slice());
-              // new Map([...this.dataUrls, ...ms]);
-            });
+            // TODO : work in progress, use code below inside TimingsBufferService ? :
+            // To much constraints over availables storage spaces for now...
+            // this.storage.getItem<any>('timings', []).subscribe((ms: Timing[]) => {
+            //   ms = ms ? ms : [];
+            //   this.filteredDatas = ms.concat(this.pendingFilteredDatas);
+            //   this.pendingFilteredDatas = [];
+            //   this.storage.setItem('timings', this.filteredDatas);
+            //   this.filteredDatasAsync.next(this.filteredDatas.slice());
+            //   // new Map([...this.dataUrls, ...ms]);
+            // });
           }
         },
         error => {
@@ -69,14 +73,14 @@ export class BodyComponent implements OnInit {
     if (!this.config) {
       this.pendingFilteredDatas.push(t);
     } else {
-      this.filteredDatas.push(t);
+      this.timings.get().push(t);
       // TODO : buffer system ? may be too much to save on EACH imported pict, may bulk it ?
-      this.filteredDatasAsync.next(this.filteredDatas.slice());
+      this.filteredDatasAsync.next(this.timings.get().slice());
       if (this.config.saveTimingsToLocalStorage) {
         // TODO : buffer system ? may be too much to save on EACH imported pict, may bulk it ?
         // will see with 2000 pict how it goes...
         // this.storage.setItem('medias-buffer', JSON.stringify(this.dataUrls.entries()));
-        this.storage.setItem('timings', this.filteredDatas);
+        // TODO : inside TimingsBuffer service if accruate : this.storage.setItem('timings', this.filteredDatas);
       }
     }
   }

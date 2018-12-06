@@ -28,12 +28,13 @@ import { CONFIG_FORM_LAYOUT as servicesConfigLayout } from '../../services/confi
 // ];
 
 // TODO : build with above done stuff...
-export const paramSelectors = ['moon-manager-client-files-loader', 'moon-manager-timing-pivot', 'services'];
+export const paramSelectors = ['moon-manager-client-files-loader', 'moon-manager-timing-pivot'];
+// export const paramSelectors = ['moon-manager-client-files-loader', 'moon-manager-timing-pivot', 'services'];
 
 const groupBySelectors = {
   [paramSelectors[0]]: cflConfigForm,
-  [paramSelectors[1]]: pivotConfigForm,
-  [paramSelectors[2]]: servicesConfigForm
+  [paramSelectors[1]]: pivotConfigForm
+  // [paramSelectors[2]]: servicesConfigForm
 };
 const configBySelectors = (caller: any) => {
   return new Promise(function(resolve, reject) {
@@ -46,10 +47,10 @@ const configBySelectors = (caller: any) => {
         },
         [paramSelectors[1]]: {
           label: (await pivotConfig(caller)).paramTitle
-        },
-        [paramSelectors[2]]: {
-          label: (await servicesConfig(caller)).paramTitle
         }
+        // [paramSelectors[2]]: {
+        //   label: (await servicesConfig(caller)).paramTitle
+        // },
       });
     })();
   });
@@ -74,16 +75,16 @@ export const CONFIG_FORM_LAYOUT = {
       element: {
         label: 'param-title'
       }
-    },
-    [paramSelectors[2]]: {
-      element: {
-        label: 'param-title'
-      }
     }
+    // [paramSelectors[2]]: {
+    //   element: {
+    //     label: 'param-title'
+    //   }
+    // },
   },
   ...cflConfigLayout,
-  ...pivotConfigLayout,
-  ...servicesConfigLayout
+  ...pivotConfigLayout
+  // ...servicesConfigLayout
 };
 
 // export const CONFIG_FORM_MODEL: DynamicFormModel = Object.keys(groupBySelectors).map(s => {
