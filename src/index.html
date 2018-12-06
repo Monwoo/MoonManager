@@ -37,24 +37,61 @@
   </head>
   <body>
     <div class="compatibility-review">
-      <style></style>
-      <h4>Moon Manager</h4>
-      <p>Tested under Chrome OS (vesion 71) with Javascript. May have issue to work under other browsers.</p>
-      <p>Moon Manager est un outil accessible hors connexion vous permettant de suivre et synthétiser vos temps.</p>
-      <p>
-        Testé sous Chrome OS (vesion 71) avec Javascript. Peut présenter des disfonctionnements sous d'autres
-        navigateurs.
-      </p>
-      <p>Moon Manager is an offline tool allowing you to follow and synthesize your times.</p>
-      <img
-        href="assets/TimingsIndicatorStory.png"
-        alt="Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr"
-      />
-      <img
-        href="assets/TimingsIndicatorStory-en.png"
-        alt="Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr"
-      />
+      <style>
+        img {
+          max-width: 94%;
+        }
+
+        .failback-view {
+          opacity: 0;
+          -webkit-transition: opacity 2s; /* Safari */
+          transition: opacity 5s;
+        }
+      </style>
+      <div class="failback-view">
+        <h4>
+          Moon Manager provided by <a href="http://www.monwoo.com">© Monwoo</a> under
+          <a href="https://github.com/Monwoo/MoonManager">M.I.T. Licence</a>.
+        </h4>
+        <p>
+          Tested under <a href="https://www.google.com/chrome/">Chrome OS (vesion 71)</a> with Javascript. May have
+          issue to work under other browsers.
+        </p>
+        <p>
+          Testé sous <a href="https://www.google.com/chrome/">Chrome OS (vesion 71)</a> avec Javascript. Peut présenter
+          des disfonctionnements sous d'autres navigateurs.
+        </p>
+        <p>Moon Manager est un outil accessible hors connexion vous permettant de suivre et synthétiser vos temps.</p>
+        <p>Moon Manager is an offline tool allowing you to follow and synthesize your times.</p>
+        <img
+          src="assets/TimingsIndicatorStory.png"
+          alt="Vert : j <= 1hr, Bleu : 1hr < j <= 5hr, Jaune : 5hr < j < 7hr, Rouge : j >= 7hr"
+        />
+        <img
+          src="assets/TimingsIndicatorStory-en.png"
+          alt="Green : j <= 1hr, Blue : 1hr < j <= 5hr, Yellow : 5hr < j < 7hr, Red : j >= 7hr"
+        />
+        <p>Pour toutes questions, vous aurez peut être une réponse si vous l'envoyez sur service@monwoo.com.</p>
+        <p>For any question, your may get some answers if you send them to service@monwoo.com.</p>
+      </div>
     </div>
+    <style>
+      .failback-view {
+        /* opacity: 1; */
+        animation: showfailback 5s; /*infinite;*/
+      }
+      @keyframes showfailback {
+        0% {
+          opacity: 0;
+        }
+        42% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
 
     <!--[if lt IE 10]>
       <p>
@@ -76,8 +113,7 @@
     <![endif]-->
     <noscript>
       <p>This page requires JavaScript to work properly. Please enable JavaScript in your browser.</p>
-      <p>For any question, your may get some answers if you send them to service@monwoo.com</p>
-      <p>For any question, your may get some answers if you send them to service@monwoo.com</p>
+      <p>For any question, your may get some answers if you send them to service@monwoo.com.</p>
       <p>
         Moon Manager is a workload indicator tool provided by <a href="http://www.monwoo.com">© Monwoo</a> under
         <a href="https://github.com/Monwoo/MoonManager">M.I.T. Licence</a>.

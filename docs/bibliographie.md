@@ -451,6 +451,11 @@ Dev stuffs :
 * https://addons.mozilla.org/fr/firefox/addon/disable-javascript/?src=search
 * moz-extension://9fe775c3-f6c3-b241-9db1-43abccda510a/pages/about.html
 
+* https://www.w3schools.com/css/css3_transitions.asp
+* https://stackoverflow.com/questions/8449933/animation-css3-display-opacity
+* https://css-tricks.com/almanac/properties/a/animation/
+* https://la-cascade.io/css-animation-une-introduction/
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
