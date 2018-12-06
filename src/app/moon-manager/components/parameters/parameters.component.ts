@@ -35,6 +35,7 @@ const MonwooReview = new Logger('MonwooReview');
 
 import { CONFIG_FORM_LAYOUT, configFormModel, getFreshConf } from './config-form.model';
 import { MediasBufferService } from '../../services/medias-buffer.service';
+import { TimingsBufferService } from '../../services/timings-buffer.service';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -94,6 +95,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     private ngZone: NgZone,
     private storage: LocalStorage,
     private medias: MediasBufferService,
+    private timings: TimingsBufferService,
     private i18nService: I18nService,
     private notif: NotificationsService,
     private formService: DynamicFormService,
@@ -333,13 +335,15 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     };
     const data: any = null;
     if (dest === 'medias') {
-      this.storage.getItem<any>('medias-buffer', {}).subscribe((msArr: any) => {
-        exportData(msArr);
-      });
+      exportData(this.medias.toArray());
+      // this.storage.getItem<any>('medias-buffer', {}).subscribe((msArr: any) => {
+      //   exportData(msArr);
+      // });
     } else if ((dest = 'timings')) {
-      this.storage.getItem<any>('timings', {}).subscribe((msArr: any) => {
-        exportData(msArr);
-      });
+      exportData(this.timings.get());
+      // this.storage.getItem<any>('timings', {}).subscribe((msArr: any) => {
+      //   exportData(msArr);
+      // });
     } else {
       this.i18nService
         .get(extract('mm.param.notif.destUnavailable'), {

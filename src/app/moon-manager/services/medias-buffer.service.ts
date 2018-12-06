@@ -168,4 +168,9 @@ export class MediasBufferService {
     // TODO : async way if comes up to it with improved localSorage or remoteStorage system
     return this.dataUrls.size > 0;
   }
+
+  toArray() {
+    // return this.dataUrls.entries(); // return MapIterable, not array...
+    return [...this.dataUrls];
+  }
 }
