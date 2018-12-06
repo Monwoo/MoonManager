@@ -310,6 +310,9 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
           : '';
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
+      } else if ('json' === this.exportFmt) {
+        var blob = new Blob([JSON.stringify(data)], { type: 'text/json' });
+        var url = window.URL.createObjectURL(blob);
       } else {
         this.i18nService
           .get(extract('mm.param.notif.exportFail'), {
@@ -484,5 +487,12 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
 
   onUploadError(e: any, dst: string) {
     console.log('Upload error', e);
+    this.i18nService
+      .get(extract('mm.param.error.incompatibleFile'), {
+        dest: dst
+      })
+      .subscribe(t => {
+        this.notif.error(t);
+      });
   }
 }
