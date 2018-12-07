@@ -280,9 +280,15 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     // });
   }
   errorHandler = (error: any) => {
-    this.notif.error(extract("Echec de l'enregistrement")); // TODO : tanslations
     console.log(error);
-    this.ll.hideLoader();
+    this.i18nService
+      .get(extract('mm.param.notif.errorHasOccured'), {
+        errMsg: error.message
+      })
+      .subscribe(t => {
+        this.notif.error(t);
+        this.ll.hideLoader();
+      });
   };
   saveAction(e: any) {
     this.ll.showLoader();
@@ -315,8 +321,10 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       // avoid deep merging restoring def config, or keep empty val in config ? or default only if null ?
       this.storage.setItem('config', transformed).subscribe(() => {
         this.medias.refreshSettings();
-        this.notif.success(extract('Changements enregistré')); // TODO : tanslations
-        this.ll.hideLoader();
+        this.i18nService.get(extract('mm.param.notif.saveSucced')).subscribe(t => {
+          this.notif.success(t);
+          this.ll.hideLoader();
+        });
       }, this.errorHandler);
     }, this.errorHandler);
   }
@@ -332,8 +340,10 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       this.storage.clear().subscribe(() => {
         this.updateConfigForm();
         this.medias.refreshSettings();
-        this.notif.success(extract('Nettoyage des paramêtres OK'));
-        this.ll.hideLoader();
+        this.i18nService.get(extract('mm.param.notif.cleaningParametersOk')).subscribe(t => {
+          this.notif.success(t);
+          this.ll.hideLoader();
+        });
       }, this.errorHandler);
     })();
   }
@@ -341,8 +351,16 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   setLanguage(language: string) {
     this.ll.showLoader();
     this.i18nService.language = language;
-    this.notif.success(extract('Changing language to : ') + extract(language));
-    this.ll.hideLoader();
+    this.i18nService.get(language).subscribe(langT => {
+      this.i18nService
+        .get(extract('mm.param.notif.languageChange'), {
+          lang: langT
+        })
+        .subscribe(t => {
+          this.notif.success(t);
+          this.ll.hideLoader();
+        });
+    });
   }
 
   get currentLanguage(): string {

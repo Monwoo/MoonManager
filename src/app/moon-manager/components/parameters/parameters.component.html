@@ -1,40 +1,43 @@
 <!-- Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com -->
-<button
-  mat-button
-  color="primary"
-  matTooltip="{{'Reset parameters to factory'|translate}}"
-  (click)="resetConfigAction($event)"
->
-  <i class="fas fa-power-off"></i> {{ 'Reset' | translate }}
-</button>
 
-<div #cmdContainer>
-  <mat-card
-    class="git-exp-cmd"
-    ngxClipboard
-    [cbContent]="cmdToCopy"
-    [container]="cmdContainer"
-    (cbOnSuccess)="onSuccedToCopyCmd($event)"
-    matTooltip="{{'mm.param.tuto.gitCmd.tooltip'|translate}}"
-  >
-    <mat-card-header>
-      <div mat-card-avatar><i class="fas fa-4x fa-copy"></i></div>
-      <mat-card-title>{{ 'mm.param.tuto.gitCmd.title' | translate }}</mat-card-title>
-      <mat-card-subtitle
-        ><pre>{{ cmdToCopy }}</pre></mat-card-subtitle
-      >
-    </mat-card-header>
-    <mat-card-content> </mat-card-content>
-  </mat-card>
+<div>
+  <div>
+    <button
+      mat-button
+      color="primary"
+      matTooltip="{{'Reset parameters to factory'|translate}}"
+      (click)="resetConfigAction($event)"
+    >
+      <i class="fas fa-power-off"></i> {{ 'Reset' | translate }}
+    </button>
+    <mat-form-field class="float-right">
+      <mat-select placeholder="{{langPlaceholder|translate}}" [value]="currentLanguage">
+        <mat-option *ngFor="let language of languages" (click)="setLanguage(language)" [value]="language">
+          {{ language | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>
 
-<mat-form-field class="float-right">
-  <mat-select placeholder="{{langPlaceholder|translate}}" [value]="currentLanguage">
-    <mat-option *ngFor="let language of languages" (click)="setLanguage(language)" [value]="language">
-      {{ language | translate }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<mat-card
+  #cmdContainer
+  class="git-exp-cmd"
+  ngxClipboard
+  [cbContent]="cmdToCopy"
+  [container]="cmdContainer"
+  (cbOnSuccess)="onSuccedToCopyCmd($event)"
+  matTooltip="{{'mm.param.tuto.gitCmd.tooltip'|translate}}"
+>
+  <mat-card-header>
+    <div mat-card-avatar><i class="fas fa-4x fa-copy"></i></div>
+    <mat-card-title>{{ 'mm.param.tuto.gitCmd.title' | translate }}</mat-card-title>
+    <mat-card-subtitle
+      ><pre>{{ cmdToCopy }}</pre></mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content> </mat-card-content>
+</mat-card>
 
 <!-- < p-panel class="story" header="Légende des indicateurs temporels :"> -->
 <mat-card class="story">
@@ -52,7 +55,7 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card>
+<mat-card class="config-forms">
   <mat-card-content>
     <form *ngIf="formGroup" [formGroup]="formGroup" #paramsForm="ngForm">
       <dynamic-material-form [group]="formGroup" [model]="formModel" [layout]="formLayout"> </dynamic-material-form>

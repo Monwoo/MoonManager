@@ -102,22 +102,24 @@
   }
 }
 
-:host ::ng-deep {
+::ng-deep {
   .mat-card-avatar {
     height: auto;
     width: auto;
   }
 
-  .mat-form-field {
-    width: 100%;
-  }
+  .config-forms {
+    .mat-form-field {
+      width: 100%;
+    }
 
-  .mat-form-field-label-wrapper {
-    font-size: 14pt;
-  }
+    .mat-form-field-label-wrapper {
+      font-size: 14pt;
+    }
 
-  .mat-form-field-infix {
-    margin: 10px 0;
+    .mat-form-field-infix {
+      margin: 10px 0;
+    }
   }
 }
 
