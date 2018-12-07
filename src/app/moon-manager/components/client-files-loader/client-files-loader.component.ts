@@ -1,6 +1,6 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 
-import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild } from '@angular/core';
 // import { FileItem } from 'dropzone/dist/dropzone.js';
 // import Dropzone from 'dropzone'; => if realy needed, use Declare Dropzone: any.... same as for ccapture
 // import moment from 'moment/src/moment';
@@ -41,25 +41,30 @@ export class ClientFilesLoaderComponent implements OnInit {
   // Incrementing process number
   processInc(fname: string, step = 1) {
     // console.log('Will load : ', fname);
-    this.processLength += step;
-    this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
-    if (1 === this.processLength) {
-      this.ll.showLoader();
-    }
+    this.ngZone.run(() => {
+      this.processLength += step;
+      this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
+      if (this.processingCount !== this.processLength) {
+        this.ll.showLoader();
+      }
+    });
   }
   // Decrementing process number
   processDec(fname: string, step = 1) {
     // console.log('Did load : ', fname);
-    this.processingCount += step;
-    this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
-    if (1 === this.processLength) {
-      this.ll.hideLoader();
-    }
+    this.ngZone.run(() => {
+      this.processingCount += step;
+      this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
+      if (this.processingCount === this.processLength) {
+        this.ll.hideLoader();
+      }
+    });
   }
 
   index: number = 0;
   constructor(
     private ll: LoadingLoaderService,
+    private ngZone: NgZone,
     private storage: LocalStorage,
     private selfRef: ElementRef,
     private medias: MediasBufferService,
@@ -73,7 +78,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     // at least one... what to do if he gose on parameters and all is
     // not setup ? global default config injection at some point in the app ?
     // => need some solution letting defaut config param exists in targeted component...
-    let selector = this.selfRef.nativeElement.tagName.toLowerCase();
+    let selector = 'moon-manager-client-files-loader'; //this.selfRef.nativeElement.tagName.toLowerCase();
 
     configDefaults(this).then(cDef => {
       this.config = cDef;
@@ -120,13 +125,14 @@ export class ClientFilesLoaderComponent implements OnInit {
 
             accept: (f: any, isValidTrigger: any) => {
               // console.log("On accept", f);
+              // => show loader on drop, may take time to load...
               this.processInc(this.getFilePath(f));
               if (new RegExp(this.config.regExGitLogFile, 'i').exec(this.getFilePath(f))) {
                 this.processGitLogFile(f);
               } else if (f.type.match(/image\/.*/i)) {
                 // Pictures file pre-processing before thumbnail loading...
               } else {
-                // console.log("Ignoring file : ", this.getFilePath(f));
+                console.log('Ignoring file : ', this.getFilePath(f));
                 this.processDec(this.getFilePath(f));
                 return;
               }
@@ -141,6 +147,11 @@ export class ClientFilesLoaderComponent implements OnInit {
     });
   }
 
+  onFileDrop(e: any) {
+    // TODO : do not seem to be called
+    console.log('File droped : ', e);
+    // this.processInc('startPoint');//this.getFilePath(f));
+  }
   ngOnInit() {}
 
   ngAfterViewChecked() {}
@@ -150,7 +161,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     return f.fullPath ? f.fullPath : f.name;
   }
 
-  processGitLogFile(f: any) {
+  async processGitLogFile(f: any) {
     const file: File = f;
     const reader: FileReader = new FileReader();
     reader.onload = e => {
@@ -158,8 +169,9 @@ export class ClientFilesLoaderComponent implements OnInit {
       const parsed = this.papaParse.parse(csv, { header: false });
       console.log('TODO : process git log datas : ', parsed);
       // TODO : scheme checking ? what if bad format ?
-      this.processInc(null, parsed.data.length);
+      // this.processInc(null, parsed.data.length);
       parsed.data.forEach((row: string[]) => {
+        this.processInc(null);
         let t = new Timing();
         let date = moment(row[2], ''); // TODO : regex extract from path
         let segmentDelta = 1; // TODO : curently hard coded, need to be loaded with eventSource

@@ -8,6 +8,7 @@ import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 export class LoadingLoaderService {
   _ll: any = null;
   renderer: Renderer2 = null;
+  isShown = false;
   // discreteTimeout = 3000
 
   constructor(
@@ -19,10 +20,16 @@ export class LoadingLoaderService {
   }
 
   public showLoader() {
-    this.renderer.removeClass(this._ll, 'off');
+    if (!this.isShown) {
+      this.renderer.removeClass(this._ll, 'off');
+      this.isShown = true;
+    }
   }
 
   public hideLoader() {
-    this.renderer.addClass(this._ll, 'off');
+    if (this.isShown) {
+      this.renderer.addClass(this._ll, 'off');
+      this.isShown = false;
+    }
   }
 }

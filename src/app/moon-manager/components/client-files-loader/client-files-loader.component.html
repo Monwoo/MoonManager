@@ -7,6 +7,7 @@
   (success)="onImageUploadSuccess($event)"
   (thumbnail)="onImageThumbnail($event)"
   (addedfile)="onAddedFile($event)"
+  (onFileDrop)="onFileDrop($event)"
   (processing)="onProcessingFile($event)"
 ></dropzone>
 <span class="files-count" *ngIf="processingCount">{{ processingCount }}/{{ processLength }}</span>
