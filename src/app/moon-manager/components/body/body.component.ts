@@ -11,6 +11,7 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 import { I18nService } from '@app/core';
 import { ConfigType, configDefaults } from '../../services/config-form.model';
 import { TimingsBufferService } from '@app/moon-manager/services/timings-buffer.service';
+import { LoadingLoaderService } from '../../services/loading-loader.service';
 
 @Component({
   selector: 'moon-manager-body',
@@ -29,7 +30,12 @@ export class BodyComponent implements OnInit {
   // public filteredDatas: Timing[] = [];
   public filteredDatasAsync: BehaviorSubject<Timing[]> = new BehaviorSubject<Timing[]>([]);
   // public bodyTitle: string = this.i18n('This is a test {{myVar}} !', { myVar: '^_^' });
-  constructor(private storage: LocalStorage, public i18nService: I18nService, public timings: TimingsBufferService) {
+  constructor(
+    private storage: LocalStorage,
+    public i18nService: I18nService,
+    public timings: TimingsBufferService,
+    private ll: LoadingLoaderService
+  ) {
     configDefaults(this).then((cDef: ConfigType) => {
       this.config = cDef;
       const selector = 'services';
@@ -65,7 +71,9 @@ export class BodyComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.ll.hideLoader();
+  }
 
   didFetchTiming(t: any) {
     // console.log('Did fetch : ', t);
