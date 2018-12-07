@@ -477,6 +477,8 @@ Dev stuffs :
 * https://github.com/maxisam/ngx-clipboard
 * https://www.w3schools.com/cssref/css3_pr_word-break.asp
 
+* https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
