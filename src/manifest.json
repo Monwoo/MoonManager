@@ -3,13 +3,13 @@
   "short_name": "M. Manager",
   "theme_color": "#119a4c",
   "background_color": "#FFFFFF",
-  "scope": "/MoonManager/Demo/?source=pwa&prodCache=3",
+  "scope": "/MoonManager/Demo/?source=pwa&prodCache=4",
   "start_url": "/MoonManager/Demo/",
   "display": "standalone",
   "permissions": ["unlimitedStorage"],
   "icons": [
     {
-      "src": "assets/logos/MoonManager-512.png?v=3",
+      "src": "assets/logos/MoonManager-512.png?v=4",
       "sizes": "512x512",
       "type": "image/png"
     }

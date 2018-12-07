@@ -14,7 +14,7 @@ export class FooterComponent implements OnInit {
   trans = {
     copyright: {
       text: extract('© Copyright Monwoo 2018, service@monwoo.com, données privées'),
-      url: extract('http://www.monwoo.com')
+      url: extract('https://www.monwoo.com')
     }
   };
 
