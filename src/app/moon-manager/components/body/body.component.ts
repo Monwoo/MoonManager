@@ -75,15 +75,16 @@ export class BodyComponent implements OnInit {
     this.ll.hideLoader();
   }
 
-  didFetchTiming(t: any) {
+  didFetchTiming(t: Timing[]) {
     // console.log('Did fetch : ', t);
     let index = null;
     if (!this.config) {
-      this.pendingFilteredDatas.push(t);
+      this.pendingFilteredDatas.concat(t);
     } else {
-      this.timings.get().push(t);
+      this.timings.set(this.timings.get().concat(t));
       // TODO : buffer system ? may be too much to save on EACH imported pict, may bulk it ?
-      this.filteredDatasAsync.next(this.timings.get().slice());
+      // this.filteredDatasAsync.next(this.timings.get().slice());
+      this.filteredDatasAsync.next(this.timings.get());
       if (this.config.saveTimingsToLocalStorage) {
         // TODO : buffer system ? may be too much to save on EACH imported pict, may bulk it ?
         // will see with 2000 pict how it goes...

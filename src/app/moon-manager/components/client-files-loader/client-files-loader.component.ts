@@ -30,7 +30,7 @@ export class ClientFilesLoaderComponent implements OnInit {
 
   @Input() config?: any = null;
 
-  @Output() onTimingFetch: EventEmitter<Timing> = new EventEmitter<Timing>();
+  @Output() onTimingsFetch: EventEmitter<Timing[]> = new EventEmitter<Timing[]>();
 
   @ViewChild('dropDetails') dropDetails: ElementRef<HTMLDivElement>; // TODO : fail to use for now
 
@@ -128,7 +128,9 @@ export class ClientFilesLoaderComponent implements OnInit {
               // => show loader on drop, may take time to load...
               this.processInc(this.getFilePath(f));
               if (new RegExp(this.config.regExGitLogFile, 'i').exec(this.getFilePath(f))) {
-                this.processGitLogFile(f);
+                (async () => {
+                  await this.processGitLogFile(f);
+                })();
               } else if (f.type.match(/image\/.*/i)) {
                 // Pictures file pre-processing before thumbnail loading...
               } else {
@@ -167,49 +169,51 @@ export class ClientFilesLoaderComponent implements OnInit {
     reader.onload = e => {
       const csv: string = <string>reader.result;
       const parsed = this.papaParse.parse(csv, { header: false });
-      console.log('TODO : process git log datas : ', parsed);
+      console.log('TODO : process git log datas : ', parsed.data.length);
       // TODO : scheme checking ? what if bad format ?
       // this.processInc(null, parsed.data.length);
-      parsed.data.forEach((row: string[]) => {
-        this.processInc(null);
-        let t = new Timing();
-        let date = moment(row[2], ''); // TODO : regex extract from path
-        let segmentDelta = 1; // TODO : curently hard coded, need to be loaded with eventSource
-        let segmentOverride = Math.floor((date.hour() + date.minute() / 60) / segmentDelta);
+      this.onTimingsFetch.emit(
+        parsed.data.map((row: string[]) => {
+          this.processInc(null);
+          let t = new Timing();
+          let date = moment(row[2], ''); // TODO : regex extract from path
+          let segmentDelta = 1; // TODO : curently hard coded, need to be loaded with eventSource
+          let segmentOverride = Math.floor((date.hour() + date.minute() / 60) / segmentDelta);
 
-        t.id = ++this.index;
-        t.DateTime = date.toDate();
-        t.EventSource = 'git-log'; // TODO : configurable from parameters ?
-        t.ExpertiseLevel = row.length > 8 ? row[8] : this.config.timingSkills;
-        t.Project = row.length > 5 ? row[5] : this.config.timingProject;
-        t.SubProject = row.length > 6 ? row[6] : this.config.timingSubProject;
-        t.Objectif = row.length > 7 ? row[7] : this.config.Objectif;
-        t.Comment = row[3];
-        t.Title = t.Comment.substring(0, 100);
-        t.MediaUrl = row[0];
-        t.Author = row.length > 4 ? row[4] : this.config.timingAuthor;
-        t.ReviewedComment = '';
-        t.OverrideSequence = '';
-        t.OverrideReduction = '';
-        t.SegmentOverride = segmentOverride;
-        // t.SegmentMin = minDate; TODO : refactor, not really used
-        t.SegmentDeltaHr = segmentDelta;
-        t.SegmentMax = date.toDate();
-        t.Date = date.format('YYYY/MM/DD');
-        t.Time = date.format('HH:mm:ss');
-        t.Month = '';
-        t.Year = '';
-        // Client side computed fields :
-        t.LinearWorkloadAmount = 0;
-        t.WorkloadAmount = 0;
-        t.TJM = 0;
-        t.TJMWorkloadByDay = 0;
-        t.Price = 0;
-        t.isHidden = false;
+          t.id = ++this.index;
+          t.DateTime = date.toDate();
+          t.EventSource = 'git-log'; // TODO : configurable from parameters ?
+          t.ExpertiseLevel = row.length > 8 ? row[8] : this.config.timingSkills;
+          t.Project = row.length > 5 ? row[5] : this.config.timingProject;
+          t.SubProject = row.length > 6 ? row[6] : this.config.timingSubProject;
+          t.Objectif = row.length > 7 ? row[7] : this.config.Objectif;
+          t.Comment = row[3];
+          t.Title = t.Comment.substring(0, 100);
+          t.MediaUrl = row[0];
+          t.Author = row.length > 4 ? row[4] : row[1];
+          t.ReviewedComment = '';
+          t.OverrideSequence = '';
+          t.OverrideReduction = '';
+          t.SegmentOverride = segmentOverride;
+          // t.SegmentMin = minDate; TODO : refactor, not really used
+          t.SegmentDeltaHr = segmentDelta;
+          t.SegmentMax = date.toDate();
+          t.Date = date.format('YYYY/MM/DD');
+          t.Time = date.format('HH:mm:ss');
+          t.Month = '';
+          t.Year = '';
+          // Client side computed fields :
+          t.LinearWorkloadAmount = 0;
+          t.WorkloadAmount = 0;
+          t.TJM = 0;
+          t.TJMWorkloadByDay = 0;
+          t.Price = 0;
+          t.isHidden = false;
 
-        this.onTimingFetch.emit(t);
-        this.processDec(this.getFilePath(f));
-      });
+          this.processDec(this.getFilePath(f));
+          return t;
+        })
+      );
       this.processDec(this.getFilePath(f));
     };
     reader.onabort = (ev: ProgressEvent) => {
@@ -289,7 +293,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.Price = 0;
     t.isHidden = false;
 
-    this.onTimingFetch.emit(t);
+    this.onTimingsFetch.emit([t]);
     this.processDec(this.getFilePath(f));
   }
 
