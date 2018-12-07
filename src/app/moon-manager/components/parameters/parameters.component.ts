@@ -42,6 +42,7 @@ import { CONFIG_FORM_LAYOUT, configFormModel, getFreshConf } from './config-form
 import { MediasBufferService } from '../../services/medias-buffer.service';
 import { TimingsBufferService } from '../../services/timings-buffer.service';
 import { Timing } from '@app/moon-manager/api/data-model/timing';
+import { LoadingLoaderService } from '../../services/loading-loader.service';
 
 @Component({
   selector: 'moon-manager-parameters',
@@ -100,6 +101,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   public config: any = null;
 
   constructor(
+    private ll: LoadingLoaderService,
     private ngZone: NgZone,
     private storage: LocalStorage,
     private medias: MediasBufferService,
@@ -235,8 +237,11 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   errorHandler = (error: any) => {
     this.notif.error(extract("Echec de l'enregistrement")); // TODO : tanslations
     console.log(error);
+    this.ll.hideLoader();
   };
   saveAction(e: any) {
+    this.ll.showLoader();
+
     let changes = this.paramsForm.form.value;
 
     // TODO : better deep objects mappings : reactive forms ?
@@ -266,11 +271,13 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       this.storage.setItem('config', transformed).subscribe(() => {
         this.medias.refreshSettings();
         this.notif.success(extract('Changements enregistré')); // TODO : tanslations
+        this.ll.hideLoader();
       }, this.errorHandler);
     }, this.errorHandler);
   }
 
   resetConfigAction(e: any) {
+    this.ll.showLoader();
     // let changes = this.paramsForm.form.value;
     (async () => {
       let freshConf = await getFreshConf(this);
@@ -281,13 +288,16 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         this.updateConfigForm();
         this.medias.refreshSettings();
         this.notif.success(extract('Nettoyage des paramêtres OK'));
-      });
+        this.ll.hideLoader();
+      }, this.errorHandler);
     })();
   }
 
   setLanguage(language: string) {
+    this.ll.showLoader();
     this.i18nService.language = language;
     this.notif.success(extract('Changing language to : ') + extract(language));
+    this.ll.hideLoader();
   }
 
   get currentLanguage(): string {
@@ -299,6 +309,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   processingExport(e: any, dest: string) {
+    this.ll.showLoader();
     // TODO : auto download right format
     const exportData = (src: any, data: any) => {
       if ('csv' === this.exportFmt) {
@@ -346,6 +357,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
           .subscribe(t => {
             this.notif.error(t);
           });
+        this.ll.hideLoader();
         return;
       }
 
@@ -363,6 +375,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         .subscribe(t => {
           this.notif.success(t);
         });
+      this.ll.hideLoader();
     };
     const data: any = null;
     if (dest === 'medias') {
@@ -385,10 +398,12 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         .subscribe(t => {
           this.notif.error(t);
         });
+      this.ll.hideLoader();
     }
   }
 
   processingImport(f: File, dest: string) {
+    this.ll.showLoader();
     const fileName = f.name;
     const reader: FileReader = new FileReader();
     reader.onload = e => {
@@ -566,6 +581,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         );
       } else {
         console.log('Unknow import dest : ', dest);
+        this.ll.hideLoader();
         return;
       }
       this.i18nService
@@ -578,14 +594,17 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
           console.log(t);
           this.notif.success(t);
         });
+      this.ll.hideLoader();
       // this.processDec(this.getFilePath(f));
     };
     reader.onabort = (ev: ProgressEvent) => {
       console.log('Aborting : ', f);
+      this.ll.hideLoader();
       // this.processDec(this.getFilePath(f));
     };
     reader.onerror = (ev: ProgressEvent) => {
       console.error('Error for : ', f);
+      this.ll.hideLoader();
       // this.processDec(this.getFilePath(f));
     };
     reader.readAsText(f);

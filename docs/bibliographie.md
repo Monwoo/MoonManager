@@ -462,6 +462,11 @@ Dev stuffs :
 * http://smallenvelop.com/display-loading-icon-page-loads-completely/
 * https://developer.mozilla.org/fr/docs/Web/CSS/pointer-events
 
+* https://stackoverflow.com/questions/49873312/access-dom-element-outside-of-angular-root-component
+* https://alligator.io/angular/using-renderer2/
+
+* https://stackoverflow.com/questions/44989666/service-no-provider-for-renderer2
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}

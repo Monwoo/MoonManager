@@ -18,6 +18,7 @@ import { MediasBufferService } from '../../services/medias-buffer.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { configDefaults } from './config-form.model';
 import { I18nService } from '@app/core';
+import { LoadingLoaderService } from '../../services/loading-loader.service';
 
 declare var CCapture: any;
 
@@ -170,6 +171,7 @@ export class TimingPivotComponent implements OnInit {
   @ViewChild('pivot_grid') pivot: ElementRef;
 
   constructor(
+    private ll: LoadingLoaderService,
     private currencyPipe: CurrencyPipe,
     private medias: MediasBufferService,
     private storage: LocalStorage,
@@ -302,7 +304,7 @@ export class TimingPivotComponent implements OnInit {
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>this.videoCanvas.nativeElement;
     // canvas.width = canvas.clientWidth; // Resize computed canvas size to browser client size
     // canvas.height = canvas.clientHeight;
-    if (this.config.lowRes) {
+    if (this.config && this.config.lowRes) {
       canvas.width = 400;
       canvas.height = 320;
     } else {
@@ -615,6 +617,7 @@ export class TimingPivotComponent implements OnInit {
   }
 
   exportsTimingsToVideoAsWebM() {
+    this.ll.showLoader();
     // CF source code of :
     // http://techslides.com/demos/image-video/create.html
     let self: TimingPivotComponent = this;
@@ -1005,6 +1008,7 @@ export class TimingPivotComponent implements OnInit {
       if (framePos == nbFrames) {
         capturer.stop();
         capturer.save();
+        this.ll.hideLoader();
       }
     };
   }

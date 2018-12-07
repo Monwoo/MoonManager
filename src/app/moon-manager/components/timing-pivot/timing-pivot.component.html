@@ -13,16 +13,16 @@
 
   <mat-card>
     <p>
-      <strong>{{ config.summaryTitle | translate }}</strong>
+      <strong>{{ config?.summaryTitle | translate }}</strong>
     </p>
     <div>
       <div>
-        <strong>{{ 'Nombre de jours facturés :' | translate }}</strong> {{ config.billedDays }}
-        {{ 'jours' | translate }} ({{ config.paidDays }} {{ 'jours payés' | translate }})
+        <strong>{{ 'Nombre de jours facturés :' | translate }}</strong> {{ config?.billedDays }}
+        {{ 'jours' | translate }} ({{ config?.paidDays }} {{ 'jours payés' | translate }})
       </div>
       <div>
-        <strong>{{ 'Nombre de jours compensés :' | translate }}</strong> {{ config.compensatedDays }}
-        {{ 'jours' | translate }} ({{ config.receivedDays }} {{ 'jours reçus' | translate }})
+        <strong>{{ 'Nombre de jours compensés :' | translate }}</strong> {{ config?.compensatedDays }}
+        {{ 'jours' | translate }} ({{ config?.receivedDays }} {{ 'jours reçus' | translate }})
       </div>
       <div>
         <strong>{{ 'Deltas horaire de segmentation :' | translate }}</strong>
@@ -96,10 +96,10 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowNode let-treeData="rowData">
-        <!-- tr [ngStyle]="{'font-weight': treeData.TreeIdx < config.agregationsFields.length - 1 ? 'bold' : ''}" -->
+        <!-- tr [ngStyle]="{'font-weight': treeData.TreeIdx < config?.agregationsFields.length - 1 ? 'bold' : ''}" -->
         <tr
           [ngClass]="
-            treeData.TreeIdx < config.agregationsFields.length - 1 ? ['summary-row', 'lvl-' + treeData.TreeIdx] : []
+            treeData.TreeIdx < config?.agregationsFields.length - 1 ? ['summary-row', 'lvl-' + treeData.TreeIdx] : []
           "
         >
           <td [ngStyle]="{ 'min-width.px': 150 }">

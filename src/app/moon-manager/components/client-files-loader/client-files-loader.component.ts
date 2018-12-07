@@ -14,6 +14,7 @@ import { MediasBufferService } from '../../services/medias-buffer.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { configDefaults } from './config-form.model';
 import { I18nService } from '@app/core';
+import { LoadingLoaderService } from '../../services/loading-loader.service';
 
 @Component({
   selector: 'moon-manager-client-files-loader',
@@ -42,16 +43,23 @@ export class ClientFilesLoaderComponent implements OnInit {
     // console.log('Will load : ', fname);
     this.processLength += step;
     this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
+    if (1 === this.processLength) {
+      this.ll.showLoader();
+    }
   }
   // Decrementing process number
   processDec(fname: string, step = 1) {
     // console.log('Did load : ', fname);
     this.processingCount += step;
     this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
+    if (1 === this.processLength) {
+      this.ll.hideLoader();
+    }
   }
 
   index: number = 0;
   constructor(
+    private ll: LoadingLoaderService,
     private storage: LocalStorage,
     private selfRef: ElementRef,
     private medias: MediasBufferService,
