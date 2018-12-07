@@ -163,12 +163,12 @@ a {
 
 // App succed to load, so no js error, css get injected.
 // No need to show compatibility view anymore
-.compatibility-review {
-  display: none;
-}
+// .compatibility-review {
+//   display: none;
+// }
 
-.loading-loader {
-  &.off {
-    display: none;
-  }
+// .loading-loader {
+// }
+.off {
+  display: none;
 }
