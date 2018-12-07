@@ -457,6 +457,10 @@
   dependencies:
     "@types/babel-types" "*"
 
+"@types/detect-browser@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/detect-browser/-/detect-browser-3.0.0.tgz#dcc5ab238f443e197257154c070c4e6b4961b2a9"
+
 "@types/jasmine@*":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.0.tgz#6b0e4b0192367d77e438ff660ccc4487c9602e7b"
@@ -2402,6 +2406,10 @@ des.js@^1.0.0:
 destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
+
+detect-browser@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-3.0.1.tgz#39beead014347a8a2be1f3c4cb30a0aef2127c44"
 
 detect-indent@^4.0.0:
   version "4.0.0"

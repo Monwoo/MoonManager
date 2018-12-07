@@ -10,8 +10,9 @@ export class LoadingLoaderService {
   renderer: Renderer2 = null;
   // discreteTimeout = 3000
 
-  constructor(private rendererFactory: RendererFactory2) // @Inject(DOCUMENT) private document,
-  {
+  constructor(
+    private rendererFactory: RendererFactory2 // @Inject(DOCUMENT) private document,
+  ) {
     this.renderer = rendererFactory.createRenderer(null, null);
     this._ll = document.querySelector('.loading-loader');
     // this.renderer.listen(ll, 'click', console.log);

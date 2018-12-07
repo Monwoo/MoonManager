@@ -30,8 +30,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     BrowserAnimationsModule,
     TranslateModule,
     SimpleNotificationsModule.forRoot({
-      timeOut: 2000,
-      showProgressBar: true,
+      timeOut: 3000,
+      showProgressBar: false,
       pauseOnHover: true,
       clickToClose: true
     }),

@@ -31,6 +31,8 @@ import * as moment from 'moment';
 import { Papa } from 'ngx-papaparse';
 import { shallowMerge } from '../../tools';
 import { Logger } from '@app/core/logger.service';
+import { detect } from 'detect-browser';
+
 // import { parse as parseJSON, stringify as stringifyJSON } from 'flatted';
 // import * as YAML from 'yamljs';
 // import { stringify as stringifyYAML, parse as parseYAML } from 'yamljs';
@@ -99,6 +101,8 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   };
 
   public config: any = null;
+  private browser: any = null;
+  public configWarning: string = '';
 
   constructor(
     private ll: LoadingLoaderService,
@@ -217,6 +221,45 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit() {
+    this.browser = detect();
+    if (this.browser) {
+      console.log(this.browser.name);
+      console.log(this.browser.version);
+      console.log(this.browser.os);
+      const testedName = 'chrome';
+      const testedMajorVersion = '71';
+      const majorVersion = this.browser.version.split('.')[0];
+
+      if (this.browser.name !== testedName || parseInt(testedMajorVersion) > parseInt(majorVersion)) {
+        this.i18nService
+          .get(extract('mm.param.configWarning.notTestedBrowser'), {
+            name: this.browser.name,
+            version: majorVersion,
+            testedName: testedName,
+            testedVersion: testedMajorVersion
+          })
+          .subscribe(t => {
+            this.notif.warn('WebBrowser', t, {
+              timeOut: 6000
+            });
+          });
+      }
+    }
+    // switch (this.browser && this.browser.name) {
+    //   case 'chrome':
+    //     console.log('supported');
+    //   // case 'firefox':
+    //   //   console.log('supported');
+    //   //   break;
+
+    //   // case 'edge':
+    //   //   console.log('kinda ok');
+    //   //   break;
+
+    //   default:
+    //     console.log('not supported');
+    // }
+
     this.updateConfigForm();
     this.i18nService.onLangChange.subscribe((event: LangChangeEvent) => {
       this.updateConfigForm();

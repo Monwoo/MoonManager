@@ -106,6 +106,7 @@
   "les jours inférieur ou égual à 1 heure": "les jours inférieurs ou éguaux à 1 heure",
   "les jours inférieur ou égual à 5 heures": "les jours inférieurs ou éguaux à 5 heures",
   "mm.featureInProgress.mediasImportExport": "Import/export des médias en cours de développement... Non sauvegardable ni exportable actuellement.",
+  "mm.param.configWarning.notTestedBrowser": "Votre ({{name}})[{{version}}] n'est pas forcément au même point que ({{testedName}})[{{testedVersion}}] pour ce MoonManager",
   "mm.param.error.incompatibleFile": "{{dest}} : Incompatible",
   "mm.param.export.fmt.csv": "C.S.V.",
   "mm.param.export.fmt.json": "J.S.O.N.",

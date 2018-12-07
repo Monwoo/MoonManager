@@ -467,6 +467,8 @@ Dev stuffs :
 
 * https://stackoverflow.com/questions/44989666/service-no-provider-for-renderer2
 
+* https://www.npmjs.com/package/detect-browser
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
@@ -481,7 +483,7 @@ Dev stuffs :
 yarn add @ngx-translate/i18n-polyfill @ngx-translate/http-loader
 yarn add @angular-mdc/web angular/material hammerjs @angular/animations
 yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
-yarn add yamljs @types/yamljs flatted
+yarn add yamljs @types/yamljs flatted detect-browser @types/detect-browser
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer webp-hero
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
 yarn add angular2-notifications lodash-es @types/lodash-es
