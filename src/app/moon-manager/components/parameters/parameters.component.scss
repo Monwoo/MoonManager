@@ -1,4 +1,6 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
+@import "src/theme/theme-variables";
+
 .story {
   text-align: center;
 
@@ -79,15 +81,73 @@
   }
 }
 
-pre {
-  white-space: pre-wrap; /* Since CSS 2.1 */
-  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-  white-space: -pre-wrap; /* Opera 4-6 */
-  white-space: -o-pre-wrap; /* Opera 7 */
-  word-wrap: break-word; /* Internet Explorer 5.5+ */
-  font-size: 14px;
+.git-exp-cmd {
+  &:hover {
+    color: $indicatorGreen;
+    animation: bounce 1s; /*infinite;*/
+    -webkit-transform: scale(0.98);
+    -ms-transform: scale(0.98);
+    transform: scale(0.98);
+  }
+
+  pre {
+    white-space: pre-wrap; /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    font-size: 14px;
+    color: inherit;
+  }
 }
-::ng-deep .mat-card-avatar {
-  height: auto;
-  width: auto;
+
+:host ::ng-deep {
+  .mat-card-avatar {
+    height: auto;
+    width: auto;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-form-field-label-wrapper {
+    font-size: 14pt;
+  }
+}
+
+@keyframes bounce {
+  // 0%, 30% {
+  // 	-webkit-transform: scale(1.02);
+  // 	-ms-transform:     scale(1.02);
+  // 	transform:         scale(1.02);
+  // }
+  50%,
+  100% {
+    -webkit-transform: scale(0.98);
+    -ms-transform: scale(0.98);
+    transform: scale(0.98);
+  }
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+  // 40%, 100%, 20%, 50%, 80% {
+  // 10%, 20% {
+  // 	-webkit-transform: translateY(-10px);
+  // 	-ms-transform:     translateY(-10px);
+  // 	transform:         translateY(-10px)
+  // }
+  // 0%, 30% {
+  // 	-webkit-transform: translateY(-7px);
+  // 	-ms-transform:     translateY(-7px);
+  // 	transform:         translateY(-7px)
+  // }
+  // 40%, 100% {
+  //   -webkit-transform: translateY(0);
+  // 	-ms-transform:     translateY(0);
+  // 	transform:         translateY(0)
+  // }
 }

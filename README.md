@@ -242,6 +242,9 @@ bon, voilà, en mode bitMap là, à placer des points sur la carte. Va falloir p
 
 - https://www.linternaute.fr/dictionnaire/fr/definition/untel/
 
+- http://www.developerdrive.com/2015/01/8-simple-css-hover-effects/
+- https://codepen.io/halink0803/pen/qdVXqm
+
 </details>
 
 ---
