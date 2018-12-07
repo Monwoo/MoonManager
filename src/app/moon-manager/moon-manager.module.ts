@@ -36,6 +36,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 
 import { TreeTableModule } from 'primeng/treetable';
 import { PanelModule } from 'primeng/panel';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { MoonManagerRoutingModule } from './moon-manager-routing.module';
 import { BodyComponent } from './components/body/body.component';
@@ -106,6 +107,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MatProgressBarModule,
     MatGridListModule,
     MatExpansionModule,
+    ClipboardModule,
     DynamicFormsCoreModule,
     DynamicFormsMaterialUIModule,
     ScrollingModule,

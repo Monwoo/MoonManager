@@ -74,6 +74,7 @@
     "lodash": "^4.17.10",
     "lodash-es": "^4.17.11",
     "moment": "^2.22.2",
+    "ngx-clipboard": "^11.1.9",
     "ngx-dropzone-wrapper": "^7.1.0",
     "ngx-papaparse": "3",
     "ngx-quill": "^4.3.0",

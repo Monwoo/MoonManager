@@ -32,6 +32,7 @@ import { Papa } from 'ngx-papaparse';
 import { shallowMerge } from '../../tools';
 import { Logger } from '@app/core/logger.service';
 import { detect } from 'detect-browser';
+import { ClipboardService } from 'ngx-clipboard';
 
 // import { parse as parseJSON, stringify as stringifyJSON } from 'flatted';
 // import * as YAML from 'yamljs';
@@ -114,7 +115,8 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
     private notif: NotificationsService,
     private formService: DynamicFormService,
     private papaParse: Papa,
-    public i18n: I18n
+    public i18n: I18n,
+    private clipboard: ClipboardService
   ) {
     // // Request Quota (only for File System API)
     // var requestedBytes = 1024*1024*1000; // 10MB
@@ -662,5 +664,12 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       .subscribe(t => {
         this.notif.error(t);
       });
+  }
+
+  cmdToCopy: string = `git log --all --date=iso --pretty=format:'"%h","%an","%ad","%s"' > git_logs.csv`;
+  onSuccedToCopyCmd(e: any) {
+    this.i18nService.get(extract('mm.param.tuto.gitCmd.copySucced')).subscribe(t => {
+      this.notif.success(t);
+    });
   }
 }

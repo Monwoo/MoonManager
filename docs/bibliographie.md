@@ -469,6 +469,13 @@ Dev stuffs :
 
 * https://www.npmjs.com/package/detect-browser
 
+* https://www.npmjs.com/package/ngclipboard
+* https://stackoverflow.com/questions/49102724/angular-5-copy-to-clipboard
+* https://stackblitz.com/edit/angular-6-copy-to-clipboard
+
+* https://github.com/maxisam/ngx-progressive-image-loader
+* https://github.com/maxisam/ngx-clipboard
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
@@ -486,7 +493,7 @@ yarn add '@angular/cdk' '@angular/material' angular-calendar date-fns
 yarn add yamljs @types/yamljs flatted detect-browser @types/detect-browser
 yarn add ccapture.js chart.js fullcalendar gif.js moment webm-writer webp-hero
 yarn add primeng primeicons ngx-dropzone-wrapper @ngx-pwa/local-storage@7
-yarn add angular2-notifications lodash-es @types/lodash-es
+yarn add angular2-notifications lodash-es @types/lodash-es ngx-clipboard
 yarn add ngx-quill primeflex @angular/flex-layout ngx-papaparse@3
 # yarn add angular-formio @angular/cdk-experimental
 yarn add @ng-dynamic-forms/core @ng-dynamic-forms/ui-material angular2-text-mask
