@@ -372,6 +372,14 @@
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-material/-/ui-material-7.0.1.tgz#870817a2d4e4ec17b29df28533f2bc7486bf8c7d"
 
+"@ngrx/effects@^6.1.2":
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-6.1.2.tgz#602f3ee9798e00179075ddef030ded88c28b1aa1"
+
+"@ngrx/store@^6.1.2":
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-6.1.2.tgz#20fb5ab4d79571b804a348093aa11a167fe2946f"
+
 "@ngtools/webpack@7.0.6":
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-7.0.6.tgz#cc4f4189765f6743417b4eee946fb69590f93ce1"

@@ -479,6 +479,9 @@ Dev stuffs :
 
 * https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv
 
+* https://ngrx.io/guide/migration/v7
+* https://ngrx.io/guide/store/reducers
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
@@ -500,7 +503,7 @@ yarn add angular2-notifications lodash-es @types/lodash-es ngx-clipboard
 yarn add ngx-quill primeflex @angular/flex-layout ngx-papaparse@3
 # yarn add angular-formio @angular/cdk-experimental
 yarn add @ng-dynamic-forms/core @ng-dynamic-forms/ui-material angular2-text-mask
-yarn add aframe
+yarn add aframe @ngrx/store @ngrx/effects
 # yarn add angular-aframe-pipe
 # angular2-logger may be used if src/app/core/logger.service.ts is not enought (log call statck for débug ??)
 ```

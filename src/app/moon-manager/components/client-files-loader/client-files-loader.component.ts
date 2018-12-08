@@ -11,6 +11,7 @@ import { extract } from '@app/core';
 
 import { Timing } from '../../api/data-model/timing';
 import { MediasBufferService } from '../../services/medias-buffer.service';
+import { TimingsBufferService } from '../../services/timings-buffer.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { configDefaults } from './config-form.model';
 import { I18nService } from '@app/core';
@@ -38,6 +39,10 @@ export class ClientFilesLoaderComponent implements OnInit {
   public processingCount: number = 0;
   public processLength: number = 0;
 
+  private loadedTimings: Timing[] = new Array();
+  private bulkSize: number = 200; // Number of bulk items to start to emit timings, 0 to cache all
+  private bulkCount: number = 0;
+
   // Incrementing process number
   processInc(fname: string, step = 1) {
     // console.log('Will load : ', fname);
@@ -45,6 +50,7 @@ export class ClientFilesLoaderComponent implements OnInit {
       this.processLength += step;
       this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
       if (this.processingCount !== this.processLength) {
+        // this.loadedTimings = [];
         this.ll.showLoader();
       }
     });
@@ -55,7 +61,15 @@ export class ClientFilesLoaderComponent implements OnInit {
     this.ngZone.run(() => {
       this.processingCount += step;
       this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
+
+      if (this.loadedTimings.length - this.bulkCount > this.bulkSize) {
+        this.onTimingsFetch.emit(this.loadedTimings);
+        this.bulkCount = this.loadedTimings.length;
+      }
+
       if (this.processingCount === this.processLength) {
+        this.onTimingsFetch.emit(this.loadedTimings);
+        // this.loadedTimings = [];
         this.ll.hideLoader();
       }
     });
@@ -68,6 +82,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     private storage: LocalStorage,
     private selfRef: ElementRef,
     private medias: MediasBufferService,
+    private timings: TimingsBufferService,
     private papaParse: Papa,
     public i18nService: I18nService,
     public i18n: I18n // TODO : singleton or other default injection ? hard to put it in every components...
@@ -172,7 +187,8 @@ export class ClientFilesLoaderComponent implements OnInit {
       console.log('TODO : process git log datas : ', parsed.data.length);
       // TODO : scheme checking ? what if bad format ?
       // this.processInc(null, parsed.data.length);
-      this.onTimingsFetch.emit(
+      // this.onTimingsFetch.emit(
+      this.loadedTimings = this.loadedTimings.concat(
         parsed.data.map((row: string[]) => {
           this.processInc(null);
           let t = new Timing();
@@ -293,7 +309,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.Price = 0;
     t.isHidden = false;
 
-    this.onTimingsFetch.emit([t]);
+    this.loadedTimings.push(t);
     this.processDec(this.getFilePath(f));
   }
 

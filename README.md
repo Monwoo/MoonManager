@@ -147,6 +147,11 @@ git log --all --date=iso --pretty=format:'"%h","%an","%ad","%s"' > git_logs.csv
 
 # translit file for Microsoft Windows format if exported from Unix os :
 iconv -f utf-8 -t iso-8859-1//TRANSLIT git_logs.csv > git_logs-ISO8859-1.csv
+
+# If you have " in your commits comment, detect them with regex (fix it before import):
+grep -nrvE ',"[^"]+"$' git_logs.csv
+
+
 <<COMMENT
 To overwrite defaults computing on base scheme,
 you can extend previouly generated model of those 5 optionnals columns :

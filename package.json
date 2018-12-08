@@ -47,6 +47,8 @@
     "@ng-bootstrap/ng-bootstrap": "^3.3.0",
     "@ng-dynamic-forms/core": "^7.0.1",
     "@ng-dynamic-forms/ui-material": "^7.0.1",
+    "@ngrx/effects": "^6.1.2",
+    "@ngrx/store": "^6.1.2",
     "@ngx-pwa/local-storage": "7",
     "@ngx-translate/core": "^10.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
