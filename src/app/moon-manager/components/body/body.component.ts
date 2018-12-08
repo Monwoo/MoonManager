@@ -10,7 +10,7 @@ import { Timing } from '../../api/data-model/timing';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 import { I18nService } from '@app/core';
 import { ConfigType, configDefaults } from '../../services/config-form.model';
-import { TimingsBufferService } from '@app/moon-manager/services/timings-buffer.service';
+import { TimingsBufferService, TimingStateType } from '@app/moon-manager/services/timings-buffer.service';
 import { LoadingLoaderService } from '../../services/loading-loader.service';
 
 @Component({
@@ -75,6 +75,12 @@ export class BodyComponent implements OnInit {
 
   ngOnInit() {
     this.ll.hideLoader();
+    // TODO : seem to go in subscribe only on first call
+    // Why not going there when Actions are changing states ??
+
+    this.timings.timingState.subscribe((ts: TimingStateType) => {
+      this.didFetchTiming(ts.datas);
+    });
   }
 
   async didFetchTiming(t: Timing[]) {
