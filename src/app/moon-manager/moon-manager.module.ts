@@ -38,7 +38,9 @@ import { TreeTableModule } from 'primeng/treetable';
 import { PanelModule } from 'primeng/panel';
 import { ClipboardModule } from 'ngx-clipboard';
 import { StoreModule } from '@ngrx/store';
-import { timingsReducer, metaReducers } from './services/timings-buffer.service';
+import { timingsReducer } from './services/timings-buffer.service';
+import { mediasReducer } from './services/medias-buffer.service';
+import { metaReducers } from './services/meta-reducers';
 
 import { MoonManagerRoutingModule } from './moon-manager-routing.module';
 import { BodyComponent } from './components/body/body.component';
@@ -87,7 +89,13 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     CommonModule,
     BrowserAnimationsModule,
     TranslateModule,
-    StoreModule.forRoot({ timings: timingsReducer }, { metaReducers }),
+    StoreModule.forRoot(
+      {
+        timings: timingsReducer,
+        medias: mediasReducer
+      },
+      { metaReducers }
+    ),
     // NoopAnimationsModule,
     MoonManagerRoutingModule,
     PapaParseModule,

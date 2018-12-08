@@ -2,21 +2,21 @@
 import { Action } from '@ngrx/store';
 import { Timing } from '../api/data-model/timing';
 
-export enum ActionTypes {
+export enum TimingsActionTypes {
   SetTimings = '[TimingsBuffer Service] SetTimings',
   AddTimings = '[TimingsBuffer Service] AddTimings'
 }
 
 export class SetTimings implements Action {
-  readonly type = ActionTypes.SetTimings;
+  readonly type = TimingsActionTypes.SetTimings;
 
   constructor(public timings: Timing[]) {}
 }
 
 export class AddTimings implements Action {
-  readonly type = ActionTypes.AddTimings;
+  readonly type = TimingsActionTypes.AddTimings;
 
   constructor(public timings: Timing[]) {}
 }
 
-export type ActionsUnion = SetTimings | AddTimings;
+export type TimingsActionsUnion = SetTimings | AddTimings;

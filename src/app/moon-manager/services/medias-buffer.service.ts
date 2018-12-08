@@ -4,6 +4,41 @@ import { Injectable } from '@angular/core';
 import { I18nService } from '@app/core';
 import { ConfigType, configDefaults } from './config-form.model';
 import { LocalStorage } from '@ngx-pwa/local-storage';
+
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { MediasActionTypes, MediasActionsUnion, SetMedias, AddMedias } from './medias-buffer.actions';
+
+export type Media = {
+  index: string; // Used to target media from html templates
+  dataUrl: string; // Used to display image data (Huges strings...)
+  pathLookup: string; // Used to avoid reloadings of loaded path (optim purpose)
+};
+
+export type StateType = {
+  data: Media[];
+  lookups: Map<string, number>;
+};
+
+export const initialState: StateType = {
+  data: [],
+  lookups: new Map()
+};
+
+export function mediasReducer(state = initialState, action: MediasActionsUnion) {
+  switch (action.type) {
+    case MediasActionTypes.SetMedias: {
+      state.data = action.medias;
+    }
+    case MediasActionTypes.AddMedias: {
+      state.data = state.data.concat(action.medias);
+    }
+    default: {
+    }
+  }
+  return state;
+}
+
 // TODO : find polyfill lib for webworkers caches :
 // https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/cache-api
 // const cacheAvailable = 'caches' in window;

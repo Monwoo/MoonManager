@@ -2,9 +2,9 @@
 import { Injectable } from '@angular/core';
 import { Timing } from '../api/data-model/timing';
 
-import { Store, select, ActionReducer, MetaReducer } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ActionTypes, ActionsUnion, SetTimings, AddTimings } from './timings-buffer.actions';
+import { TimingsActionTypes, TimingsActionsUnion, SetTimings, AddTimings } from './timings-buffer.actions';
 
 // import { Effect, Actions, ofType } from '@ngrx/effects'; // import ofType operator
 // // https://ngrx.io/guide/migration/v7
@@ -26,12 +26,12 @@ export const initialState: StateType = {
   data: []
 };
 
-export function timingsReducer(state = initialState, action: ActionsUnion) {
+export function timingsReducer(state = initialState, action: TimingsActionsUnion) {
   switch (action.type) {
-    case ActionTypes.SetTimings: {
+    case TimingsActionTypes.SetTimings: {
       state.data = action.timings;
     }
-    case ActionTypes.AddTimings: {
+    case TimingsActionTypes.AddTimings: {
       state.data = state.data.concat(action.timings);
     }
     default: {
@@ -39,19 +39,6 @@ export function timingsReducer(state = initialState, action: ActionsUnion) {
   }
   return state;
 }
-
-export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
-  return function(state, action) {
-    console.log('state', state);
-    console.log('action', action);
-
-    return reducer(state, action);
-  };
-}
-// Midelware list for Actions system
-// https://ngrx.io/guide/store/metareducers
-// https://ngrx.io/guide/store/recipes/injecting
-export const metaReducers: MetaReducer<any>[] = [debug];
 
 @Injectable({
   providedIn: 'root'
