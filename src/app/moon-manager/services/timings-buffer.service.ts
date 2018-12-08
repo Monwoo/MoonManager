@@ -57,18 +57,31 @@ export class TimingsBufferService {
   timingState: Observable<TimingStateType>;
   bulk: Timing[] = [];
 
+  // TODO : Transforming with
+  // timingState.toPromise() may not fetch item...
+  // Maybe since the call is made after the subscribe of another
+  // component ??? => no pending data, so promise keep infinity ?? Strange...
+  // Maybe I did miss somthing in the actual code...
+  // No time to check what for now, backing up to local save :
+  hackyCurrentStore: TimingStateType = initialState;
+
   constructor(private store: Store<{ timings: Timing[] }>) {
     this.timingState = store.pipe(select('timings'));
+    this.timingState.subscribe(newStore => {
+      this.hackyCurrentStore = newStore;
+    });
   }
 
   async hasChanges() {
-    return (await this.timingState.toPromise()).datas.length > 0;
+    // return (await this.timingState.toPromise()).datas.length > 0;
+    return this.hackyCurrentStore.datas.length > 0;
   }
 
   // Will return a Copy of timings, modification to this array may not change source...
   async get() {
-    return (await this.timingState.toPromise()).datas;
     // return this.timingState.toPromise();
+    // return (await this.timingState.toPromise()).datas;
+    return this.hackyCurrentStore.datas;
   }
 
   // async exist(query:Timing)

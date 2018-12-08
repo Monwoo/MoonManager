@@ -77,6 +77,14 @@ export class MediasBufferService {
 
   bulk: Media[] = [];
 
+  // TODO : Transforming with
+  // timingState.toPromise() may not fetch item...
+  // Maybe since the call is made after the subscribe of another
+  // component ??? => no pending data, so promise keep infinity ?? Strange...
+  // Maybe I did miss somthing in the actual code...
+  // No time to check what for now, backing up to local save :
+  hackyCurrentStore: MediaStateType = initialState;
+
   // TODO : allow save option for local storage, to let user found back previously proceed medias...
   constructor(
     private store: Store<{ medias: MediaStateType }>,
@@ -84,6 +92,9 @@ export class MediasBufferService {
     public i18nService: I18nService
   ) {
     this.mediaState = this.store.pipe(select('medias'));
+    this.mediaState.subscribe(newStore => {
+      this.hackyCurrentStore = newStore;
+    });
     this.refreshSettings();
   }
 
@@ -233,7 +244,8 @@ export class MediasBufferService {
   }
 
   async hasLookup(lookupPath: string) {
-    const ms = await this.mediaState.toPromise();
+    // const ms = await this.mediaState.toPromise();
+    const ms = this.hackyCurrentStore;
     return ms.lookups.has(lookupPath);
   }
 
@@ -251,17 +263,20 @@ export class MediasBufferService {
     //   }
     //   await this.mediaCache.match(index);
     // } else {
-    return (await this.mediaState.toPromise()).datas.get(index);
+
+    // return (await this.mediaState.toPromise()).datas.get(index);
+    return this.hackyCurrentStore.datas.get(index);
   }
 
   async hasChanges() {
-    // TODO : async way if comes up to it with improved localSorage or remoteStorage system
-    return (await this.mediaState.toPromise()).datas.size > 0;
+    // return (await this.mediaState.toPromise()).datas.size > 0;
+    return this.hackyCurrentStore.lookups.size > 0;
   }
 
   async toArray() {
     // return this.dataUrls.entries(); // return MapIterable, not array...
-    const ms: MediaStateType = await this.mediaState.toPromise();
+    // const ms: MediaStateType = await this.mediaState.toPromise();
+    const ms = this.hackyCurrentStore;
     return [...ms.lookups].map(t => {
       return t.concat([ms.datas.get(t[1])]);
     });
@@ -269,6 +284,7 @@ export class MediasBufferService {
 
   // Will return a Copy of states, modification to this array may not change source...
   async get() {
-    return await this.mediaState.toPromise();
+    // return await this.mediaState.toPromise();
+    return this.hackyCurrentStore;
   }
 }

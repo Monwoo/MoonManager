@@ -25,6 +25,7 @@ import { LoadingLoaderService } from '../../services/loading-loader.service';
   // ],
 })
 export class BodyComponent implements OnInit {
+  hasTimings: boolean = false;
   private config: ConfigType = null;
   public pendingFilteredDatas: Timing[] = [];
   // public filteredDatas: Timing[] = [];
@@ -84,6 +85,7 @@ export class BodyComponent implements OnInit {
   }
 
   async didFetchTiming(t: Timing[]) {
+    this.hasTimings = t.length > 0;
     // console.log('Did fetch : ', t);
     let index = null;
     if (!this.config) {
