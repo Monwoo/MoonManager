@@ -488,6 +488,10 @@ Dev stuffs :
 * https://stackoverflow.com/questions/46098421/ngrx-store-subscription-not-called-when-state-changes
 * https://gist.github.com/btroncone/a6e4347326749f938510
 
+* https://medium.com/@benlesh/rxjs-observable-interop-with-promises-and-async-await-bebb05306875
+* https://www.thisdot.co/rx-workshop
+* https://medium.com/@balramchavan/using-async-await-feature-in-angular-587dd56fdc77
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
