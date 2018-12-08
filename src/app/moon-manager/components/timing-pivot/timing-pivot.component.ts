@@ -278,16 +278,16 @@ export class TimingPivotComponent implements OnInit {
     Object.keys(this.indicatorAssets).forEach(k => {
       let asset = this.indicatorAssets[k];
       var reader = new FileReader();
-      reader.onload = function(event: any) {
+      reader.onload = (event: any) => {
         var dataUri = event.target.result;
         var img = new Image();
-        img.onload = function() {
+        img.onload = () => {
           asset.img = img;
           console.log('Asset loaded : ', asset.url);
         };
         img.src = dataUri;
       };
-      reader.onerror = function(event: any) {
+      reader.onerror = (event: any) => {
         console.error('File could not be read! Code ' + event.target.error.code);
       };
       this.http.get(asset.url, { responseType: 'blob' }).subscribe((blob: Blob) => {
@@ -644,30 +644,6 @@ export class TimingPivotComponent implements OnInit {
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>this.videoCanvas.nativeElement;
     let context: CanvasRenderingContext2D = this.videoCtx; // TODO from elts ref.
 
-    // frames.forEach((f, idx) => {
-    //   process(f, idx);
-    // });
-    let loopFrames = (idx: number) => {
-      let f = frames[idx];
-      if (stackDelayFrame > 0) {
-        // TODO : rebuild with promise system : some process is Async, waiting for download
-        // keep wating for the asked delayed frames
-        --stackDelayFrame;
-        capturer.capture(canvas);
-      } else {
-        // process and get to next frame
-        process(f, idx);
-        ++idx;
-      }
-      if (idx < frames.length) {
-        //console.log('Will delay next loop');
-        // TODO : solve too much call issue ? delay for now...
-        this.computeDelay(computeDelayMs, () => {
-          loopFrames(idx);
-        }); //.then(()=>{console.log('Delay OK')});
-      }
-    };
-
     let clearScreen = () => {
       // TODO
       context.save(); // state pushed onto stack.
@@ -676,11 +652,19 @@ export class TimingPivotComponent implements OnInit {
       context.restore(); // state popped from stack, and set on 2D Context.
     };
 
-    clearScreen();
-    capturer.start();
-    loopFrames(0);
+    let finalizeFrame = (framePos: number, nbFrames: number) => {
+      //check if its ready
+      // self.videoLoadPercent = Math.floor((100 * framePos) / nbFrames);
+      self.videoLoadPercent = (100 * framePos) / nbFrames;
+      console.log('Pivot Finalise Frames :', framePos, nbFrames);
+      if (framePos == nbFrames) {
+        capturer.stop();
+        capturer.save();
+        this.ll.hideLoader();
+      }
+    };
 
-    function process(frame: Timing, frameIndex: number) {
+    let process = (frame: Timing, frameIndex: number) => {
       let file = frame.MediaUrl;
       if ('capture' !== frame.EventSource || typeof frame.MediaUrl !== 'string') {
         // It's unknonw Frame : TODO : show to end user...
@@ -722,7 +706,7 @@ export class TimingPivotComponent implements OnInit {
       var img = new Image();
 
       //load image and drop into canvas
-      img.onload = function() {
+      img.onload = () => {
         let drawInfos = () => {
           let deltaHeight = self.config.lowRes ? 18 : 35;
           let fillHeight = self.config.lowRes ? 10 : 20;
@@ -998,19 +982,35 @@ export class TimingPivotComponent implements OnInit {
       //     console.error('Fail to import frame : ', file);
       //   }
       // });
-    }
+    };
 
-    let finalizeFrame = (framePos: number, nbFrames: number) => {
-      //check if its ready
-      // self.videoLoadPercent = Math.floor((100 * framePos) / nbFrames);
-      self.videoLoadPercent = (100 * framePos) / nbFrames;
-      console.log('Pivot Finalise Frames :', framePos, nbFrames);
-      if (framePos == nbFrames) {
-        capturer.stop();
-        capturer.save();
-        this.ll.hideLoader();
+    // frames.forEach((f, idx) => {
+    //   process(f, idx);
+    // });
+    let loopFrames = (idx: number) => {
+      let f = frames[idx];
+      if (stackDelayFrame > 0) {
+        // TODO : rebuild with promise system : some process is Async, waiting for download
+        // keep wating for the asked delayed frames
+        --stackDelayFrame;
+        capturer.capture(canvas);
+      } else {
+        // process and get to next frame
+        process(f, idx);
+        ++idx;
+      }
+      if (idx < frames.length) {
+        //console.log('Will delay next loop');
+        // TODO : solve too much call issue ? delay for now...
+        this.computeDelay(computeDelayMs, () => {
+          loopFrames(idx);
+        }); //.then(()=>{console.log('Delay OK')});
       }
     };
+
+    clearScreen();
+    capturer.start();
+    loopFrames(0);
   }
 
   downloadTimingsVideo() {

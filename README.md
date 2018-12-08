@@ -152,6 +152,22 @@ iconv -f utf-8 -t iso-8859-1//TRANSLIT git_logs.csv > git_logs-ISO8859-1.csv
 grep -nrvE ',"[^"]+"$' git_logs.csv
 
 
+# If you generate huge timings, you may download medias files over 250Mb upload limit
+# So if you did chose CSV export, solution is to split the dataset :
+# First : get file number of lines in first column of 'wc' output :
+cat medias-20181208153211.csv | wc
+# Then split numbers of line proportionnaly to file size... :
+# number computed by head from previous cmd : 2495 lines for 550 Mo
+split -l 831 medias-20181208153211.csv medias-
+
+# If you don't care about keeping the lines :
+# For some MacOs Split :
+split -b 200m medias-20181208153211.csv medias-
+# For some version of split :
+split -C 200m --numeric-suffixes medias-20181208153211.csv medias-
+# With split ≥ 8.16
+split -C 200m --additional-suffix=.csv --numeric-suffixes medias-20181208153211.csv medias-
+
 <<COMMENT
 To overwrite defaults computing on base scheme,
 you can extend previouly generated model of those 5 optionnals columns :

@@ -1,10 +1,18 @@
 // Copyright Monwoo 2018, made by Miguel Monwoo, service@monwoo.com
 import { ActionReducer, MetaReducer } from '@ngrx/store';
+import { environment } from '@env/environment';
+import { Logger, I18nService } from '@app/core';
+
+const log = new Logger('MetaReducers');
+
+// if (environment.production) {
+//   log.level ??;
+// }
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function(state, action) {
-    console.log('state', state);
-    console.log('action', action);
+    log.debug('state', state);
+    log.debug('action', action);
 
     return reducer(state, action);
   };

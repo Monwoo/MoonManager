@@ -492,6 +492,10 @@ Dev stuffs :
 * https://www.thisdot.co/rx-workshop
 * https://medium.com/@balramchavan/using-async-await-feature-in-angular-587dd56fdc77
 
+* https://unix.stackexchange.com/questions/32626/split-a-file-by-line-and-have-control-over-resulting-files-extension/74166
+* https://stackoverflow.com/questions/2016894/how-to-split-a-large-text-file-into-smaller-files-with-equal-number-of-lines
+*
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
