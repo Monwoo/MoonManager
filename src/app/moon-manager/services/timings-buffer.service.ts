@@ -4,7 +4,7 @@ import { Timing } from '../api/data-model/timing';
 
 import { Store, select, ActionReducer, MetaReducer } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ActionTypes, ActionsUnion, SetTimings } from './timings-buffer.actions';
+import { ActionTypes, ActionsUnion, SetTimings, AddTimings } from './timings-buffer.actions';
 
 // import { Effect, Actions, ofType } from '@ngrx/effects'; // import ofType operator
 // // https://ngrx.io/guide/migration/v7
@@ -31,6 +31,9 @@ export function timingsReducer(state = initialState, action: ActionsUnion) {
     case ActionTypes.SetTimings: {
       state.data = action.timings;
     }
+    case ActionTypes.AddTimings: {
+      state.data = state.data.concat(action.timings);
+    }
     default: {
     }
   }
@@ -55,6 +58,7 @@ export const metaReducers: MetaReducer<any>[] = [debug];
 })
 export class TimingsBufferService {
   dataTimings: Observable<Timing[]>;
+  bulk: Timing[] = [];
 
   constructor(private store: Store<{ timings: Timing[] }>) {
     this.dataTimings = store.pipe(select('timings'));
@@ -64,8 +68,27 @@ export class TimingsBufferService {
     return (await this.dataTimings.toPromise()).length > 0;
   }
 
+  // Will return a Copy of timings, modification to this array may not change source...
   async get() {
+    return await this.dataTimings.toPromise();
+  }
+
+  // async exist(query:Timing)
+
+  // Insert timings with default bulk submit when size goese over bulkAfter value
+  async addBulk(datas: Timing[], bulkAfter = 200) {
+    this.bulk = this.bulk.concat(datas);
+    if (this.bulk.length > bulkAfter) {
+      this.store.dispatch(new AddTimings(this.bulk));
+      this.bulk = [];
+    }
     return await this.dataTimings;
+  }
+
+  // Will submit pending bulk if some data is pending
+  async finalizeBulks() {
+    this.store.dispatch(new AddTimings(this.bulk));
+    this.bulk = [];
   }
 
   async set(datas: Timing[]) {

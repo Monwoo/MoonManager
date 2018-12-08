@@ -447,8 +447,10 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
       //   exportData(msArr);
       // });
     } else if ((dest = 'timings')) {
-      const timingsSrc = this.timings.get();
-      exportData(timingsSrc, timingsSrc.map(t => Object.keys(t).map(k => t[k])));
+      (async () => {
+        const timingsSrc = await this.timings.get();
+        exportData(timingsSrc, timingsSrc.map(t => Object.keys(t).map(k => t[k])));
+      })();
       // this.storage.getItem<any>('timings', {}).subscribe((msArr: any) => {
       //   exportData(msArr);
       // });
@@ -590,7 +592,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
               t[k] = row[idx];
             }
           });
-          this.timings.get().push(t);
+          this.timings.addBulk([t]);
         });
       } else if (dest === 'timings' && fileName.match(/.*\.json$/i)) {
         const jsonData = JSON.parse(dataStr);

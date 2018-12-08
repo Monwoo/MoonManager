@@ -3,17 +3,20 @@ import { Action } from '@ngrx/store';
 import { Timing } from '../api/data-model/timing';
 
 export enum ActionTypes {
-  SetTimings = '[TimingsBuffer Service] SetTimings'
-  // ResetTimings = '[TimingsBuffer Service] ResetTimings',
+  SetTimings = '[TimingsBuffer Service] SetTimings',
+  AddTimings = '[TimingsBuffer Service] AddTimings'
 }
+
 export class SetTimings implements Action {
   readonly type = ActionTypes.SetTimings;
 
   constructor(public timings: Timing[]) {}
 }
 
-// export class ResetTimings implements Action {
-//   readonly type = ActionTypes.ResetTimings;
-// }
+export class AddTimings implements Action {
+  readonly type = ActionTypes.AddTimings;
 
-export type ActionsUnion = SetTimings; // | ResetTimings;
+  constructor(public timings: Timing[]) {}
+}
+
+export type ActionsUnion = SetTimings | AddTimings;
