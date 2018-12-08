@@ -11,7 +11,7 @@
   (processing)="onProcessingFile($event)"
 ></dropzone>
 <span class="files-count" *ngIf="processingCount"
-  >{{ processingCount }}/{{ processLength }} [{{ loadedTimings.length }}]</span
+  >{{ processingCount }}/{{ processLength }} [{{ (timings.timingState | async).datas.length }}]</span
 >
 <mat-progress-bar mode="determinate" [value]="filesLoadPercent"></mat-progress-bar>
 <!-- TODO : need stop btn to be able to stop huge loads -->

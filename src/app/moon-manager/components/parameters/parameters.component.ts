@@ -440,31 +440,38 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         });
       this.ll.hideLoader();
     };
-    const data: any = null;
-    if (dest === 'medias') {
-      exportData(this.medias.get(), this.medias.toArray());
-      // this.storage.getItem<any>('medias-buffer', {}).subscribe((msArr: any) => {
-      //   exportData(msArr);
-      // });
-    } else if ((dest = 'timings')) {
-      (async () => {
+    // const data: any = null;
+    (async () => {
+      if (dest === 'medias') {
+        const src = await this.medias.toArray();
+        exportData(src, src);
+        // this.storage.getItem<any>('medias-buffer', {}).subscribe((msArr: any) => {
+        //   exportData(msArr);
+        // });
+      } else if ((dest = 'timings')) {
         const timingsSrc = await this.timings.get();
         exportData(timingsSrc, timingsSrc.map(t => Object.keys(t).map(k => t[k])));
-      })();
-      // this.storage.getItem<any>('timings', {}).subscribe((msArr: any) => {
-      //   exportData(msArr);
-      // });
-    } else {
-      this.i18nService
-        .get(extract('mm.param.notif.destUnavailable'), {
-          dest: dest,
-          exportFmt: this.exportFmt
-        })
-        .subscribe(t => {
-          this.notif.error(t);
-        });
-      this.ll.hideLoader();
-    }
+        // this.storage.getItem<any>('timings', {}).subscribe((msArr: any) => {
+        //   exportData(msArr);
+        // });
+      } else {
+        this.i18nService
+          .get(extract('mm.param.notif.destUnavailable'), {
+            dest: dest,
+            exportFmt: this.exportFmt
+          })
+          .subscribe(t => {
+            this.notif.error(t);
+          });
+        this.ll.hideLoader();
+      }
+    })();
+  }
+
+  finalizeImports() {
+    this.medias.finalizeBulks();
+    this.timings.finalizeBulks();
+    this.ll.hideLoader();
   }
 
   processingImport(f: File, dest: string) {
@@ -485,7 +492,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         parsed.data.forEach((row: string[], idx: number) => {
           this.mediasProgress = (100 * (idx + 1)) / importLength;
           importCount++;
-          if (row.length != 2) {
+          if (row.length != 3) {
             this.i18nService
               .get(extract('Fail to import row {{idx}} for {{file}}'), {
                 idx: idx,
@@ -497,15 +504,15 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
               });
             return;
           }
-          this.medias.set(row[0], row[1]);
+          this.medias.pushDataUrlMedia(row[0], row[2]);
         });
       } else if (dest === 'medias' && fileName.match(/.*\.json$/i)) {
         const jsonData = JSON.parse(dataStr);
         importLength = jsonData.length;
-        jsonData.forEach((tuple: [string, string], idx: number) => {
+        jsonData.forEach((tuple: [string, string, string], idx: number) => {
           this.mediasProgress = (100 * (idx + 1)) / importLength;
           importCount++;
-          if (tuple.length != 2) {
+          if (tuple.length != 3) {
             this.i18nService
               .get(extract('Fail to import row {{idx}} for {{file}}'), {
                 idx: idx,
@@ -518,15 +525,15 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
             return;
           }
 
-          this.medias.set(tuple[0], tuple[1]);
+          this.medias.pushDataUrlMedia(tuple[0], tuple[2]);
         });
       } else if (dest === 'medias' && fileName.match(/.*\.yaml$/i)) {
         const yamlData = YAML.parse(dataStr);
         importLength = yamlData.length;
-        yamlData.forEach((tuple: [string, string], idx: number) => {
+        yamlData.forEach((tuple: [string, string, string], idx: number) => {
           this.mediasProgress = (100 * (idx + 1)) / importLength;
           importCount++;
-          if (tuple.length != 2) {
+          if (tuple.length != 3) {
             this.i18nService
               .get(extract('Fail to import row {{idx}} for {{file}}'), {
                 idx: idx,
@@ -539,7 +546,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
             return;
           }
 
-          this.medias.set(tuple[0], tuple[1]);
+          this.medias.pushDataUrlMedia(tuple[0], tuple[2]);
         });
       } else if (dest === 'timings' && fileName.match(/.*\.csv$/i)) {
         const parsed = this.papaParse.parse(dataStr, { header: false });
@@ -646,7 +653,7 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
         );
       } else {
         console.log('Unknow import dest : ', dest);
-        this.ll.hideLoader();
+        this.finalizeImports();
         return;
       }
       this.i18nService
@@ -659,17 +666,17 @@ export class ParametersComponent implements OnInit, OnChanges, AfterViewInit {
           console.log(t);
           this.notif.success(t);
         });
-      this.ll.hideLoader();
+      this.finalizeImports();
       // this.processDec(this.getFilePath(f));
     };
     reader.onabort = (ev: ProgressEvent) => {
       console.log('Aborting : ', f);
-      this.ll.hideLoader();
+      this.finalizeImports();
       // this.processDec(this.getFilePath(f));
     };
     reader.onerror = (ev: ProgressEvent) => {
       console.error('Error for : ', f);
-      this.ll.hideLoader();
+      this.finalizeImports();
       // this.processDec(this.getFilePath(f));
     };
     reader.readAsText(f);

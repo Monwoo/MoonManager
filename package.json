@@ -84,6 +84,7 @@
     "primeicons": "^1.0.0",
     "primeng": "^6.1.7",
     "rxjs": "^6.3.1",
+    "ts-md5": "^1.2.4",
     "webm-writer": "^0.2.1",
     "webp-hero": "^0.0.0-dev.12",
     "yamljs": "^0.3.0",

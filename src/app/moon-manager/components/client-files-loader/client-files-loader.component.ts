@@ -31,7 +31,7 @@ export class ClientFilesLoaderComponent implements OnInit {
 
   @Input() config?: any = null;
 
-  @Output() onTimingsFetch: EventEmitter<Timing[]> = new EventEmitter<Timing[]>();
+  // @Output() onTimingsFetch: EventEmitter<Timing[]> = new EventEmitter<Timing[]>();
 
   @ViewChild('dropDetails') dropDetails: ElementRef<HTMLDivElement>; // TODO : fail to use for now
 
@@ -39,9 +39,9 @@ export class ClientFilesLoaderComponent implements OnInit {
   public processingCount: number = 0;
   public processLength: number = 0;
 
-  private loadedTimings: Timing[] = new Array();
-  private bulkSize: number = 200; // Number of bulk items to start to emit timings, 0 to cache all
-  private bulkCount: number = 0;
+  // private loadedTimings: Timing[] = new Array();
+  // private bulkSize: number = 200; // Number of bulk items to start to emit timings, 0 to cache all
+  // private bulkCount: number = 0;
 
   // Incrementing process number
   processInc(fname: string, step = 1) {
@@ -62,13 +62,15 @@ export class ClientFilesLoaderComponent implements OnInit {
       this.processingCount += step;
       this.filesLoadPercent = (100 * this.processingCount) / this.processLength;
 
-      if (this.loadedTimings.length - this.bulkCount > this.bulkSize) {
-        this.onTimingsFetch.emit(this.loadedTimings);
-        this.bulkCount = this.loadedTimings.length;
-      }
+      // if (this.loadedTimings.length - this.bulkCount > this.bulkSize) {
+      //   this.onTimingsFetch.emit(this.loadedTimings);
+      //   this.bulkCount = this.loadedTimings.length;
+      // }
 
       if (this.processingCount === this.processLength) {
-        this.onTimingsFetch.emit(this.loadedTimings);
+        // this.onTimingsFetch.emit(this.loadedTimings);
+        this.medias.finalizeBulks();
+        this.timings.finalizeBulks();
         // this.loadedTimings = [];
         this.ll.hideLoader();
       }
@@ -141,19 +143,27 @@ export class ClientFilesLoaderComponent implements OnInit {
             accept: (f: any, isValidTrigger: any) => {
               // console.log("On accept", f);
               // => show loader on drop, may take time to load...
-              this.processInc(this.getFilePath(f));
-              if (new RegExp(this.config.regExGitLogFile, 'i').exec(this.getFilePath(f))) {
-                (async () => {
-                  await this.processGitLogFile(f);
-                })();
-              } else if (f.type.match(/image\/.*/i)) {
-                // Pictures file pre-processing before thumbnail loading...
-              } else {
-                console.log('Ignoring file : ', this.getFilePath(f));
-                this.processDec(this.getFilePath(f));
-                return;
-              }
-              isValidTrigger();
+              const filePath = this.getFilePath(f);
+              this.processInc(filePath);
+              this.medias.hasLookup(filePath).then(hasLookup => {
+                let isValid = true;
+                if (hasLookup) {
+                  console.log('File already loaded : ', filePath);
+                  isValid = false;
+                } else if (new RegExp(this.config.regExGitLogFile, 'i').exec(filePath)) {
+                  this.processInc(filePath);
+                  // await this.processGitLogFile(f);
+                  this.processGitLogFile(f);
+                } else if (f.type.match(/image\/.*/i)) {
+                  this.processInc(filePath);
+                  // Pictures file pre-processing before thumbnail loading...
+                } else {
+                  console.log('Ignoring file : ', filePath);
+                  isValid = false;
+                }
+                this.processDec(filePath);
+                if (isValid) isValidTrigger();
+              });
             }
           };
         },
@@ -180,6 +190,7 @@ export class ClientFilesLoaderComponent implements OnInit {
 
   async processGitLogFile(f: any) {
     const file: File = f;
+    const filePath = this.getFilePath(f);
     const reader: FileReader = new FileReader();
     reader.onload = e => {
       const csv: string = <string>reader.result;
@@ -188,9 +199,9 @@ export class ClientFilesLoaderComponent implements OnInit {
       // TODO : scheme checking ? what if bad format ?
       // this.processInc(null, parsed.data.length);
       // this.onTimingsFetch.emit(
-      this.loadedTimings = this.loadedTimings.concat(
+      this.timings.addBulk(
         parsed.data.map((row: string[]) => {
-          this.processInc(null);
+          this.processInc(filePath);
           let t = new Timing();
           let date = moment(row[2], ''); // TODO : regex extract from path
           let segmentDelta = 1; // TODO : curently hard coded, need to be loaded with eventSource
@@ -226,19 +237,19 @@ export class ClientFilesLoaderComponent implements OnInit {
           t.Price = 0;
           t.isHidden = false;
 
-          this.processDec(this.getFilePath(f));
+          this.processDec(filePath);
           return t;
         })
       );
-      this.processDec(this.getFilePath(f));
+      this.processDec(filePath);
     };
     reader.onabort = (ev: ProgressEvent) => {
       console.log('Aborting : ', f);
-      this.processDec(this.getFilePath(f));
+      this.processDec(filePath);
     };
     reader.onerror = (ev: ProgressEvent) => {
       console.error('Error for : ', f);
-      this.processDec(this.getFilePath(f));
+      this.processDec(filePath);
     };
     reader.readAsText(file);
   }
@@ -246,19 +257,20 @@ export class ClientFilesLoaderComponent implements OnInit {
   async onImageThumbnail(args: any) {
     // https://www.dropzonejs.com/#dropzone-methods
     // https://github.com/zefoy/ngx-dropzone-wrapper/blob/v7.1.0/src/lib/dropzone.component.ts
-    let f = args[0];
-    let dataUrl = args[1];
-    let config = this.config;
-    // console.log('On thumbnail', this.getFilePath(f));
-    // console.log('MoonManager will process : ', this.getFilePath(f));
+    const f = args[0];
+    const filePath = this.getFilePath(f);
+    const dataUrl = args[1];
+    const config = this.config;
+    // console.log('On thumbnail', filePath);
+    // console.log('MoonManager will process : ', filePath);
     let t = new Timing();
 
     let dateStr: string = null;
 
     this.config.captureRegex.some((pattern: any, idx: number, arr: any[]) => {
-      // let matches = this.getFilePath(f).match(pattern);
+      // let matches = filePath.match(pattern);
       let rgEx = new RegExp(pattern, 'i');
-      let m = rgEx.exec(this.getFilePath(f));
+      let m = rgEx.exec(filePath);
       // console.log('Matches : ', m);
       if (m) {
         // TODO : extract should be by regex, lucky for now, having same pattern...
@@ -268,15 +280,15 @@ export class ClientFilesLoaderComponent implements OnInit {
       return dateStr ? true : false;
     });
     let date = dateStr ? moment(dateStr, '') : moment(); // TODO : regex extract from path
-    let title = this.getFilePath(f);
+    let title = filePath;
     let segmentDelta = this.config.timingSegmentDelta;
     let segmentOverride = Math.floor((date.hour() + date.minute() / 60) / segmentDelta);
     let minDate = date.toDate(); // TODO : refactor : minDate not realy used...
-    let author = new RegExp(this.config.regExAuthor, 'i').exec(this.getFilePath(f));
-    let project = new RegExp(this.config.regExProject, 'i').exec(this.getFilePath(f));
-    let subProject = new RegExp(this.config.regExSubProject, 'i').exec(this.getFilePath(f));
-    let objectif = new RegExp(this.config.regExObjectif, 'i').exec(this.getFilePath(f));
-    let skillsId = new RegExp(this.config.regExSkillsId, 'i').exec(this.getFilePath(f));
+    let author = new RegExp(this.config.regExAuthor, 'i').exec(filePath);
+    let project = new RegExp(this.config.regExProject, 'i').exec(filePath);
+    let subProject = new RegExp(this.config.regExSubProject, 'i').exec(filePath);
+    let objectif = new RegExp(this.config.regExObjectif, 'i').exec(filePath);
+    let skillsId = new RegExp(this.config.regExSkillsId, 'i').exec(filePath);
 
     t.id = ++this.index;
     t.DateTime = date.toDate();
@@ -285,7 +297,7 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.SubProject = subProject ? subProject[1] : config.timingSubProject;
     t.Objectif = objectif ? objectif[1] : config.timingObjectif;
     t.Title = title;
-    t.MediaUrl = await this.medias.pushDataUrlMedia(dataUrl);
+    t.MediaUrl = await this.medias.pushDataUrlMedia(filePath, dataUrl);
     t.Author = author ? author[1] : config.timingAuthor;
     t.Comment = '';
     t.ReviewedComment = '';
@@ -309,8 +321,8 @@ export class ClientFilesLoaderComponent implements OnInit {
     t.Price = 0;
     t.isHidden = false;
 
-    this.loadedTimings.push(t);
-    this.processDec(this.getFilePath(f));
+    this.timings.addBulk([t]);
+    this.processDec(filePath);
   }
 
   onImageUploadError(e: any) {

@@ -8391,6 +8391,10 @@ trough@^1.0.0:
   dependencies:
     glob "^7.1.2"
 
+ts-md5@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/ts-md5/-/ts-md5-1.2.4.tgz#7030d7ba9134449deedf6f609d4b4509b94a5712"
+
 ts-node@~7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-7.0.1.tgz#9562dc2d1e6d248d24bc55f773e3f614337d9baf"

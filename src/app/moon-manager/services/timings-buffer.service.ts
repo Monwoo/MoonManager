@@ -18,21 +18,21 @@ import { TimingsActionTypes, TimingsActionsUnion, SetTimings, AddTimings } from 
 //   constructor(private actions$: Actions) {}
 // }
 
-export type StateType = {
-  data: Timing[];
+export type TimingStateType = {
+  datas: Timing[];
 };
 
-export const initialState: StateType = {
-  data: []
+export const initialState: TimingStateType = {
+  datas: []
 };
 
 export function timingsReducer(state = initialState, action: TimingsActionsUnion) {
   switch (action.type) {
     case TimingsActionTypes.SetTimings: {
-      state.data = action.timings;
+      state.datas = action.timings;
     }
     case TimingsActionTypes.AddTimings: {
-      state.data = state.data.concat(action.timings);
+      state.datas = state.datas.concat(action.timings);
     }
     default: {
     }
@@ -44,20 +44,20 @@ export function timingsReducer(state = initialState, action: TimingsActionsUnion
   providedIn: 'root'
 })
 export class TimingsBufferService {
-  dataTimings: Observable<Timing[]>;
+  timingState: Observable<TimingStateType>;
   bulk: Timing[] = [];
 
   constructor(private store: Store<{ timings: Timing[] }>) {
-    this.dataTimings = store.pipe(select('timings'));
+    this.timingState = store.pipe(select('timings'));
   }
 
   async hasChanges() {
-    return (await this.dataTimings.toPromise()).length > 0;
+    return (await this.timingState.toPromise()).datas.length > 0;
   }
 
   // Will return a Copy of timings, modification to this array may not change source...
   async get() {
-    return await this.dataTimings.toPromise();
+    return (await this.timingState.toPromise()).datas;
   }
 
   // async exist(query:Timing)
@@ -69,7 +69,7 @@ export class TimingsBufferService {
       this.store.dispatch(new AddTimings(this.bulk));
       this.bulk = [];
     }
-    return await this.dataTimings;
+    // return await this.timingState;
   }
 
   // Will submit pending bulk if some data is pending
@@ -80,11 +80,11 @@ export class TimingsBufferService {
 
   async set(datas: Timing[]) {
     this.store.dispatch(new SetTimings(datas));
-    return await this.dataTimings;
+    // return await this.timingState;
   }
 
   async clear() {
     this.store.dispatch(new SetTimings([]));
-    return await this.dataTimings;
+    // return await this.timingState;
   }
 }

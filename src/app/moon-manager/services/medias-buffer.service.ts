@@ -8,6 +8,7 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { MediasActionTypes, MediasActionsUnion, SetMedias, AddMedias } from './medias-buffer.actions';
+import { Md5 } from 'ts-md5/dist/md5';
 
 export type Media = {
   index: string; // Used to target media from html templates
@@ -15,23 +16,33 @@ export type Media = {
   pathLookup: string; // Used to avoid reloadings of loaded path (optim purpose)
 };
 
-export type StateType = {
-  data: Media[];
-  lookups: Map<string, number>;
+export type MediaStateType = {
+  datas: Map<string, string>;
+  lookups: Map<string, string>;
 };
 
-export const initialState: StateType = {
-  data: [],
+export const initialState: MediaStateType = {
+  datas: new Map(),
   lookups: new Map()
 };
 
 export function mediasReducer(state = initialState, action: MediasActionsUnion) {
   switch (action.type) {
     case MediasActionTypes.SetMedias: {
-      state.data = action.medias;
+      state.datas.clear();
+      state.lookups.clear();
+      action.medias.reduce((acc: MediaStateType, m: Media) => {
+        acc.datas.set(m.index, m.dataUrl);
+        acc.lookups.set(m.pathLookup, m.index);
+        return acc;
+      }, state);
     }
     case MediasActionTypes.AddMedias: {
-      state.data = state.data.concat(action.medias);
+      action.medias.reduce((acc: MediaStateType, m: Media) => {
+        acc.datas.set(m.index, m.dataUrl);
+        acc.lookups.set(m.pathLookup, m.index);
+        return acc;
+      }, state);
     }
     default: {
     }
@@ -48,15 +59,42 @@ const Caches = window.caches;
   providedIn: 'root'
 })
 export class MediasBufferService {
-  dataUrls: Map<string, string> = new Map();
-  pendingDataUrls: Map<string, string> = new Map();
+  mediaState: Observable<MediaStateType>;
+  pendingMedias: Media[] = [];
+  // pendingDataUrls: MediaStateType = initialState;
   // pendingFetches: Set<Promise<string>> = new Set();
   pendingFetches: [string, any, any][] = [];
   mediaCache: any = null;
   config: ConfigType = null;
+
+  bulk: Media[] = [];
+
   // TODO : allow save option for local storage, to let user found back previously proceed medias...
-  constructor(private storage: LocalStorage, public i18nService: I18nService) {
+  constructor(
+    private store: Store<{ medias: MediaStateType }>,
+    private storage: LocalStorage,
+    public i18nService: I18nService
+  ) {
+    this.mediaState = this.store.pipe(select('medias'));
     this.refreshSettings();
+  }
+
+  // Insert timings with default bulk submit when size goese over bulkAfter value
+  async addBulk(datas: Media[], bulkAfter = 200) {
+    this.bulk = this.bulk.concat(datas);
+    if (this.bulk.length > bulkAfter) {
+      this.store.dispatch(new AddMedias(this.bulk));
+      this.bulk = [];
+    }
+    // return await this.mediaState;
+  }
+
+  // Will submit pending bulk if some data is pending
+  async finalizeBulks() {
+    if (this.bulk.length > 0) {
+      this.store.dispatch(new AddMedias(this.bulk));
+      this.bulk = [];
+    }
   }
 
   // Services are not reloaded on page change, opposit to components, so need
@@ -76,6 +114,7 @@ export class MediasBufferService {
           }
           console.log(selector + ' Fetching config : ', this.config);
           // this.storage.setItem('config', globalConfig).subscribe(() => {});
+          /*
           if (this.config.saveMediasToLocalStorage) {
             Caches.open('medias-buffer').then(cache => {
               this.mediaCache = cache;
@@ -122,11 +161,10 @@ export class MediasBufferService {
             //   // new Map([...this.dataUrls, ...ms]);
             // });
           } else {
-            this.pendingDataUrls.forEach((v, k) => {
-              let index = '/cache/moon-manager/dataUrl/' + this.dataUrls.size.toString();
-              this.dataUrls.set(index, v);
-            });
-            this.pendingDataUrls.clear; // TODO : what if error in storage set ? will lose data for now...
+          */
+          if (this.pendingMedias.length) {
+            this.store.dispatch(new AddMedias(this.pendingMedias));
+            this.pendingMedias = [];
           }
         },
         error => {
@@ -137,83 +175,92 @@ export class MediasBufferService {
   }
 
   async clear() {
-    if (this.config.saveMediasToLocalStorage) {
-      if (this.mediaCache) {
-        Caches.delete('medias-buffer').then(succed => {
-          console.log('Did clear media cache : ', succed);
-        });
-      } else {
-        console.error('Media cache not yet initialized'); // TODO : return promise to clear on init ? well Quota issue to solve before putting work in not available stuffs...
-      }
-    } else {
-      this.dataUrls.clear();
-    }
+    // if (this.config.saveMediasToLocalStorage) {
+    //   if (this.mediaCache) {
+    //     Caches.delete('medias-buffer').then(succed => {
+    //       console.log('Did clear media cache : ', succed);
+    //     });
+    //   } else {
+    //     console.error('Media cache not yet initialized'); // TODO : return promise to clear on init ? well Quota issue to solve before putting work in not available stuffs...
+    //   }
+    // } else {
+    this.store.dispatch(new SetMedias([]));
   }
 
-  async pushDataUrlMedia(dataUrl: string) {
-    let index = null;
+  async pushDataUrlMedia(path: string, dataUrl: string) {
+    // => + what if index need to be computed AFTERWARDS ?
+    // Ok for now since no Cache to handle, but index might be wrong if
+    // cached data exist.....
+    // index = '/cache/moon-manager/dataUrl/' + this.pendingMedias.length.toString();
+    // => Solved by using MD5 :
+    let media: Media = {
+      index: '/cache/moon-manager/dataUrl/' + Md5.hashStr(path),
+      pathLookup: path,
+      dataUrl: dataUrl
+    };
     if (!this.config) {
-      index = '/cache/moon-manager/dataUrl/' + this.pendingDataUrls.size.toString();
-      this.pendingDataUrls.set(index, dataUrl);
+      // TODO : may be better to send itself in 0.5 sec seeing if config did setup ?
+      this.pendingMedias.push(media);
     } else {
-      if (this.config.saveMediasToLocalStorage) {
-        const cacheKeys = await this.mediaCache.keys();
-        index = '/cache/moon-manager/dataUrl/' + cacheKeys.length.toString();
-        // TODO : buffer system ? may be too much to save on EACH imported pict, may bulk it ?
-        // will see with 2000 pict how it goes...
-        // this.storage.setItem('medias-buffer', JSON.stringify(this.dataUrls.entries()));
-        // this.storage.setItem('medias-buffer', [...this.dataUrls]);
-        const requestMock = new Request(index, {
-          headers: new Headers({
-            'Content-Type': 'image/*'
-          })
-        });
+      // if (this.config.saveMediasToLocalStorage) {
+      //   const cacheKeys = await this.mediaCache.keys();
+      //   index = '/cache/moon-manager/dataUrl/' + cacheKeys.length.toString();
+      //   // TODO : buffer system ? may be too much to save on EACH imported pict, may bulk it ?
+      //   // will see with 2000 pict how it goes...
+      //   // this.storage.setItem('medias-buffer', JSON.stringify(this.dataUrls.entries()));
+      //   // this.storage.setItem('medias-buffer', [...this.dataUrls]);
+      //   const requestMock = new Request(index, {
+      //     headers: new Headers({
+      //       'Content-Type': 'image/*'
+      //     })
+      //   });
 
-        this.mediaCache.put(requestMock, new Response(dataUrl)).catch((e: any) => {
-          console.error(e.message, e); // TODO : config issue ? always give QuotaExced ERROR
-        });
-      } else {
-        index = '/cache/moon-manager/dataUrl/' + this.dataUrls.size.toString();
-        this.dataUrls.set(index, dataUrl);
-      }
+      //   this.mediaCache.put(requestMock, new Response(dataUrl)).catch((e: any) => {
+      //     console.error(e.message, e); // TODO : config issue ? always give QuotaExced ERROR
+      //   });
+      // } else {
+      this.addBulk([media]);
     }
+    return media.index;
+  }
 
-    return index;
+  async hasLookup(lookupPath: string) {
+    const ms = await this.mediaState.toPromise();
+    return ms.lookups.has(lookupPath);
   }
 
   async getDataUrlMedia(index: string) {
-    if (this.config.saveMediasToLocalStorage) {
-      if (!this.mediaCache) {
-        const pending = new Promise<string>((resolve, reject) => {
-          const pendingSize = this.pendingFetches.length;
-          // TODO : should await this.mediaCache change from null...
-          // https://stackoverflow.com/questions/49552258/how-to-listen-for-value-changes-from-class-property-typescript-angular-5
-          console.log('Media Cache not initialized for ', index, '. Pending task...');
-          this.pendingFetches.push([index, resolve, reject]);
-        });
-        return await pending;
-      }
-      await this.mediaCache.match(index);
-    } else {
-      return this.dataUrls.get(index);
-    }
+    // if (this.config.saveMediasToLocalStorage) {
+    //   if (!this.mediaCache) {
+    //     const pending = new Promise<string>((resolve, reject) => {
+    //       const pendingSize = this.pendingFetches.length;
+    //       // TODO : should await this.mediaCache change from null...
+    //       // https://stackoverflow.com/questions/49552258/how-to-listen-for-value-changes-from-class-property-typescript-angular-5
+    //       console.log('Media Cache not initialized for ', index, '. Pending task...');
+    //       this.pendingFetches.push([index, resolve, reject]);
+    //     });
+    //     return await pending;
+    //   }
+    //   await this.mediaCache.match(index);
+    // } else {
+    return (await this.mediaState.toPromise()).datas.get(index);
   }
 
-  hasChanges() {
+  async hasChanges() {
     // TODO : async way if comes up to it with improved localSorage or remoteStorage system
-    return this.dataUrls.size > 0;
+    return (await this.mediaState.toPromise()).datas.size > 0;
   }
 
-  get() {
-    return this.dataUrls;
-  }
-
-  set(idx: string, dataUrl: string) {
-    this.dataUrls.set(idx, dataUrl);
-  }
-
-  toArray() {
+  async toArray() {
     // return this.dataUrls.entries(); // return MapIterable, not array...
-    return [...this.dataUrls];
+    const ms: MediaStateType = await this.mediaState.toPromise();
+    return [...ms.lookups].map(t => {
+      return t.concat([ms.datas.get(t[1])]);
+    });
+  }
+
+  // Will return a Copy of states, modification to this array may not change source...
+  async get() {
+    return await this.mediaState.toPromise();
   }
 }
