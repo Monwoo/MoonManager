@@ -89,10 +89,11 @@ export class BodyComponent implements OnInit {
     if (!this.config) {
       this.pendingFilteredDatas.concat(t);
     } else {
-      this.timings.set((await this.timings.get()).concat(t));
+      // this.timings.set((await this.timings.get()).concat(t));
       // TODO : buffer system ? may be too much to save on EACH imported pict, may bulk it ?
       // this.filteredDatasAsync.next(this.timings.get().slice());
-      this.filteredDatasAsync.next(await this.timings.get());
+      const nextD = await this.timings.get();
+      this.filteredDatasAsync.next(nextD);
       if (this.config.saveTimingsToLocalStorage) {
         // TODO : buffer system ? may be too much to save on EACH imported pict, may bulk it ?
         // will see with 2000 pict how it goes...

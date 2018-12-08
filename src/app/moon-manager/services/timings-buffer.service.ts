@@ -29,10 +29,20 @@ export const initialState: TimingStateType = {
 export function timingsReducer(state = initialState, action: TimingsActionsUnion) {
   switch (action.type) {
     case TimingsActionTypes.SetTimings: {
-      state.datas = action.timings;
+      // State need to be a new OBJECT for subscribtor to get notified... :
+      // Done through property expander : {... SrcObj}
+      state = {
+        ...state,
+        datas: action.timings
+      };
     }
     case TimingsActionTypes.AddTimings: {
-      state.datas = state.datas.concat(action.timings);
+      // State need to be a new OBJECT for subscribtor to get notified... :
+      // Done through property expander : {... SrcObj}
+      state = {
+        ...state,
+        datas: state.datas.concat(action.timings)
+      };
     }
     default: {
     }
@@ -58,6 +68,7 @@ export class TimingsBufferService {
   // Will return a Copy of timings, modification to this array may not change source...
   async get() {
     return (await this.timingState.toPromise()).datas;
+    // return this.timingState.toPromise();
   }
 
   // async exist(query:Timing)

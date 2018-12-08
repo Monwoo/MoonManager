@@ -31,18 +31,26 @@ export function mediasReducer(state = initialState, action: MediasActionsUnion) 
     case MediasActionTypes.SetMedias: {
       state.datas.clear();
       state.lookups.clear();
-      action.medias.reduce((acc: MediaStateType, m: Media) => {
-        acc.datas.set(m.index, m.dataUrl);
-        acc.lookups.set(m.pathLookup, m.index);
-        return acc;
-      }, state);
+      // State need to be a new OBJECT for subscribtor to get notified... :
+      // Done through property expander : {... SrcObj}
+      state = {
+        ...action.medias.reduce((acc: MediaStateType, m: Media) => {
+          acc.datas.set(m.index, m.dataUrl);
+          acc.lookups.set(m.pathLookup, m.index);
+          return acc;
+        }, state)
+      };
     }
     case MediasActionTypes.AddMedias: {
-      action.medias.reduce((acc: MediaStateType, m: Media) => {
-        acc.datas.set(m.index, m.dataUrl);
-        acc.lookups.set(m.pathLookup, m.index);
-        return acc;
-      }, state);
+      // State need to be a new OBJECT for subscribtor to get notified... :
+      // Done through property expander : {... SrcObj}
+      state = {
+        ...action.medias.reduce((acc: MediaStateType, m: Media) => {
+          acc.datas.set(m.index, m.dataUrl);
+          acc.lookups.set(m.pathLookup, m.index);
+          return acc;
+        }, state)
+      };
     }
     default: {
     }

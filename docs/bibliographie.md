@@ -484,6 +484,10 @@ Dev stuffs :
 
 * https://github.com/cotag/ts-md5
 
+* https://netbasal.com/listening-for-actions-in-ngrx-store-a699206d2210
+* https://stackoverflow.com/questions/46098421/ngrx-store-subscription-not-called-when-state-changes
+* https://gist.github.com/btroncone/a6e4347326749f938510
+
 - https://stackoverflow.com/questions/40683673/how-to-execute-only-one-test-spec-with-angular-cli
   Each of your .spec.ts file have all its tests grouped in describe block like this:
   describe('SomeComponent', () => {...}
