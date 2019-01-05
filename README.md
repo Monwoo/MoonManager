@@ -17,7 +17,7 @@ Exemple de reporting généré :
 
 - [MoonManager Pour MoonHotWash FR](https://github.com/Monwoo/MoonManager/raw/master/docs/outputSamples/MoonManager_Private%20data_For_MoonHotWash-fr.pdf)
 - [MoonManager for MoonHotWash EN](https://github.com/Monwoo/MoonManager/raw/master/docs/outputSamples/MoonManager_Private%20data_For_MoonHotWash-en.pdf)
-- [Générated youtube vidéo](https://youtu.be/#InProgress)
+- [Générated youtube vidéo](https://www.youtube.com/watch?v=c7dTj81XuGo&list=PLssSbL1eCe8_BlFZcBpf-kGbw54abzsPP&index=1)
 
 #### FR
 
