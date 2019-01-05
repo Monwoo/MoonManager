@@ -12,12 +12,12 @@ Démo : https://monwoo.com/MoonManager/Demo/
 
 Exemple de reporting généré :
 
-- [MoonManager for MoonWashBeta](https://github.com/Monwoo/MoonManager/raw/master/docs/outputSamples/MoonManager_Private%20data_For_MoonWashBeta.pdf)
-- [Générated youtube vidéo](https://youtu.be/__Q21B1TTb8)
+- [MoonManager Work Sheet for MoonWashBeta](https://github.com/Monwoo/MoonManager/raw/master/docs/outputSamples/MoonManager_Private%20data_For_MoonWashBeta.pdf)
+- [Générated youtube vidéo for MoonWashBeta](https://youtu.be/__Q21B1TTb8)
 
 - [MoonManager Pour MoonHotWash FR](https://github.com/Monwoo/MoonManager/raw/master/docs/outputSamples/MoonManager_Private%20data_For_MoonHotWash-fr.pdf)
 - [MoonManager for MoonHotWash EN](https://github.com/Monwoo/MoonManager/raw/master/docs/outputSamples/MoonManager_Private%20data_For_MoonHotWash-en.pdf)
-- [Générated youtube vidéo](https://www.youtube.com/watch?v=c7dTj81XuGo&list=PLssSbL1eCe8_BlFZcBpf-kGbw54abzsPP&index=1)
+- [Générated youtube vidéo for MoonHotWash](https://www.youtube.com/watch?v=c7dTj81XuGo&list=PLssSbL1eCe8_BlFZcBpf-kGbw54abzsPP&index=1)
 
 #### FR
 
