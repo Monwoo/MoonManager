@@ -15,6 +15,10 @@ Exemple de reporting généré :
 - [MoonManager for MoonWashBeta](https://github.com/Monwoo/MoonManager/raw/master/docs/outputSamples/MoonManager_Private%20data_For_MoonWashBeta.pdf)
 - [Générated youtube vidéo](https://youtu.be/__Q21B1TTb8)
 
+- [MoonManager Pour MoonHotWash FR](https://github.com/Monwoo/MoonManager/raw/master/docs/outputSamples/MoonManager_Private%20data_For_MoonHotWash-fr.pdf)
+- [MoonManager for MoonHotWash EN](https://github.com/Monwoo/MoonManager/raw/master/docs/outputSamples/MoonManager_Private%20data_For_MoonHotWash-en.pdf)
+- [Générated youtube vidéo](https://youtu.be/#InProgress)
+
 #### FR
 
 Nos ancêtres ont fait au mieux en France pour nous apporter les 35 heures avec congés payés.
